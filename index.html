@@ -810,13 +810,22 @@
 
           <!-- Правая колонка: Итоги -->
           <div class="calc-results-box">
-            <div style="display: flex; justify-content: space-between; font-size: 14px;">
-              <span data-i18n="lblLoanPrincipal">Сумма кредита:</span>
-              <strong id="resLoan">25 200 000 ֏</strong>
+            <!-- Главный показатель: Реальный платеж -->
+            <div class="calc-hero-result">
+              <span class="calc-hero-label" data-i18n="lblEffectivePayment">Реальный платеж для вас:</span>
+              <div class="effective-val" id="resEffectiveMonthly">27 240 ֏ / мес.</div>
             </div>
-            <div style="display: flex; justify-content: space-between; font-size: 14px;">
-              <span data-i18n="lblStandardPayment">Стандартный платеж в месяц:</span>
-              <strong id="resStandardMonthly">268 740 ֏</strong>
+
+            <!-- Мета-данные: Сумма кредита и стандартный платеж -->
+            <div class="calc-meta-row">
+              <div class="calc-meta-item">
+                <span class="calc-meta-label" data-i18n="lblLoanPrincipal">Сумма кредита:</span>
+                <strong class="calc-meta-val" id="resLoan">25 200 000 ֏</strong>
+              </div>
+              <div class="calc-meta-item">
+                <span class="calc-meta-label" data-i18n="lblStandardPayment">Стандартный платеж:</span>
+                <strong class="calc-meta-val" id="resStandardMonthly">268 740 ֏</strong>
+              </div>
             </div>
 
             <!-- Выгода по налогу -->
@@ -838,36 +847,31 @@
               </div>
             </div>
 
-            <!-- Реальный платеж -->
-            <div class="effective-payment-row">
-              <span style="font-weight: 600;" data-i18n="lblEffectivePayment">Реальный платеж для вас:</span>
-              <span class="effective-val" id="resEffectiveMonthly">27 240 ֏ / мес.</span>
-            </div>
-
-            <!-- Счетчик кумулятивной выгоды (1 год и 5 лет) -->
-            <div class="savings-counter-box">
-              <div class="savings-row">
-                <span data-i18n="savingsYear1">Экономия за 1-й год:</span>
-                <strong class="savings-val" id="savingsYear1Val">+ 2 898 000 ֏</strong>
+            <!-- Компактная суб-сетка: 1) Экономия + 2) Зарплата -->
+            <div class="calc-sub-grid">
+              <!-- Счетчик кумулятивной выгоды (1 год и 5 лет) -->
+              <div class="savings-counter-box">
+                <div class="savings-row">
+                  <span data-i18n="savingsYear1">Экономия 1-й год:</span>
+                  <strong class="savings-val" id="savingsYear1Val">+ 2 898 000 ֏</strong>
+                </div>
+                <div class="savings-row">
+                  <span data-i18n="savingsYear5">Экономия 5 лет:</span>
+                  <strong class="savings-val-highlight" id="savingsYear5Val">+ 14 490 000 ֏</strong>
+                </div>
               </div>
-              <div class="savings-row">
-                <span data-i18n="savingsYear5">Экономия за 5 лет:</span>
-                <strong class="savings-val-highlight" id="savingsYear5Val">+ 14 490 000 ֏</strong>
-              </div>
-              <small class="savings-note" data-i18n="savingsNote">Государственная субсидия окупает до 50% стоимости квартиры!</small>
-            </div>
 
-            <!-- Индикатор необходимой белой зарплаты -->
-            <div class="salary-requirement-box">
-              <span class="salary-icon">💼</span>
-              <div>
-                <span class="salary-title" data-i18n="salaryTitle">Официальная белая зарплата:</span>
-                <div class="salary-val" id="resSalaryNeeded">от 1 207 500 ֏ / мес. (Gross)</div>
-                <small data-i18n="salaryDesc">Совокупный доход заёмщика и созаёмщиков при ставке налога 20%</small>
+              <!-- Индикатор необходимой белой зарплаты -->
+              <div class="salary-requirement-box">
+                <span class="salary-icon">💼</span>
+                <div>
+                  <span class="salary-title" data-i18n="salaryTitle">Белая зарплата:</span>
+                  <div class="salary-val" id="resSalaryNeeded">от 1 207 500 ֏</div>
+                </div>
               </div>
             </div>
 
-            <button class="btn btn-primary btn-lg w-full" onclick="openModal('modalLead')" data-i18n="btnGetMortgageApproval">
+            <button class="btn btn-primary btn-lg w-full calc-submit-btn" onclick="openModal('modalLead')" data-i18n="btnGetMortgageApproval">
               Получить одобрение ипотеки
             </button>
           </div>
@@ -950,7 +954,7 @@
           <p class="section-subtitle" data-i18n="mapSub">Жилые комплексы в экологически чистых районах с быстрым доступом к центру столицы</p>
         </div>
 
-        <!-- Табы фильтрации карты -->
+        <!-- Табы фильтрации карты и переключатель вида -->
         <div class="map-tabs-container">
           <div class="filter-pills-wrap">
             <button class="pill-btn active" id="mapTabAll" onclick="selectMapLocation('all')">
@@ -969,166 +973,200 @@
               <span data-i18n="mapTabSales">Офис продаж</span>
             </button>
           </div>
+
+          <div class="map-view-toggle" role="group" aria-label="Вид карты">
+            <button class="map-toggle-btn active" id="mapToggleYandex" onclick="toggleMapView('yandex')">
+              Яндекс Карты
+            </button>
+            <button class="map-toggle-btn" id="mapToggleVector" onclick="toggleMapView('vector')">
+              Интерактивная схема
+            </button>
+          </div>
         </div>
 
         <!-- Интерактивная карта и сайдбар карточек -->
         <div class="map-grid-layout">
-          <!-- Векторная карта -->
+          <!-- Контейнер карты -->
           <div class="map-canvas-container" id="mapCanvasContainer">
-            <svg class="map-svg" viewBox="0 0 800 520" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <defs>
-                <radialGradient id="yerevanGlow" cx="50%" cy="60%" r="50%">
-                  <stop offset="0%" stop-color="#21914E" stop-opacity="0.18" />
-                  <stop offset="100%" stop-color="#0F382E" stop-opacity="0" />
-                </radialGradient>
-                <filter id="pinShadow" x="-20%" y="-20%" width="140%" height="140%">
-                  <feDropShadow dx="0" dy="4" stdDeviation="4" flood-color="#000000" flood-opacity="0.35" />
-                </filter>
-              </defs>
+            <!-- Слой 1: Яндекс Карты -->
+            <div class="map-yandex-layer" id="yandexMapLayer">
+              <iframe 
+                class="yandex-iframe"
+                src="https://yandex.ru/map-widget/v1/?ll=44.542289%2C40.210948&z=12&pt=44.5712,40.2185,pm2grm~44.5620,40.1980,pm2dgm~44.4480,40.2520,pm2dom~44.5715,40.2190,pm2rdm"
+                width="100%" 
+                height="100%" 
+                frameborder="0" 
+                allowfullscreen="true" 
+                loading="lazy"
+                title="Объекты Green Project на Яндекс Картах">
+              </iframe>
+            </div>
 
-              <!-- Сетка и фон карты -->
-              <rect width="800" height="520" fill="#0F382E" />
-              <circle cx="400" cy="300" r="320" fill="url(#yerevanGlow)" />
+            <!-- Слой 2: Векторная схема Еревана и объектов -->
+            <div class="map-vector-layer" id="vectorMapLayer" style="display: none; width: 100%; height: 100%;">
+              <svg class="map-svg" viewBox="0 0 800 520" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <defs>
+                  <radialGradient id="yerevanGlow" cx="50%" cy="60%" r="50%">
+                    <stop offset="0%" stop-color="#21914E" stop-opacity="0.18" />
+                    <stop offset="100%" stop-color="#0F382E" stop-opacity="0" />
+                  </radialGradient>
+                  <filter id="pinShadow" x="-20%" y="-20%" width="140%" height="140%">
+                    <feDropShadow dx="0" dy="4" stdDeviation="4" flood-color="#000000" flood-opacity="0.35" />
+                  </filter>
+                </defs>
 
-              <!-- Контурные дороги и магистрали Еревана -->
-              <!-- Северо-восток (Трасса на Аван и Севан) -->
-              <path d="M 380 330 Q 450 250 530 170 T 680 80" stroke="rgba(220, 247, 225, 0.22)" stroke-width="4" stroke-linecap="round" />
-              <!-- Восток (Трасса на Нор-Норк) -->
-              <path d="M 380 330 Q 500 320 640 240 T 740 200" stroke="rgba(220, 247, 225, 0.2)" stroke-width="3.5" stroke-linecap="round" />
-              <!-- Северо-запад (Трасса на Касах / Аштарак) -->
-              <path d="M 380 330 Q 300 240 220 130 T 120 40" stroke="rgba(220, 247, 225, 0.22)" stroke-width="4" stroke-linecap="round" />
-              <!-- Кольцевая развязка Kentron -->
-              <circle cx="380" cy="330" r="45" stroke="rgba(212, 175, 55, 0.35)" stroke-width="2.5" stroke-dasharray="6 4" fill="none" />
-              <!-- Река Раздан (живописное русло) -->
-              <path d="M 180 50 Q 250 180 330 260 T 360 420 T 400 520" stroke="rgba(33, 145, 78, 0.35)" stroke-width="5" stroke-linecap="round" fill="none" />
+                <!-- Сетка и фон карты -->
+                <rect width="800" height="520" fill="#0F382E" />
+                <circle cx="400" cy="300" r="320" fill="url(#yerevanGlow)" />
 
-              <!-- Силуэт Арарата на горизонте юга -->
-              <path d="M 80 520 L 220 410 L 360 520 Z" fill="rgba(255, 255, 255, 0.04)" />
-              <path d="M 280 520 L 390 440 L 500 520 Z" fill="rgba(255, 255, 255, 0.03)" />
-              <text x="220" y="445" fill="rgba(220, 247, 225, 0.35)" font-size="12" font-weight="600" text-anchor="middle">Малый Арарат</text>
-              <text x="390" y="475" fill="rgba(220, 247, 225, 0.35)" font-size="12" font-weight="600" text-anchor="middle">Большой Арарат</text>
+                <!-- Контурные дороги и магистрали Еревана -->
+                <!-- Северо-восток (Трасса на Аван и Севан) -->
+                <path d="M 380 330 Q 450 250 530 170 T 680 80" stroke="rgba(220, 247, 225, 0.22)" stroke-width="4" stroke-linecap="round" />
+                <!-- Восток (Трасса на Нор-Норк) -->
+                <path d="M 380 330 Q 500 320 640 240 T 740 200" stroke="rgba(220, 247, 225, 0.2)" stroke-width="3.5" stroke-linecap="round" />
+                <!-- Северо-запад (Трасса на Касах / Аштарак) -->
+                <path d="M 380 330 Q 300 240 220 130 T 120 40" stroke="rgba(220, 247, 225, 0.22)" stroke-width="4" stroke-linecap="round" />
+                <!-- Кольцевая развязка Kentron -->
+                <circle cx="380" cy="330" r="45" stroke="rgba(212, 175, 55, 0.35)" stroke-width="2.5" stroke-dasharray="6 4" fill="none" />
+                <!-- Река Раздан (живописное русло) -->
+                <path d="M 180 50 Q 250 180 330 260 T 360 420 T 400 520" stroke="rgba(33, 145, 78, 0.35)" stroke-width="5" stroke-linecap="round" fill="none" />
 
-              <!-- Метка Площадь Республики (Центр) -->
-              <g transform="translate(380, 330)">
-                <circle cx="0" cy="0" r="10" fill="#D4AF37" />
-                <circle cx="0" cy="0" r="18" stroke="#D4AF37" stroke-width="1.5" stroke-dasharray="3 3" fill="none" />
-                <text x="0" y="32" fill="#F9FDFA" font-size="13" font-weight="700" text-anchor="middle">Площадь Республики</text>
-                <text x="0" y="46" fill="rgba(220, 247, 225, 0.7)" font-size="11" text-anchor="middle">Центр Еревана</text>
-              </g>
+                <!-- Силуэт Арарата на горизонте юга -->
+                <path d="M 80 520 L 220 410 L 360 520 Z" fill="rgba(255, 255, 255, 0.04)" />
+                <path d="M 280 520 L 390 440 L 500 520 Z" fill="rgba(255, 255, 255, 0.03)" />
+                <text x="220" y="445" fill="rgba(220, 247, 225, 0.35)" font-size="12" font-weight="600" text-anchor="middle">Малый Арарат</text>
+                <text x="390" y="475" fill="rgba(220, 247, 225, 0.35)" font-size="12" font-weight="600" text-anchor="middle">Большой Арарат</text>
 
-              <!-- ПИН 1: ЖК Green Avan -->
-              <g class="map-pin-group" id="pinAvan" transform="translate(530, 170)" onclick="selectMapLocation('avan')">
-                <circle class="map-pulse-circle" cx="0" cy="0" r="12" fill="#21914E" opacity="0.4" />
-                <circle cx="0" cy="0" r="18" fill="#21914E" filter="url(#pinShadow)" />
-                <path d="M -7 -2 L 0 -9 L 7 -2 L 7 7 L -7 7 Z" fill="#FFFFFF" />
-                <rect x="-65" y="-48" width="130" height="26" rx="6" fill="#0F382E" stroke="#21914E" stroke-width="1.5" />
-                <text x="0" y="-31" fill="#DCF7E1" font-size="11" font-weight="700" text-anchor="middle">Green Avan • 10 мин</text>
-              </g>
+                <!-- Метка Площадь Республики (Центр) -->
+                <g transform="translate(380, 330)">
+                  <circle cx="0" cy="0" r="10" fill="#D4AF37" />
+                  <circle cx="0" cy="0" r="18" stroke="#D4AF37" stroke-width="1.5" stroke-dasharray="3 3" fill="none" />
+                  <text x="0" y="32" fill="#F9FDFA" font-size="13" font-weight="700" text-anchor="middle">Площадь Республики</text>
+                  <text x="0" y="46" fill="rgba(220, 247, 225, 0.7)" font-size="11" text-anchor="middle">Центр Еревана</text>
+                </g>
 
-              <!-- ПИН 2: ЖК Green Nork -->
-              <g class="map-pin-group" id="pinNork" transform="translate(640, 240)" onclick="selectMapLocation('nork')">
-                <circle class="map-pulse-circle" cx="0" cy="0" r="12" fill="#21914E" opacity="0.4" />
-                <circle cx="0" cy="0" r="18" fill="#1b633b" filter="url(#pinShadow)" />
-                <path d="M -6 -7 L 6 -7 L 6 7 L -6 7 Z M -3 -3 L -1 -3 L -1 -1 L -3 -1 Z M 1 -3 L 3 -3 L 3 -1 L 1 -1 Z M -3 2 L -1 2 L -1 4 L -3 4 Z M 1 2 L 3 2 L 3 4 L 1 4 Z" fill="#FFFFFF" />
-                <rect x="-65" y="-48" width="130" height="26" rx="6" fill="#0F382E" stroke="#21914E" stroke-width="1.5" />
-                <text x="0" y="-31" fill="#DCF7E1" font-size="11" font-weight="700" text-anchor="middle">Green Nork • 15 мин</text>
-              </g>
+                <!-- ПИН 1: ЖК Green Avan -->
+                <g class="map-pin-group" id="pinAvan" transform="translate(530, 170)" onclick="selectMapLocation('avan')">
+                  <circle class="map-pulse-circle" cx="0" cy="0" r="12" fill="#21914E" opacity="0.4" />
+                  <circle cx="0" cy="0" r="18" fill="#21914E" filter="url(#pinShadow)" />
+                  <path d="M -7 -2 L 0 -9 L 7 -2 L 7 7 L -7 7 Z" fill="#FFFFFF" />
+                  <rect x="-65" y="-48" width="130" height="26" rx="6" fill="#0F382E" stroke="#21914E" stroke-width="1.5" />
+                  <text x="0" y="-31" fill="#DCF7E1" font-size="11" font-weight="700" text-anchor="middle">Green Avan • 10 мин</text>
+                </g>
 
-              <!-- ПИН 3: Green Townhouse (Касах) -->
-              <g class="map-pin-group" id="pinKasakh" transform="translate(220, 130)" onclick="selectMapLocation('townhouse')">
-                <circle class="map-pulse-circle" cx="0" cy="0" r="12" fill="#D4AF37" opacity="0.4" />
-                <circle cx="0" cy="0" r="18" fill="#b8860b" filter="url(#pinShadow)" />
-                <path d="M -8 1 L -4 -5 L 0 1 L 0 7 L -8 7 Z M 0 1 L 4 -5 L 8 1 L 8 7 L 0 7 Z" fill="#FFFFFF" />
-                <rect x="-75" y="-48" width="150" height="26" rx="6" fill="#0F382E" stroke="#D4AF37" stroke-width="1.5" />
-                <text x="0" y="-31" fill="#fef3c7" font-size="11" font-weight="700" text-anchor="middle">Green Townhouse • 12 мин</text>
-              </g>
+                <!-- ПИН 2: ЖК Green Nork -->
+                <g class="map-pin-group" id="pinNork" transform="translate(640, 240)" onclick="selectMapLocation('nork')">
+                  <circle class="map-pulse-circle" cx="0" cy="0" r="12" fill="#21914E" opacity="0.4" />
+                  <circle cx="0" cy="0" r="18" fill="#1b633b" filter="url(#pinShadow)" />
+                  <path d="M -6 -7 L 6 -7 L 6 7 L -6 7 Z M -3 -3 L -1 -3 L -1 -1 L -3 -1 Z M 1 -3 L 3 -3 L 3 -1 L 1 -1 Z M -3 2 L -1 2 L -1 4 L -3 4 Z M 1 2 L 3 2 L 3 4 L 1 4 Z" fill="#FFFFFF" />
+                  <rect x="-65" y="-48" width="130" height="26" rx="6" fill="#0F382E" stroke="#21914E" stroke-width="1.5" />
+                  <text x="0" y="-31" fill="#DCF7E1" font-size="11" font-weight="700" text-anchor="middle">Green Nork • 15 мин</text>
+                </g>
 
-              <!-- ПИН 4: Центральный офис продаж -->
-              <g class="map-pin-group" id="pinOffice" transform="translate(490, 220)" onclick="selectMapLocation('office')">
-                <circle class="map-pulse-circle" cx="0" cy="0" r="10" fill="#e11d48" opacity="0.35" />
-                <circle cx="0" cy="0" r="15" fill="#e11d48" filter="url(#pinShadow)" />
-                <circle cx="0" cy="0" r="5" fill="#FFFFFF" />
-                <rect x="-70" y="24" width="140" height="24" rx="6" fill="#0F382E" stroke="#e11d48" stroke-width="1.2" />
-                <text x="0" y="40" fill="#ffe4e6" font-size="10" font-weight="700" text-anchor="middle">Офис продаж (ул. Царав)</text>
-              </g>
-            </svg>
+                <!-- ПИН 3: Green Townhouse (Касах) -->
+                <g class="map-pin-group" id="pinKasakh" transform="translate(220, 130)" onclick="selectMapLocation('townhouse')">
+                  <circle class="map-pulse-circle" cx="0" cy="0" r="12" fill="#D4AF37" opacity="0.4" />
+                  <circle cx="0" cy="0" r="18" fill="#b8860b" filter="url(#pinShadow)" />
+                  <path d="M -8 1 L -4 -5 L 0 1 L 0 7 L -8 7 Z M 0 1 L 4 -5 L 8 1 L 8 7 L 0 7 Z" fill="#FFFFFF" />
+                  <rect x="-75" y="-48" width="150" height="26" rx="6" fill="#0F382E" stroke="#D4AF37" stroke-width="1.5" />
+                  <text x="0" y="-31" fill="#fef3c7" font-size="11" font-weight="700" text-anchor="middle">Green Townhouse • 12 мин</text>
+                </g>
+
+                <!-- ПИН 4: Центральный офис продаж -->
+                <g class="map-pin-group" id="pinOffice" transform="translate(490, 220)" onclick="selectMapLocation('office')">
+                  <circle class="map-pulse-circle" cx="0" cy="0" r="10" fill="#e11d48" opacity="0.35" />
+                  <circle cx="0" cy="0" r="15" fill="#e11d48" filter="url(#pinShadow)" />
+                  <circle cx="0" cy="0" r="5" fill="#FFFFFF" />
+                  <rect x="-70" y="24" width="140" height="24" rx="6" fill="#0F382E" stroke="#e11d48" stroke-width="1.2" />
+                  <text x="0" y="40" fill="#ffe4e6" font-size="10" font-weight="700" text-anchor="middle">Офис продаж (ул. Царав)</text>
+                </g>
+              </svg>
+            </div>
           </div>
 
-          <!-- Сайдбар с карточками объектов -->
+          <!-- Сайдбар с карточками объектов (фото-превью и бейджи) -->
           <div class="map-cards-sidebar" id="mapCardsSidebar">
             <!-- Карточка: Green Avan -->
             <div class="map-info-card" id="mapCardAvan" onclick="selectMapLocation('avan')">
-              <div class="map-card-header">
-                <h3 class="map-card-title">ЖК Green Avan</h3>
-                <span class="project-class-badge" data-i18n="projClassComfort">Комфорт-плюс</span>
+              <div class="map-card-thumb-wrap">
+                <img src="images/apt-1.png" alt="ЖК Green Avan" class="map-card-thumb" loading="lazy">
+                <span class="map-card-thumb-badge" data-i18n="projClassComfort">Комфорт-плюс</span>
               </div>
-              <div class="map-card-time">
-                <span>⏱️ 10 мин</span>
-                <span data-i18n="mapDistanceKentron">до площади Республики</span>
-              </div>
-              <p class="map-card-address" data-i18n="mapPinAvan">ЖК Green Avan (ул. Царав Ахбюр)</p>
-              <div class="map-card-footer">
-                <span class="text-sm text-muted">14 этажей • Двор без машин</span>
-                <button class="btn btn-sm btn-primary" onclick="filterProjectFromShowcase('avan')">
-                  <span data-i18n="btnSelectApartment">Выбрать квартиру</span>
-                </button>
+              <div class="map-card-body">
+                <div class="map-card-header">
+                  <h3 class="map-card-title">ЖК Green Avan</h3>
+                  <span class="map-card-time">⏱️ 10 мин</span>
+                </div>
+                <p class="map-card-address" data-i18n="mapPinAvan">ЖК Green Avan (ул. Царав Ахбюр)</p>
+                <div class="map-card-footer">
+                  <span class="map-card-meta">14 эт. • Двор без машин</span>
+                  <button class="btn btn-sm btn-primary" onclick="filterProjectFromShowcase('avan')">
+                    <span data-i18n="btnSelectApartment">Выбрать</span>
+                  </button>
+                </div>
               </div>
             </div>
 
             <!-- Карточка: Green Nork -->
             <div class="map-info-card" id="mapCardNork" onclick="selectMapLocation('nork')">
-              <div class="map-card-header">
-                <h3 class="map-card-title">ЖК Green Nork</h3>
-                <span class="project-class-badge badge-business" data-i18n="projClassBusiness">Бизнес-класс</span>
+              <div class="map-card-thumb-wrap">
+                <img src="images/apt-2.png" alt="ЖК Green Nork" class="map-card-thumb" loading="lazy">
+                <span class="map-card-thumb-badge" data-i18n="projClassBusiness">Бизнес-класс</span>
               </div>
-              <div class="map-card-time">
-                <span>⏱️ 15 мин</span>
-                <span data-i18n="mapDistanceKentron">до площади Республики</span>
-              </div>
-              <p class="map-card-address" data-i18n="mapPinNork">ЖК Green Nork (Нор-Норк)</p>
-              <div class="map-card-footer">
-                <span class="text-sm text-muted">6 этажей • Вид на Арарат</span>
-                <button class="btn btn-sm btn-primary" onclick="filterProjectFromShowcase('nork')">
-                  <span data-i18n="btnSelectApartment">Выбрать квартиру</span>
-                </button>
+              <div class="map-card-body">
+                <div class="map-card-header">
+                  <h3 class="map-card-title">ЖК Green Nork</h3>
+                  <span class="map-card-time">⏱️ 15 мин</span>
+                </div>
+                <p class="map-card-address" data-i18n="mapPinNork">ЖК Green Nork (Нор-Норк)</p>
+                <div class="map-card-footer">
+                  <span class="map-card-meta">6 эт. • Вид на Арарат</span>
+                  <button class="btn btn-sm btn-primary" onclick="filterProjectFromShowcase('nork')">
+                    <span data-i18n="btnSelectApartment">Выбрать</span>
+                  </button>
+                </div>
               </div>
             </div>
 
             <!-- Карточка: Green Townhouse -->
             <div class="map-info-card" id="mapCardKasakh" onclick="selectMapLocation('townhouse')">
-              <div class="map-card-header">
-                <h3 class="map-card-title">Green Townhouse</h3>
-                <span class="project-class-badge badge-th" data-i18n="projClassTownhouses">Премиум таунхаусы</span>
+              <div class="map-card-thumb-wrap">
+                <img src="images/apt-5.png" alt="Green Townhouse" class="map-card-thumb" loading="lazy">
+                <span class="map-card-thumb-badge" data-i18n="projClassTownhouses">Таунхаусы</span>
               </div>
-              <div class="map-card-time">
-                <span>⏱️ 12 мин</span>
-                <span data-i18n="mapDistanceKentron">до площади Республики</span>
-              </div>
-              <p class="map-card-address" data-i18n="mapPinKasakh">Green Townhouse (с. Касах)</p>
-              <div class="map-card-footer">
-                <span class="text-sm text-muted">2 этажа • Сад 124 м²</span>
-                <button class="btn btn-sm btn-primary" onclick="filterProjectFromShowcase('townhouse')">
-                  <span data-i18n="btnSelectTownhouse">Выбрать таунхаус</span>
-                </button>
+              <div class="map-card-body">
+                <div class="map-card-header">
+                  <h3 class="map-card-title">Green Townhouse</h3>
+                  <span class="map-card-time">⏱️ 12 мин</span>
+                </div>
+                <p class="map-card-address" data-i18n="mapPinKasakh">Green Townhouse (с. Касах)</p>
+                <div class="map-card-footer">
+                  <span class="map-card-meta">2 эт. • Сад 124 м²</span>
+                  <button class="btn btn-sm btn-primary" onclick="filterProjectFromShowcase('townhouse')">
+                    <span data-i18n="btnSelectTownhouse">Выбрать</span>
+                  </button>
+                </div>
               </div>
             </div>
 
             <!-- Карточка: Офис продаж -->
             <div class="map-info-card" id="mapCardOffice" onclick="selectMapLocation('office')">
-              <div class="map-card-header">
-                <h3 class="map-card-title" data-i18n="mapTabSales">Офис продаж</h3>
-                <span class="project-class-badge" style="background:#ffe4e6; color:#9f1239;">Green Head Office</span>
+              <div class="map-card-thumb-wrap">
+                <img src="images/hero-complex.png" alt="Офис продаж Green Project" class="map-card-thumb" loading="lazy">
+                <span class="map-card-thumb-badge" style="background: rgba(159, 18, 57, 0.85);">Head Office</span>
               </div>
-              <div class="map-card-time">
-                <span>📍</span>
-                <span data-i18n="footerWorkingHours">Ежедневно: 09:00 — 20:00</span>
-              </div>
-              <p class="map-card-address" data-i18n="mapPinOffice">Центральный офис продаж (Царав Ахбюр 61/4)</p>
-              <div class="map-card-footer">
-                <span class="text-sm text-muted">+374 94 66 45 22</span>
-                <button class="btn btn-sm btn-primary" onclick="openModal('modalLead')">
-                  <span data-i18n="btnRequestCall">Заказать звонок</span>
-                </button>
+              <div class="map-card-body">
+                <div class="map-card-header">
+                  <h3 class="map-card-title" data-i18n="mapTabSales">Офис продаж</h3>
+                  <span class="map-card-time">📍 09:00—20:00</span>
+                </div>
+                <p class="map-card-address" data-i18n="mapPinOffice">Центральный офис (ул. Царав Ахбюр 61/4)</p>
+                <div class="map-card-footer">
+                  <span class="map-card-meta">+374 94 66 45 22</span>
+                  <button class="btn btn-sm btn-primary" onclick="openModal('modalLead')">
+                    <span data-i18n="btnRequestCall">Звонок</span>
+                  </button>
+                </div>
               </div>
             </div>
           </div>

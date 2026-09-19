@@ -1448,9 +1448,19 @@ function selectMapLocation(target) {
     const isSelected = target === item.key;
 
     if (card) {
-      card.style.display = isVisible ? 'block' : 'none';
-      if (isSelected) card.classList.add('map-card-active');
-      else card.classList.remove('map-card-active');
+      if (isVisible) {
+        card.style.removeProperty('display');
+      } else {
+        card.style.display = 'none';
+      }
+      if (isSelected) {
+        card.classList.add('map-card-active');
+        if (typeof card.scrollIntoView === 'function') {
+          card.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        }
+      } else {
+        card.classList.remove('map-card-active');
+      }
     }
 
     if (pin) {
@@ -1464,6 +1474,30 @@ function selectMapLocation(target) {
       }
     }
   });
+}
+
+/**
+ * Toggle between Yandex Maps widget and Interactive Vector Scheme
+ */
+function toggleMapView(mode) {
+  const yandexLayer = document.getElementById('yandexMapLayer');
+  const vectorLayer = document.getElementById('vectorMapLayer');
+  const btnYandex = document.getElementById('mapToggleYandex');
+  const btnVector = document.getElementById('mapToggleVector');
+
+  if (!yandexLayer || !vectorLayer) return;
+
+  if (mode === 'yandex') {
+    yandexLayer.style.display = 'block';
+    vectorLayer.style.display = 'none';
+    if (btnYandex) btnYandex.classList.add('active');
+    if (btnVector) btnVector.classList.remove('active');
+  } else {
+    yandexLayer.style.display = 'none';
+    vectorLayer.style.display = 'block';
+    if (btnYandex) btnYandex.classList.remove('active');
+    if (btnVector) btnVector.classList.add('active');
+  }
 }
 
 function initPhoneMask() {
@@ -1647,6 +1681,7 @@ if (typeof window !== 'undefined') {
   window.closeModal = closeModal;
   window.handleFormSubmit = handleFormSubmit;
   window.selectMapLocation = selectMapLocation;
+  window.toggleMapView = toggleMapView;
   window.getLeads = getLeads;
   window.clearLeads = clearLeads;
   window.initPhoneMask = initPhoneMask;
@@ -1676,6 +1711,7 @@ if (typeof module !== 'undefined' && module.exports) {
     closeModal,
     handleFormSubmit,
     selectMapLocation,
+    toggleMapView,
     getLeads,
     clearLeads,
     initPhoneMask,
