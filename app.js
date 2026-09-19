@@ -1683,11 +1683,18 @@ function initTourDatePicker() {
  */
 document.addEventListener('DOMContentLoaded', () => {
 
-  // Default Language: RUSSIAN!
-  setLanguage('ru');
+  // URL Param support with safe fallback (Node VM / Headless resilience)
+  const urlParams = (typeof window !== 'undefined' && window.location && window.location.search)
+    ? new URLSearchParams(window.location.search)
+    : null;
+  const initialLang = (urlParams && urlParams.get('lang')) || 'ru';
+  const initialCur = (urlParams && urlParams.get('currency')) || 'AMD';
 
-  // Default Currency: AMD!
-  setCurrency('AMD');
+  // Default Language: RUSSIAN (or URL param)
+  setLanguage(['ru', 'hy', 'en'].includes(initialLang) ? initialLang : 'ru');
+
+  // Default Currency: AMD (or URL param)
+  setCurrency(['AMD', 'USD'].includes(initialCur) ? initialCur : 'AMD');
 
   // Language buttons
   document.querySelectorAll('[data-lang]').forEach(btn => {
