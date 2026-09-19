@@ -700,48 +700,6 @@
       </div>
     </section>
 
-    <!-- БЕЗОПАСНОСТЬ СДЕЛКИ И ЭСКРОУ (Закон РА) -->
-    <section class="escrow-section reveal-on-scroll">
-      <div class="container">
-        <div class="escrow-banner-card">
-          <div class="escrow-header">
-            <div class="escrow-shield-icon">
-              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-            </div>
-            <div>
-              <h3 class="escrow-title" data-i18n="escrowTitle">100% юридическая безопасность: защита средств по закону РА</h3>
-              <p class="escrow-subtitle" data-i18n="escrowSub">
-                Покупка квартиры напрямую от застройщика Green Project через специальные банковские счета эскроу в соответствии с Законом Республики Армения «О градостроительстве».
-              </p>
-            </div>
-          </div>
-          <div class="escrow-features-grid">
-            <div class="escrow-feature-item">
-              <span class="escrow-check-icon">✓</span>
-              <div>
-                <div class="escrow-item-title" data-i18n="escrowItem1Title">Эскроу-счета (Escrow)</div>
-                <div class="escrow-item-desc" data-i18n="escrowItem1Desc">Ваши деньги замораживаются в банке-партнере и переводятся застройщику только после сдачи дома и регистрации в Кадастре.</div>
-              </div>
-            </div>
-            <div class="escrow-feature-item">
-              <span class="escrow-check-icon">✓</span>
-              <div>
-                <div class="escrow-item-title" data-i18n="escrowItem2Title">Нотариальная регистрация</div>
-                <div class="escrow-item-desc" data-i18n="escrowItem2Desc">Каждый договор предварительной купли-продажи заверяется нотариусом и регистрируется в Государственном комитете кадастра РА.</div>
-              </div>
-            </div>
-            <div class="escrow-feature-item">
-              <span class="escrow-check-icon">✓</span>
-              <div>
-                <div class="escrow-item-title" data-i18n="escrowItem3Title">Возврат подоходного налога</div>
-                <div class="escrow-item-desc" data-i18n="escrowItem3Desc">Официальная аккредитация во всех системообразующих банках Армении с прямой передачей документов в КГД РА.</div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
     <!-- КАЛЬКУЛЯТОР ИПОТЕКИ И ВОЗВРАТА НАЛОГА РА -->
     <section id="calculator" class="calc-section">
       <div class="container">
@@ -1084,10 +1042,10 @@
             </div>
           </div>
 
-          <!-- Сайдбар с карточками объектов (фото-превью и бейджи) -->
+          <!-- Сайдбар с карточками объектов (Семантическая разметка HTML5: Zero Overlap) -->
           <div class="map-cards-sidebar" id="mapCardsSidebar">
             <!-- Карточка: Green Avan -->
-            <div class="map-info-card" id="mapCardAvan" onclick="selectMapLocation('avan')">
+            <article class="map-info-card" id="mapCardAvan" onclick="selectMapLocation('avan')" role="button" tabindex="0" aria-label="ЖК Green Avan">
               <div class="map-card-thumb-wrap">
                 <img src="images/apt-1.png" alt="ЖК Green Avan" class="map-card-thumb" loading="lazy">
                 <span class="map-card-thumb-badge" data-i18n="projClassComfort">Комфорт-плюс</span>
@@ -1095,20 +1053,20 @@
               <div class="map-card-body">
                 <div class="map-card-header">
                   <h3 class="map-card-title">ЖК Green Avan</h3>
-                  <span class="map-card-time">⏱️ 10 мин</span>
+                  <time class="map-card-time">⏱️ 10 мин</time>
                 </div>
-                <p class="map-card-address" data-i18n="mapPinAvan">ЖК Green Avan (ул. Царав Ахбюр)</p>
+                <address class="map-card-address" data-i18n="mapPinAvan">ЖК Green Avan (ул. Царав Ахбюр)</address>
                 <div class="map-card-footer">
                   <span class="map-card-meta">14 эт. • Двор без машин</span>
-                  <button class="btn btn-sm btn-primary" onclick="filterProjectFromShowcase('avan')">
+                  <button type="button" class="btn btn-sm btn-primary" onclick="event.stopPropagation(); filterProjectFromShowcase('avan')">
                     <span data-i18n="btnSelectApartment">Выбрать</span>
                   </button>
                 </div>
               </div>
-            </div>
+            </article>
 
             <!-- Карточка: Green Nork -->
-            <div class="map-info-card" id="mapCardNork" onclick="selectMapLocation('nork')">
+            <article class="map-info-card" id="mapCardNork" onclick="selectMapLocation('nork')" role="button" tabindex="0" aria-label="ЖК Green Nork">
               <div class="map-card-thumb-wrap">
                 <img src="images/apt-2.png" alt="ЖК Green Nork" class="map-card-thumb" loading="lazy">
                 <span class="map-card-thumb-badge" data-i18n="projClassBusiness">Бизнес-класс</span>
@@ -1116,20 +1074,20 @@
               <div class="map-card-body">
                 <div class="map-card-header">
                   <h3 class="map-card-title">ЖК Green Nork</h3>
-                  <span class="map-card-time">⏱️ 15 мин</span>
+                  <time class="map-card-time">⏱️ 15 мин</time>
                 </div>
-                <p class="map-card-address" data-i18n="mapPinNork">ЖК Green Nork (Нор-Норк)</p>
+                <address class="map-card-address" data-i18n="mapPinNork">ЖК Green Nork (Нор-Норк)</address>
                 <div class="map-card-footer">
                   <span class="map-card-meta">6 эт. • Вид на Арарат</span>
-                  <button class="btn btn-sm btn-primary" onclick="filterProjectFromShowcase('nork')">
+                  <button type="button" class="btn btn-sm btn-primary" onclick="event.stopPropagation(); filterProjectFromShowcase('nork')">
                     <span data-i18n="btnSelectApartment">Выбрать</span>
                   </button>
                 </div>
               </div>
-            </div>
+            </article>
 
             <!-- Карточка: Green Townhouse -->
-            <div class="map-info-card" id="mapCardKasakh" onclick="selectMapLocation('townhouse')">
+            <article class="map-info-card" id="mapCardKasakh" onclick="selectMapLocation('townhouse')" role="button" tabindex="0" aria-label="Green Townhouse">
               <div class="map-card-thumb-wrap">
                 <img src="images/apt-5.png" alt="Green Townhouse" class="map-card-thumb" loading="lazy">
                 <span class="map-card-thumb-badge" data-i18n="projClassTownhouses">Таунхаусы</span>
@@ -1137,38 +1095,38 @@
               <div class="map-card-body">
                 <div class="map-card-header">
                   <h3 class="map-card-title">Green Townhouse</h3>
-                  <span class="map-card-time">⏱️ 12 мин</span>
+                  <time class="map-card-time">⏱️ 12 мин</time>
                 </div>
-                <p class="map-card-address" data-i18n="mapPinKasakh">Green Townhouse (с. Касах)</p>
+                <address class="map-card-address" data-i18n="mapPinKasakh">Green Townhouse (с. Касах)</address>
                 <div class="map-card-footer">
                   <span class="map-card-meta">2 эт. • Сад 124 м²</span>
-                  <button class="btn btn-sm btn-primary" onclick="filterProjectFromShowcase('townhouse')">
+                  <button type="button" class="btn btn-sm btn-primary" onclick="event.stopPropagation(); filterProjectFromShowcase('townhouse')">
                     <span data-i18n="btnSelectTownhouse">Выбрать</span>
                   </button>
                 </div>
               </div>
-            </div>
+            </article>
 
-            <!-- Карточка: Офис продаж -->
-            <div class="map-info-card" id="mapCardOffice" onclick="selectMapLocation('office')">
+            <!-- Карточка: Офис продаж (Семантическая правка Фото 1 - Zero Overlap) -->
+            <article class="map-info-card" id="mapCardOffice" onclick="selectMapLocation('office')" role="button" tabindex="0" aria-label="Центральный офис продаж Green Project">
               <div class="map-card-thumb-wrap">
                 <img src="images/hero-complex.png" alt="Офис продаж Green Project" class="map-card-thumb" loading="lazy">
-                <span class="map-card-thumb-badge" style="background: rgba(159, 18, 57, 0.85);">Head Office</span>
+                <span class="map-card-thumb-badge badge-office-head" role="status">Green Head Office</span>
               </div>
               <div class="map-card-body">
                 <div class="map-card-header">
                   <h3 class="map-card-title" data-i18n="mapTabSales">Офис продаж</h3>
-                  <span class="map-card-time">📍 09:00—20:00</span>
+                  <time class="map-card-time" datetime="09:00/20:00">📍 09:00—20:00</time>
                 </div>
-                <p class="map-card-address" data-i18n="mapPinOffice">Центральный офис (ул. Царав Ахбюр 61/4)</p>
+                <address class="map-card-address" data-i18n="mapPinOffice">Центральный офис (ул. Царав Ахбюр 61/4)</address>
                 <div class="map-card-footer">
-                  <span class="map-card-meta">+374 94 66 45 22</span>
-                  <button class="btn btn-sm btn-primary" onclick="openModal('modalLead')">
+                  <a href="tel:+37494664522" class="map-card-meta map-card-phone" onclick="event.stopPropagation()">+374 94 66 45 22</a>
+                  <button type="button" class="btn btn-sm btn-primary" onclick="event.stopPropagation(); openModal('modalLead')" aria-label="Заказать звонок в офис продаж">
                     <span data-i18n="btnRequestCall">Звонок</span>
                   </button>
                 </div>
               </div>
-            </div>
+            </article>
           </div>
         </div>
       </div>
@@ -1226,6 +1184,69 @@
                 Нажимая кнопку, вы соглашаетесь с обработкой персональных данных.
               </p>
             </form>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ПРЕДФУТЕРНЫЙ БЛОК ДОВЕРИЯ И БЕЗОПАСНОСТИ (Фото 2 + Фото 3: Setl Group Trust Architecture) -->
+    <section class="escrow-section pre-footer-trust-section reveal-on-scroll">
+      <div class="container">
+        <div class="escrow-banner-card">
+          <!-- Верхняя лента аккредитации (Фото 3) -->
+          <div class="trust-accreditation-bar">
+            <div class="trust-accreditation-badge">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+              <span>Институциональный девелопер</span>
+            </div>
+            <div class="trust-banks-flow">
+              <span class="trust-banks-label">• Аккредитация во всех банках РА • Эскроу • Ст. 156.1 НК РА</span>
+              <div class="trust-banks-pills">
+                <span class="trust-bank-pill">Ameriabank</span>
+                <span class="trust-bank-pill">Inecobank</span>
+                <span class="trust-bank-pill">Ardshinbank</span>
+                <span class="trust-bank-pill">ACBA</span>
+                <span class="trust-bank-pill">Converse</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Заголовок и правовой статус (Фото 2) -->
+          <div class="escrow-header">
+            <div class="escrow-shield-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+            </div>
+            <div>
+              <h3 class="escrow-title" data-i18n="escrowTitle">100% юридическая безопасность: защита средств по закону РА</h3>
+              <p class="escrow-subtitle" data-i18n="escrowSub">
+                Покупка квартиры напрямую от застройщика Green Project через специальные банковские счета эскроу в соответствии с Законом Республики Армения «О градостроительстве».
+              </p>
+            </div>
+          </div>
+
+          <!-- Сетка 3 ключевых гарантий покупателя -->
+          <div class="escrow-features-grid">
+            <div class="escrow-feature-item">
+              <span class="escrow-check-icon">✓</span>
+              <div>
+                <div class="escrow-item-title" data-i18n="escrowItem1Title">Эскроу-счета (Escrow)</div>
+                <div class="escrow-item-desc" data-i18n="escrowItem1Desc">Ваши деньги замораживаются в банке-партнере и переводятся застройщику только после сдачи дома и регистрации в Кадастре.</div>
+              </div>
+            </div>
+            <div class="escrow-feature-item">
+              <span class="escrow-check-icon">✓</span>
+              <div>
+                <div class="escrow-item-title" data-i18n="escrowItem2Title">Нотариальная регистрация</div>
+                <div class="escrow-item-desc" data-i18n="escrowItem2Desc">Каждый договор предварительной купли-продажи заверяется нотариусом и регистрируется в Государственном комитете кадастра РА.</div>
+              </div>
+            </div>
+            <div class="escrow-feature-item">
+              <span class="escrow-check-icon">✓</span>
+              <div>
+                <div class="escrow-item-title" data-i18n="escrowItem3Title">Возврат подоходного налога</div>
+                <div class="escrow-item-desc" data-i18n="escrowItem3Desc">Официальная аккредитация во всех системообразующих банках Армении с прямой передачей документов в КГД РА.</div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
