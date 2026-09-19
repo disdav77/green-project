@@ -466,7 +466,7 @@ button, input, select, textarea {
 .hero-section {
   position: relative;
   overflow: hidden;
-  padding: 56px 0 80px;
+  padding-block: clamp(80px, 7vw, 120px);
 }
 
 .hero-grid {
@@ -672,7 +672,7 @@ button, input, select, textarea {
    PROJECTS SHOWCASE SECTION (Setl Group Architecture)
    =================================================== */
 .projects-section {
-  padding: 80px 0;
+  padding-block: clamp(80px, 7vw, 120px);
   background: #FFFFFF;
   border-top: 1px solid var(--border-subtle);
   border-bottom: 1px solid var(--border-subtle);
@@ -715,9 +715,11 @@ button, input, select, textarea {
   border-color: rgba(33, 145, 78, 0.4);
 }
 
+/* Статусная карточка объекта 16:9 с кинематографичным оверлеем */
 .project-media-wrap {
   position: relative;
-  height: 230px;
+  width: 100%;
+  aspect-ratio: 16 / 9;
   overflow: hidden;
   background: #e2ede4;
 }
@@ -726,6 +728,7 @@ button, input, select, textarea {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  display: block;
   transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
@@ -733,17 +736,50 @@ button, input, select, textarea {
   transform: scale(1.06);
 }
 
-.project-class-badge {
+.project-media-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    180deg,
+    rgba(15, 56, 46, 0.4) 0%,
+    rgba(15, 56, 46, 0.0) 38%,
+    rgba(15, 56, 46, 0.0) 62%,
+    rgba(15, 56, 46, 0.68) 100%
+  );
+  pointer-events: none;
+  z-index: 1;
+  transition: opacity 0.3s ease;
+}
+
+.project-showcase-card:hover .project-media-overlay {
+  opacity: 0.9;
+}
+
+.project-media-top-badges {
   position: absolute;
   top: 14px;
   left: 14px;
-  background: rgba(15, 56, 46, 0.88);
+  right: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.project-class-badge {
+  position: relative;
+  background: rgba(15, 56, 46, 0.92);
   backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
   color: #FFFFFF;
   font-size: 12px;
   font-weight: 600;
   padding: 5px 12px;
   border-radius: var(--radius-full);
+  pointer-events: auto;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
 }
 
 .project-class-badge.badge-business {
@@ -752,24 +788,83 @@ button, input, select, textarea {
 
 .project-class-badge.badge-th {
   background: #0F382E;
-  border: 1px solid rgba(220, 247, 225, 0.3);
+  border: 1px solid rgba(220, 247, 225, 0.4);
 }
 
-.project-time-tag {
+.project-readiness-pill {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  color: #0F382E;
+  font-size: 11.5px;
+  font-weight: 700;
+  padding: 5px 12px;
+  border-radius: var(--radius-full);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.8);
+  pointer-events: auto;
+  letter-spacing: 0.01em;
+}
+
+.project-readiness-pill::before {
+  content: '';
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background-color: var(--primary);
+  display: inline-block;
+  box-shadow: 0 0 0 2px rgba(33, 145, 78, 0.25);
+  animation: pulseReadinessDot 2s infinite;
+}
+
+@keyframes pulseReadinessDot {
+  0% {
+    transform: scale(0.95);
+    box-shadow: 0 0 0 0 rgba(33, 145, 78, 0.5);
+  }
+  70% {
+    transform: scale(1);
+    box-shadow: 0 0 0 5px rgba(33, 145, 78, 0);
+  }
+  100% {
+    transform: scale(0.95);
+    box-shadow: 0 0 0 0 rgba(33, 145, 78, 0);
+  }
+}
+
+.project-media-bottom-info {
   position: absolute;
   bottom: 14px;
   left: 14px;
+  right: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.project-time-tag {
+  position: relative;
   background: rgba(255, 255, 255, 0.94);
   backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
   color: var(--foreground);
   font-size: 12px;
   font-weight: 600;
-  padding: 4px 10px;
+  padding: 4px 11px;
   border-radius: var(--radius-full);
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  box-shadow: var(--shadow-sm);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.8);
+  pointer-events: auto;
 }
 
 .project-time-tag svg {
@@ -850,7 +945,7 @@ button, input, select, textarea {
    5. CATALOG & APARTMENTS SECTION (Exact nedvijka-gamma)
    =================================================== */
 .apartments-section {
-  padding: 72px 0 80px;
+  padding-block: clamp(80px, 7vw, 120px);
 }
 
 .section-header-row {
@@ -1085,7 +1180,7 @@ button, input, select, textarea {
    6. ADVANTAGES SECTION (Exact nedvijka-gamma)
    =================================================== */
 .advantages-section {
-  padding: 72px 0 80px;
+  padding-block: clamp(80px, 7vw, 120px);
   background-color: var(--background);
 }
 
@@ -1138,7 +1233,7 @@ button, input, select, textarea {
    7. ABOUT COMPLEX SECTION (Exact nedvijka-gamma)
    =================================================== */
 .about-section {
-  padding: 72px 0 80px;
+  padding-block: clamp(80px, 7vw, 120px);
 }
 
 .about-card-banner {
@@ -1198,7 +1293,7 @@ button, input, select, textarea {
    8. MORTGAGE & TAX REFUND CALCULATOR (Setl Group Single-Screen Grid)
    =================================================== */
 .calc-section {
-  padding-block: clamp(60px, 6vw, 100px);
+  padding-block: clamp(80px, 7vw, 120px);
   background-color: var(--muted);
 }
 
@@ -1504,7 +1599,7 @@ button, input, select, textarea {
    NEWS & CONSTRUCTION DYNAMICS (Setl Group Architecture)
    =================================================== */
 .news-section {
-  padding: 80px 0;
+  padding-block: clamp(80px, 7vw, 120px);
   background: var(--background);
   border-top: 1px solid var(--border-subtle);
 }
@@ -1617,7 +1712,7 @@ button, input, select, textarea {
    =================================================== */
 .contact-section {
   background-color: rgba(220, 247, 225, 0.5); /* bg-secondary/50 */
-  padding: 64px 0 80px;
+  padding-block: clamp(80px, 7vw, 120px);
 }
 
 .contact-grid {
@@ -2271,13 +2366,13 @@ button, input, select, textarea {
    ESCROW & PRE-FOOTER INSTITUTIONAL TRUST (Photo 2 + 3)
    =================================================== */
 .escrow-section {
-  padding: 60px 0 80px;
+  padding-block: clamp(80px, 7vw, 120px);
   background-color: var(--background);
 }
 
 .pre-footer-trust-section {
   border-top: 1px solid var(--border);
-  padding: 72px 0 88px;
+  padding-block: clamp(80px, 7vw, 120px);
 }
 
 .escrow-banner-card {
@@ -2443,6 +2538,58 @@ button, input, select, textarea {
   font-size: 13px;
   color: var(--muted-foreground);
   line-height: 1.5;
+}
+
+/* Презентационная плашка 3 столпов: Гарантии / Эко-стандарты / Надежность (Фото 2 + 3) */
+.trust-eco-standards-row {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+  margin-top: 28px;
+  padding-top: 24px;
+  border-top: 1px solid var(--border);
+}
+
+.eco-standard-pill {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: rgba(33, 145, 78, 0.05);
+  border: 1px solid rgba(33, 145, 78, 0.16);
+  border-radius: var(--radius-lg);
+  padding: 14px 18px;
+  font-size: 13.5px;
+  font-weight: 600;
+  color: var(--foreground);
+  transition: all var(--transition-fast);
+}
+
+.eco-standard-pill:hover {
+  background: #ffffff;
+  border-color: rgba(33, 145, 78, 0.45);
+  box-shadow: var(--shadow-sm);
+  transform: translateY(-2px);
+}
+
+.eco-pill-icon {
+  font-size: 20px;
+  line-height: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+@media (max-width: 1024px) {
+  .trust-eco-standards-row {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 640px) {
+  .trust-eco-standards-row {
+    grid-template-columns: 1fr;
+  }
 }
 
 /* Calculator FinTech Enhancements */
@@ -2715,7 +2862,7 @@ button, input, select, textarea {
    INTERACTIVE MAP SECTION (#map) (Yandex Maps & Anti-Layout Shift)
    ========================================================================== */
 .map-section {
-  padding-block: clamp(60px, 6vw, 100px);
+  padding-block: clamp(80px, 7vw, 120px);
   background-color: var(--background);
   border-top: 1px solid var(--border);
   border-bottom: 1px solid var(--border);
