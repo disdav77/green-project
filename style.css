@@ -123,7 +123,7 @@ button, input, select, textarea {
   width: 100%;
   max-width: 1520px;
   margin-inline: auto;
-  padding-inline: clamp(20px, 3.5vw, 48px);
+  padding-inline: clamp(16px, 3.5vw, 48px);
 }
 
 /* Typography Helpers */
@@ -288,10 +288,9 @@ button, input, select, textarea {
   position: sticky;
   top: 0;
   z-index: 50;
-  background-color: rgba(249, 253, 250, 0.85);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border-bottom: 1px solid var(--border-subtle);
+  background-color: #FFFFFF;
+  border-bottom: 1px solid var(--border);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.03);
 }
 
 .header-inner {
@@ -384,8 +383,7 @@ button, input, select, textarea {
 .drawer-backdrop {
   position: fixed;
   inset: 0;
-  background: rgba(18, 36, 26, 0.4);
-  backdrop-filter: blur(4px);
+  background: rgba(15, 56, 46, 0.55);
   z-index: 998;
   opacity: 0;
   pointer-events: none;
@@ -523,9 +521,9 @@ button, input, select, textarea {
 
 .hero-stats-dl {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 28px;
-  max-width: 600px;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
+  max-width: 680px;
   width: 100%;
 }
 
@@ -770,25 +768,27 @@ button, input, select, textarea {
 
 .project-class-badge {
   position: relative;
-  background: rgba(15, 56, 46, 0.92);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
+  background: #0F382E;
   color: #FFFFFF;
   font-size: 12px;
   font-weight: 600;
   padding: 5px 12px;
   border-radius: var(--radius-full);
   pointer-events: auto;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+  box-shadow: var(--shadow-sm);
+  border: 1px solid rgba(255, 255, 255, 0.15);
 }
 
 .project-class-badge.badge-business {
-  background: linear-gradient(135deg, #0F382E, #21914E);
+  background: #0F382E;
+  border: 1px solid #C5A880;
+  color: #FFFFFF;
 }
 
 .project-class-badge.badge-th {
   background: #0F382E;
-  border: 1px solid rgba(220, 247, 225, 0.4);
+  border: 1px solid #C5A880;
+  color: #FFFFFF;
 }
 
 .project-readiness-pill {
@@ -796,16 +796,14 @@ button, input, select, textarea {
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  background: rgba(255, 255, 255, 0.95);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
+  background: #FFFFFF;
   color: #0F382E;
   font-size: 11.5px;
   font-weight: 700;
   padding: 5px 12px;
   border-radius: var(--radius-full);
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
-  border: 1px solid rgba(255, 255, 255, 0.8);
+  box-shadow: var(--shadow-sm);
+  border: 1px solid var(--border);
   pointer-events: auto;
   letter-spacing: 0.01em;
 }
@@ -817,18 +815,18 @@ button, input, select, textarea {
   border-radius: 50%;
   background-color: var(--primary);
   display: inline-block;
-  box-shadow: 0 0 0 2px rgba(33, 145, 78, 0.25);
+  box-shadow: 0 0 0 2px rgba(33, 145, 78, 0.2);
   animation: pulseReadinessDot 2s infinite;
 }
 
 @keyframes pulseReadinessDot {
   0% {
     transform: scale(0.95);
-    box-shadow: 0 0 0 0 rgba(33, 145, 78, 0.5);
+    box-shadow: 0 0 0 0 rgba(33, 145, 78, 0.4);
   }
   70% {
     transform: scale(1);
-    box-shadow: 0 0 0 5px rgba(33, 145, 78, 0);
+    box-shadow: 0 0 0 4px rgba(33, 145, 78, 0);
   }
   100% {
     transform: scale(0.95);
@@ -851,9 +849,7 @@ button, input, select, textarea {
 
 .project-time-tag {
   position: relative;
-  background: rgba(255, 255, 255, 0.94);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
+  background: #FFFFFF;
   color: var(--foreground);
   font-size: 12px;
   font-weight: 600;
@@ -862,8 +858,8 @@ button, input, select, textarea {
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.12);
-  border: 1px solid rgba(255, 255, 255, 0.8);
+  box-shadow: var(--shadow-sm);
+  border: 1px solid var(--border);
   pointer-events: auto;
 }
 
@@ -1662,7 +1658,7 @@ button, input, select, textarea {
   bottom: 0;
   left: 0;
   height: 3px;
-  background: #25D366;
+  background: #21914E;
 }
 
 .news-progress-label {
@@ -1711,7 +1707,8 @@ button, input, select, textarea {
    9. CONTACT SECTION (Exact nedvijka-gamma)
    =================================================== */
 .contact-section {
-  background-color: rgba(220, 247, 225, 0.5); /* bg-secondary/50 */
+  background-color: #F8F9FA;
+  border-top: 1px solid var(--border);
   padding-block: clamp(80px, 7vw, 120px);
 }
 
@@ -1875,8 +1872,7 @@ button, input, select, textarea {
 .modal-overlay {
   position: fixed;
   inset: 0;
-  background: rgba(18, 36, 26, 0.6);
-  backdrop-filter: blur(6px);
+  background: rgba(15, 23, 42, 0.65);
   z-index: 1000;
   display: flex;
   align-items: center;
@@ -2148,6 +2144,17 @@ button, input, select, textarea {
     justify-content: center;
   }
 
+  .hero-stats-dl {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px 20px;
+  }
+
+  .calc-card-container {
+    padding: 20px 16px;
+    gap: 20px;
+    border-radius: var(--radius-lg);
+  }
+
   .mobile-sticky-dock {
     display: block;
   }
@@ -2157,22 +2164,54 @@ button, input, select, textarea {
   }
 }
 
+@media (max-width: 480px) {
+  .hero-heading {
+    font-size: 28px;
+    letter-spacing: -0.01em;
+  }
+
+  .project-footer-row {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 12px;
+  }
+
+  .project-footer-row .btn {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .calc-results-col {
+    padding: 20px 16px;
+  }
+
+  .modal-card {
+    padding: 24px 16px;
+    margin: 12px;
+  }
+
+  .advantages-grid {
+    gap: 16px;
+  }
+}
+
 /* ===================================================
    13. NEW ENHANCED COMPONENTS & FINTECH STYLES
    =================================================== */
 
 /* Project Passport Banner */
 .project-passport-banner {
-  background: linear-gradient(135deg, rgba(33, 145, 78, 0.07) 0%, rgba(220, 247, 225, 0.25) 100%);
-  border: 1px solid rgba(33, 145, 78, 0.2);
+  background: #F4F7F5;
+  border: 1px solid var(--border);
   border-radius: var(--radius-2xl);
-  padding: 16px 24px;
+  padding: 18px 24px;
   margin-bottom: 24px;
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 16px;
   flex-wrap: wrap;
+  box-shadow: var(--shadow-sm);
   transition: all var(--transition-normal);
 }
 
@@ -2192,7 +2231,7 @@ button, input, select, textarea {
   background: var(--card);
   border-radius: var(--radius-full);
   box-shadow: var(--shadow-sm);
-  border: 1px solid rgba(33, 145, 78, 0.15);
+  border: 1px solid var(--border);
 }
 
 .passport-title {
@@ -2230,9 +2269,9 @@ button, input, select, textarea {
 
 .passport-badge.badge-tax,
 .passport-tag.badge-tax {
-  background: #ecfdf5;
-  border-color: #a7f3d0;
-  color: #065f46;
+  background: #f1f8f3;
+  border-color: rgba(33, 145, 78, 0.3);
+  color: #0F382E;
 }
 
 /* Delivery tags & Price per sqm */
@@ -2241,8 +2280,9 @@ button, input, select, textarea {
   align-items: center;
   font-size: 11.5px;
   font-weight: 600;
-  color: #047857;
-  background: #dcf7e1;
+  color: #0F382E;
+  background: #f1f8f3;
+  border: 1px solid rgba(33, 145, 78, 0.2);
   padding: 2px 8px;
   border-radius: var(--radius-full);
   margin-left: 8px;
@@ -2259,7 +2299,8 @@ button, input, select, textarea {
 /* Catalog Lead Magnet Card */
 .catalog-lead-magnet-card {
   margin-top: 48px;
-  background: linear-gradient(135deg, #18221c 0%, #0f382e 100%);
+  background: #0F382E;
+  border: 1px solid rgba(255, 255, 255, 0.12);
   border-radius: var(--radius-2xl);
   padding: 32px 40px;
   color: #ffffff;
@@ -2268,21 +2309,9 @@ button, input, select, textarea {
   justify-content: space-between;
   gap: 32px;
   flex-wrap: wrap;
-  box-shadow: var(--shadow-xl);
+  box-shadow: var(--shadow-lg);
   position: relative;
   overflow: hidden;
-}
-
-.catalog-lead-magnet-card::before {
-  content: "";
-  position: absolute;
-  top: -50%;
-  right: -20%;
-  width: 380px;
-  height: 380px;
-  background: radial-gradient(circle, rgba(33, 145, 78, 0.35) 0%, transparent 70%);
-  border-radius: 50%;
-  pointer-events: none;
 }
 
 .catalog-magnet-content,
@@ -2298,14 +2327,14 @@ button, input, select, textarea {
 .lead-magnet-icon {
   width: 56px;
   height: 56px;
-  background: rgba(255, 255, 255, 0.12);
+  background: rgba(255, 255, 255, 0.1);
   border: 1px solid rgba(255, 255, 255, 0.2);
   border-radius: var(--radius-xl);
   display: flex;
   align-items: center;
   justify-content: center;
   font-size: 26px;
-  color: #dcf7e1;
+  color: #ffffff;
   flex-shrink: 0;
 }
 
@@ -2315,8 +2344,9 @@ button, input, select, textarea {
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.05em;
-  color: #a7f3d0;
-  background: rgba(16, 185, 129, 0.2);
+  color: #FFFFFF;
+  background: rgba(255, 255, 255, 0.16);
+  border: 1px solid rgba(255, 255, 255, 0.25);
   padding: 3px 10px;
   border-radius: var(--radius-full);
   margin-bottom: 4px;
@@ -2377,10 +2407,10 @@ button, input, select, textarea {
 
 .escrow-banner-card {
   background: var(--card);
-  border: 1px solid rgba(33, 145, 78, 0.22);
+  border: 1px solid var(--border);
   border-radius: var(--radius-2xl);
   padding: clamp(28px, 3.5vw, 44px);
-  box-shadow: var(--shadow-md);
+  box-shadow: var(--shadow-sm);
   position: relative;
   overflow: hidden;
   width: 100%;
@@ -2393,7 +2423,7 @@ button, input, select, textarea {
   top: 0;
   bottom: 0;
   width: 6px;
-  background: linear-gradient(to bottom, var(--primary), #a7f3d0);
+  background: #0F382E;
 }
 
 /* Institutional Accreditation Ribbon (Photo 3) */
@@ -2498,8 +2528,8 @@ button, input, select, textarea {
   display: flex;
   align-items: flex-start;
   gap: 14px;
-  background: rgba(33, 145, 78, 0.03);
-  border: 1px solid rgba(33, 145, 78, 0.12);
+  background: #F8F9FA;
+  border: 1px solid var(--border);
   border-radius: var(--radius-xl);
   padding: 20px;
   transition: all var(--transition-fast);
@@ -2507,7 +2537,7 @@ button, input, select, textarea {
 
 .escrow-feature-item:hover {
   background: #ffffff;
-  border-color: rgba(33, 145, 78, 0.3);
+  border-color: #0F382E;
   box-shadow: var(--shadow-sm);
   transform: translateY(-2px);
 }
@@ -2554,8 +2584,8 @@ button, input, select, textarea {
   display: flex;
   align-items: center;
   gap: 12px;
-  background: rgba(33, 145, 78, 0.05);
-  border: 1px solid rgba(33, 145, 78, 0.16);
+  background: #F8F9FA;
+  border: 1px solid var(--border);
   border-radius: var(--radius-lg);
   padding: 14px 18px;
   font-size: 13.5px;
@@ -2566,7 +2596,7 @@ button, input, select, textarea {
 
 .eco-standard-pill:hover {
   background: #ffffff;
-  border-color: rgba(33, 145, 78, 0.45);
+  border-color: #0F382E;
   box-shadow: var(--shadow-sm);
   transform: translateY(-2px);
 }
@@ -2609,13 +2639,13 @@ button, input, select, textarea {
   display: flex;
   align-items: center;
   gap: 10px;
-  padding: 10px 14px;
+  padding: 12px 16px;
   border-radius: var(--radius-lg);
-  background: rgba(33, 145, 78, 0.08);
-  border: 1px dashed rgba(33, 145, 78, 0.35);
-  font-size: 12.5px;
+  background: #F4F7F5;
+  border: 1px solid #D1DDD4;
+  font-size: 13px;
   font-weight: 500;
-  color: #065f46;
+  color: #0F382E;
 }
 
 /* Payment ratio bar (Client vs Gov) */
@@ -2643,7 +2673,7 @@ button, input, select, textarea {
 }
 
 .ratio-gov {
-  background: linear-gradient(90deg, #21914e, #10b981);
+  background: #21914E;
   transition: width 0.3s ease;
 }
 
@@ -2665,8 +2695,8 @@ button, input, select, textarea {
 
 /* Cumulative Savings Counter */
 .savings-counter-box {
-  background: linear-gradient(135deg, rgba(33, 145, 78, 0.08) 0%, rgba(220, 247, 225, 0.3) 100%);
-  border: 1px solid rgba(33, 145, 78, 0.25);
+  background: #F4F7F5;
+  border: 1px solid #D1DDD4;
   border-radius: var(--radius-lg);
   padding: 12px 14px;
   margin-bottom: 14px;
@@ -2761,11 +2791,9 @@ button, input, select, textarea {
   bottom: 0;
   left: 0;
   right: 0;
-  background: rgba(255, 255, 255, 0.96);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border-top: 1px solid rgba(0, 0, 0, 0.08);
-  box-shadow: 0 -4px 16px rgba(0, 0, 0, 0.06);
+  background: #FFFFFF;
+  border-top: 1px solid var(--border);
+  box-shadow: 0 -4px 16px rgba(0, 0, 0, 0.05);
   padding: 10px 16px;
   z-index: 99;
   transition: transform 0.3s ease;
@@ -3032,9 +3060,8 @@ button, input, select, textarea {
   font-weight: 700;
   padding: 2px 5px;
   border-radius: 3px;
-  background: rgba(15, 56, 46, 0.85);
+  background: #0F382E;
   color: #ffffff;
-  backdrop-filter: blur(4px);
   white-space: nowrap;
 }
 
