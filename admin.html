@@ -1,0 +1,667 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Панель управления фондом недвижимости (CMS) | Green Project Armenia</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    /* CMS Specific Styles */
+    .admin-body {
+      background-color: #F4F6F8;
+      min-height: 100vh;
+      color: var(--foreground);
+    }
+    .admin-header {
+      background: #FFFFFF;
+      border-bottom: 1px solid var(--border);
+      padding: 14px 0;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    .admin-header-inner {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+    }
+    .admin-brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+      color: var(--foreground);
+    }
+    .admin-badge {
+      display: inline-block;
+      padding: 3px 8px;
+      background: rgba(24, 59, 43, 0.08);
+      color: var(--primary);
+      border-radius: var(--radius-sm);
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    .admin-stats-grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 16px;
+      margin: 24px 0;
+    }
+    @media (max-width: 1024px) {
+      .admin-stats-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+    @media (max-width: 640px) {
+      .admin-stats-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+    .admin-stat-card {
+      background: #FFFFFF;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 16px 20px;
+    }
+    .admin-stat-label {
+      font-size: 12px;
+      color: var(--muted-foreground);
+      text-transform: uppercase;
+      letter-spacing: 0.4px;
+      margin-bottom: 6px;
+    }
+    .admin-stat-val {
+      font-size: 24px;
+      font-weight: 800;
+      color: var(--foreground);
+    }
+    .admin-toolbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-bottom: 20px;
+      background: #FFFFFF;
+      padding: 16px 20px;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+    }
+    .admin-actions-group {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+    .admin-table-container {
+      background: #FFFFFF;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      overflow-x: auto;
+      margin-bottom: 40px;
+    }
+    .admin-table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: left;
+      font-size: 13.5px;
+    }
+    .admin-table th {
+      background: #FAFBFB;
+      padding: 12px 16px;
+      font-weight: 700;
+      color: var(--muted-foreground);
+      border-bottom: 1px solid var(--border);
+      white-space: nowrap;
+    }
+    .admin-table td {
+      padding: 14px 16px;
+      border-bottom: 1px solid var(--border);
+      vertical-align: middle;
+    }
+    .admin-table tr:hover td {
+      background: #F8FAF9;
+    }
+    .status-select {
+      padding: 4px 8px;
+      border-radius: var(--radius-sm);
+      font-size: 12px;
+      font-weight: 600;
+      border: 1px solid var(--border);
+      cursor: pointer;
+    }
+    .status-select.status-available {
+      background: #EBF7EE;
+      color: #1A693B;
+      border-color: #A9DFBF;
+    }
+    .status-select.status-reserved {
+      background: #FEF9E7;
+      color: #9A7D0A;
+      border-color: #F9E79F;
+    }
+    .status-select.status-sold {
+      background: #EAEDED;
+      color: #5D6D7E;
+      border-color: #D5D8DC;
+    }
+    .auth-gate-box {
+      max-width: 420px;
+      margin: 80px auto;
+      background: #FFFFFF;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-xl);
+      padding: 32px 28px;
+      box-shadow: var(--shadow-sm);
+      text-align: center;
+    }
+    .auth-error-banner {
+      background: #FDEDEC;
+      color: #922B21;
+      border: 1px solid #F5B7B1;
+      border-radius: var(--radius-md);
+      padding: 10px 14px;
+      font-size: 13px;
+      margin-bottom: 16px;
+      display: none;
+    }
+  </style>
+</head>
+<body class="admin-body">
+
+  <!-- ОКНО АВТОРИЗАЦИИ (AUTH GATE) -->
+  <div id="adminAuthGate" class="auth-gate-box">
+    <div class="brand-logo mb-2" style="justify-content: center;">
+      <span class="brand-icon-box">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10Z"></path>
+          <path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"></path>
+        </svg>
+      </span>
+      <span class="brand-name">Green Project</span>
+    </div>
+    <span class="admin-badge mb-2">Центр управления фондом</span>
+    <h2 style="font-size: 20px; margin: 12px 0 6px;">Вход в систему CMS</h2>
+    <p style="font-size: 13px; color: var(--muted-foreground); margin-bottom: 20px;">
+      Для доступа к управлению квартирами и ценами введите учетные данные.
+    </p>
+
+    <div id="authErrorMsg" class="auth-error-banner">
+      Неверный логин или пароль.
+    </div>
+
+    <form onsubmit="handleAdminLogin(event)" style="text-align: left;">
+      <div class="form-field-group">
+        <label style="font-size: 13px; font-weight: 600;">Логин</label>
+        <input type="text" id="adminLoginInput" required placeholder="admin" value="admin" class="form-control-input">
+      </div>
+      <div class="form-field-group">
+        <label style="font-size: 13px; font-weight: 600;">Пароль</label>
+        <input type="password" id="adminPassInput" required placeholder="••••••••" value="green2026" class="form-control-input">
+      </div>
+      <p style="font-size: 11px; color: var(--muted-foreground); margin-bottom: 16px;">
+        * Тестовый доступ: логин <strong>admin</strong>, пароль <strong>green2026</strong>
+      </p>
+      <button type="submit" class="btn btn-primary btn-lg w-full">Войти в панель управления</button>
+    </form>
+    <div style="margin-top: 16px;">
+      <a href="index.html" style="font-size: 13px; color: var(--primary); text-decoration: none;">← Вернуться на сайт</a>
+    </div>
+  </div>
+
+  <!-- ГЛАВНАЯ ПАНЕЛЬ УПРАВЛЕНИЯ (Показывается только после успешного входа) -->
+  <div id="adminDashboard" style="display: none;">
+    <!-- Шапка админ-панели -->
+    <header class="admin-header">
+      <div class="container admin-header-inner">
+        <a href="index.html" class="admin-brand">
+          <span class="brand-icon-box" style="width: 32px; height: 32px;">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10Z"></path>
+              <path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"></path>
+            </svg>
+          </span>
+          <div>
+            <strong style="font-size: 15px; display: block;">Green Project CMS</strong>
+            <span style="font-size: 11px; color: var(--muted-foreground);">Лицензия № 18492 КГД РА</span>
+          </div>
+        </a>
+
+        <div style="display: flex; align-items: center; gap: 14px;">
+          <a href="apartments.html" target="_blank" class="btn btn-outline btn-sm" style="text-decoration: none;">
+            Просмотр каталога ↗
+          </a>
+          <span style="font-size: 13px; color: var(--muted-foreground);">Администратор (admin)</span>
+          <button class="btn btn-outline btn-sm" onclick="handleAdminLogout()">Выйти</button>
+        </div>
+      </div>
+    </header>
+
+    <main class="container" style="padding-top: 24px;">
+      <!-- Метрики фонда недвижимости -->
+      <div class="admin-stats-grid">
+        <div class="admin-stat-card">
+          <div class="admin-stat-label">Всего в базе</div>
+          <div class="admin-stat-val" id="statTotalApts">6</div>
+        </div>
+        <div class="admin-stat-card">
+          <div class="admin-stat-label">В продаже</div>
+          <div class="admin-stat-val text-primary" id="statAvailableApts">5</div>
+        </div>
+        <div class="admin-stat-card">
+          <div class="admin-stat-label">На брони</div>
+          <div class="admin-stat-val text-accent" id="statReservedApts">1</div>
+        </div>
+        <div class="admin-stat-card">
+          <div class="admin-stat-label">Продано</div>
+          <div class="admin-stat-val text-muted" id="statSoldApts">0</div>
+        </div>
+        <div class="admin-stat-card">
+          <div class="admin-stat-label">Средняя цена м²</div>
+          <div class="admin-stat-val" id="statAvgSqmPrice">370 000 ֏</div>
+        </div>
+      </div>
+
+      <!-- Панель действий -->
+      <div class="admin-toolbar">
+        <div>
+          <h2 style="font-size: 18px; margin: 0 0 4px; font-weight: 700;">Реестр квартир и помещений</h2>
+          <span style="font-size: 12.5px; color: var(--muted-foreground);">
+            Изменения сохраняются локально и автоматически синхронизируются с каталогом сайта.
+          </span>
+        </div>
+        <div class="admin-actions-group">
+          <button class="btn btn-primary btn-sm" onclick="openAddApartmentModal()">
+            + Добавить квартиру
+          </button>
+          <button class="btn btn-outline btn-sm" onclick="exportCatalogJson()">
+            📥 Экспорт (JSON)
+          </button>
+          <label class="btn btn-outline btn-sm" style="cursor: pointer; margin: 0;">
+            📤 Импорт (JSON)
+            <input type="file" id="importJsonInput" accept=".json" style="display: none;" onchange="importCatalogJson(event)">
+          </label>
+          <button class="btn btn-outline btn-sm text-muted" onclick="resetCatalogToDefault()" title="Восстановить исходные 6 квартир">
+            ↺ Сброс
+          </button>
+        </div>
+      </div>
+
+      <!-- Таблица квартир -->
+      <div class="admin-table-container">
+        <table class="admin-table">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Комплекс</th>
+              <th>Планировка / Название</th>
+              <th>Тип</th>
+              <th>Площадь</th>
+              <th>Этаж</th>
+              <th>Цена (֏ AMD)</th>
+              <th>Статус продажи</th>
+              <th style="text-align: right;">Действия</th>
+            </tr>
+          </thead>
+          <tbody id="adminTableBody">
+            <!-- Заполняется динамически скриптом -->
+          </tbody>
+        </table>
+      </div>
+    </main>
+  </div>
+
+  <!-- МОДАЛЬНОЕ ОКНО: ДОБАВЛЕНИЕ / РЕДАКТИРОВАНИЕ КВАРТИРЫ -->
+  <div class="modal-overlay" id="adminEditModal">
+    <div class="modal-card" style="max-width: 540px;">
+      <button class="modal-close-icon" onclick="closeModal('adminEditModal')">✕</button>
+      <h3 style="font-size: 20px; font-weight: 700; margin-bottom: 16px;" id="modalFormHeading">
+        Редактирование квартиры
+      </h3>
+      <form id="apartmentEditForm" onsubmit="saveApartmentData(event)">
+        <input type="hidden" id="editAptId">
+
+        <div class="form-field-group">
+          <label style="font-size: 13px; font-weight: 600;">Жилой комплекс</label>
+          <select id="editAptProject" class="form-control-input" required>
+            <option value="avan">ЖК Green Avan (Аван)</option>
+            <option value="nork">ЖК Green Nork (Нор-Норк)</option>
+            <option value="townhouse">Green Townhouse (Касах)</option>
+          </select>
+        </div>
+
+        <div class="form-field-group">
+          <label style="font-size: 13px; font-weight: 600;">Название планировки</label>
+          <input type="text" id="editAptTitle" class="form-control-input" required placeholder="Например: Двухкомнатная с балконом">
+        </div>
+
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+          <div class="form-field-group">
+            <label style="font-size: 13px; font-weight: 600;">Тип (комнатность)</label>
+            <select id="editAptRooms" class="form-control-input" required>
+              <option value="1k">Студия / 1-комнатная</option>
+              <option value="2k">2-комнатная</option>
+              <option value="3k">3-комнатная</option>
+              <option value="th">Таунхаус</option>
+            </select>
+          </div>
+          <div class="form-field-group">
+            <label style="font-size: 13px; font-weight: 600;">Площадь (м²)</label>
+            <input type="number" id="editAptArea" class="form-control-input" min="20" max="400" required placeholder="64">
+          </div>
+        </div>
+
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+          <div class="form-field-group">
+            <label style="font-size: 13px; font-weight: 600;">Этаж</label>
+            <input type="text" id="editAptFloor" class="form-control-input" required placeholder="7 / 14">
+          </div>
+          <div class="form-field-group">
+            <label style="font-size: 13px; font-weight: 600;">Цена в AMD (֏)</label>
+            <input type="number" id="editAptPrice" class="form-control-input" min="1000000" step="10000" required placeholder="23680000">
+          </div>
+        </div>
+
+        <div class="form-field-group">
+          <label style="font-size: 13px; font-weight: 600;">Статус продажи</label>
+          <select id="editAptStatus" class="form-control-input" required>
+            <option value="available">В продаже (available)</option>
+            <option value="reserved">Забронирована (reserved)</option>
+            <option value="sold">Продана (sold)</option>
+          </select>
+        </div>
+
+        <div class="form-field-group">
+          <label style="font-size: 13px; font-weight: 600;">Изображение планировки (URL/файл)</label>
+          <input type="text" id="editAptImage" class="form-control-input" value="images/apt-1.png" required>
+        </div>
+
+        <div style="display: flex; gap: 12px; margin-top: 20px;">
+          <button type="submit" class="btn btn-primary btn-lg" style="flex: 1;">Сохранить</button>
+          <button type="button" class="btn btn-outline btn-lg" onclick="closeModal('adminEditModal')">Отмена</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Toast -->
+  <div class="toast-box" id="toastBox">
+    <span>✓</span>
+    <span id="toastText">Изменения сохранены!</span>
+  </div>
+
+  <script>
+    // CMS Script & Authorization Logic
+    const STORAGE_KEY = 'green_project_catalog';
+    const AUTH_KEY = 'green_admin_logged_in';
+
+    // Default Catalog Data
+    const defaultCatalog = [
+      { id: 'apt1', project: 'avan', rooms: '1k', title: 'Компактная 1-комнатная', area: '38 м²', areaNum: 38, floor: '9 / 14', priceAMD: 14060000, status: 'reserved', image: 'images/apt-3.png' },
+      { id: 'apt2', project: 'avan', rooms: '1k', title: 'Светлая студия у парка', area: '42 м²', areaNum: 42, floor: '4 / 14', priceAMD: 15540000, status: 'available', image: 'images/apt-4.png' },
+      { id: 'apt3', project: 'avan', rooms: '2k', title: 'Двухкомнатная с балконом', area: '64 м²', areaNum: 64, floor: '7 / 14', priceAMD: 23680000, status: 'available', image: 'images/apt-1.png' },
+      { id: 'apt4', project: 'nork', rooms: '2k', title: 'Двухкомнатная с видом на Арарат', area: '71 м²', areaNum: 71, floor: '3 / 6', priceAMD: 33650000, status: 'available', image: 'images/apt-2.png' },
+      { id: 'apt5', project: 'avan', rooms: '3k', title: 'Семейная трёхкомнатная', area: '92 м²', areaNum: 92, floor: '5 / 14', priceAMD: 34040000, status: 'available', image: 'images/apt-6.png' },
+      { id: 'apt6', project: 'townhouse', rooms: 'th', title: 'Таунхаус с террасой и садом', area: '124 м²', areaNum: 124, floor: '1-2 эт.', priceAMD: 45880000, status: 'available', image: 'images/apt-5.png' }
+    ];
+
+    function getCatalogData() {
+      try {
+        const stored = localStorage.getItem(STORAGE_KEY);
+        if (stored) return JSON.parse(stored);
+      } catch (e) {
+        console.error('Storage parse error:', e);
+      }
+      return defaultCatalog;
+    }
+
+    function saveCatalogData(data) {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+      renderAdminTable();
+      showToast('База данных обновлена');
+    }
+
+    function showToast(msg) {
+      const toast = document.getElementById('toastBox');
+      const text = document.getElementById('toastText');
+      if (toast && text) {
+        text.textContent = msg;
+        toast.classList.add('visible');
+        setTimeout(() => toast.classList.remove('visible'), 3000);
+      }
+    }
+
+    function closeModal(id) {
+      const modal = document.getElementById(id);
+      if (modal) modal.classList.remove('open');
+    }
+
+    // Check Auth on page load
+    document.addEventListener('DOMContentLoaded', () => {
+      if (sessionStorage.getItem(AUTH_KEY) === 'true') {
+        showDashboard();
+      } else {
+        showAuthGate();
+      }
+    });
+
+    function showAuthGate() {
+      document.getElementById('adminAuthGate').style.display = 'block';
+      document.getElementById('adminDashboard').style.display = 'none';
+    }
+
+    function showDashboard() {
+      document.getElementById('adminAuthGate').style.display = 'none';
+      document.getElementById('adminDashboard').style.display = 'block';
+      renderAdminTable();
+    }
+
+    function handleAdminLogin(e) {
+      e.preventDefault();
+      const login = document.getElementById('adminLoginInput').value.trim();
+      const pass = document.getElementById('adminPassInput').value.trim();
+
+      if (login === 'admin' && pass === 'green2026') {
+        sessionStorage.setItem(AUTH_KEY, 'true');
+        showDashboard();
+      } else {
+        const err = document.getElementById('authErrorMsg');
+        err.style.display = 'block';
+        setTimeout(() => { err.style.display = 'none'; }, 4000);
+      }
+    }
+
+    function handleAdminLogout() {
+      sessionStorage.removeItem(AUTH_KEY);
+      showAuthGate();
+    }
+
+    function renderAdminTable() {
+      const items = getCatalogData();
+      const tbody = document.getElementById('adminTableBody');
+      if (!tbody) return;
+
+      tbody.innerHTML = '';
+
+      let availableCount = 0;
+      let reservedCount = 0;
+      let soldCount = 0;
+      let totalSqmSum = 0;
+      let countSqm = 0;
+
+      items.forEach((item, index) => {
+        if (item.status === 'available') availableCount++;
+        else if (item.status === 'reserved') reservedCount++;
+        else if (item.status === 'sold') soldCount++;
+
+        if (item.areaNum && item.priceAMD) {
+          totalSqmSum += (item.priceAMD / item.areaNum);
+          countSqm++;
+        }
+
+        const tr = document.createElement('tr');
+        const projName = item.project === 'avan' ? 'ЖК Green Avan' : item.project === 'nork' ? 'ЖК Green Nork' : 'Green Townhouse';
+        
+        tr.innerHTML = `
+          <td><strong>${item.id}</strong></td>
+          <td>${projName}</td>
+          <td>
+            <div style="font-weight: 600;">${item.title}</div>
+            <div style="font-size: 11px; color: var(--muted-foreground);">${item.image || ''}</div>
+          </td>
+          <td>${item.rooms.toUpperCase()}</td>
+          <td>${item.area || item.areaNum + ' м²'}</td>
+          <td>${item.floor || '—'}</td>
+          <td><strong>${Number(item.priceAMD).toLocaleString('ru-RU')} ֏</strong></td>
+          <td>
+            <select class="status-select status-${item.status}" onchange="changeItemStatus('${item.id}', this.value)">
+              <option value="available" ${item.status === 'available' ? 'selected' : ''}>В продаже</option>
+              <option value="reserved" ${item.status === 'reserved' ? 'selected' : ''}>Забронирована</option>
+              <option value="sold" ${item.status === 'sold' ? 'selected' : ''}>Продана</option>
+            </select>
+          </td>
+          <td style="text-align: right; white-space: nowrap;">
+            <button class="btn btn-outline btn-sm" onclick="editApartment('${item.id}')">Изменить</button>
+            <button class="btn btn-outline btn-sm text-muted" onclick="deleteApartment('${item.id}')" style="margin-left: 4px;">Удалить</button>
+          </td>
+        `;
+        tbody.appendChild(tr);
+      });
+
+      // Update metrics
+      document.getElementById('statTotalApts').textContent = items.length;
+      document.getElementById('statAvailableApts').textContent = availableCount;
+      document.getElementById('statReservedApts').textContent = reservedCount;
+      document.getElementById('statSoldApts').textContent = soldCount;
+      const avgSqm = countSqm > 0 ? Math.round(totalSqmSum / countSqm) : 370000;
+      document.getElementById('statAvgSqmPrice').textContent = avgSqm.toLocaleString('ru-RU') + ' ֏';
+    }
+
+    function changeItemStatus(id, newStatus) {
+      const items = getCatalogData();
+      const target = items.find(i => i.id === id);
+      if (target) {
+        target.status = newStatus;
+        saveCatalogData(items);
+      }
+    }
+
+    function openAddApartmentModal() {
+      document.getElementById('modalFormHeading').textContent = 'Добавить новую квартиру';
+      document.getElementById('apartmentEditForm').reset();
+      document.getElementById('editAptId').value = 'apt_' + Date.now().toString().slice(-4);
+      document.getElementById('adminEditModal').classList.add('open');
+    }
+
+    function editApartment(id) {
+      const items = getCatalogData();
+      const item = items.find(i => i.id === id);
+      if (!item) return;
+
+      document.getElementById('modalFormHeading').textContent = 'Редактировать квартиру ' + item.id;
+      document.getElementById('editAptId').value = item.id;
+      document.getElementById('editAptProject').value = item.project;
+      document.getElementById('editAptTitle').value = item.title;
+      document.getElementById('editAptRooms').value = item.rooms;
+      document.getElementById('editAptArea').value = item.areaNum || parseInt(item.area) || 45;
+      document.getElementById('editAptFloor').value = item.floor;
+      document.getElementById('editAptPrice').value = item.priceAMD;
+      document.getElementById('editAptStatus').value = item.status;
+      document.getElementById('editAptImage').value = item.image || 'images/apt-1.png';
+
+      document.getElementById('adminEditModal').classList.add('open');
+    }
+
+    function saveApartmentData(e) {
+      e.preventDefault();
+      const items = getCatalogData();
+      const id = document.getElementById('editAptId').value;
+      const areaNum = Number(document.getElementById('editAptArea').value);
+      const priceAMD = Number(document.getElementById('editAptPrice').value);
+
+      const aptObj = {
+        id: id,
+        project: document.getElementById('editAptProject').value,
+        title: document.getElementById('editAptTitle').value.trim(),
+        rooms: document.getElementById('editAptRooms').value,
+        areaNum: areaNum,
+        area: areaNum + ' м²',
+        floor: document.getElementById('editAptFloor').value.trim(),
+        priceAMD: priceAMD,
+        status: document.getElementById('editAptStatus').value,
+        image: document.getElementById('editAptImage').value.trim()
+      };
+
+      const existingIndex = items.findIndex(i => i.id === id);
+      if (existingIndex >= 0) {
+        items[existingIndex] = aptObj;
+      } else {
+        items.push(aptObj);
+      }
+
+      saveCatalogData(items);
+      closeModal('adminEditModal');
+    }
+
+    function deleteApartment(id) {
+      if (!confirm('Вы уверены, что хотите удалить квартиру ' + id + '?')) return;
+      const items = getCatalogData().filter(i => i.id !== id);
+      saveCatalogData(items);
+    }
+
+    function exportCatalogJson() {
+      const data = {
+        developer: {
+          name: "Green Project Real Estate Development",
+          license: "Лицензия № 18492 КГД РА",
+          phone: "+374 94 66 45 22",
+          email: "sales@greenprojectarm.com",
+          address: "г. Ереван, ул. Царав Ахбюр, 61/4"
+        },
+        apartments: getCatalogData()
+      };
+      const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'catalog_export_' + new Date().toISOString().slice(0, 10) + '.json';
+      a.click();
+      URL.revokeObjectURL(url);
+    }
+
+    function importCatalogJson(event) {
+      const file = event.target.files[0];
+      if (!file) return;
+
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        try {
+          const parsed = JSON.parse(e.target.result);
+          if (parsed && Array.isArray(parsed.apartments)) {
+            saveCatalogData(parsed.apartments);
+            alert('База данных успешно импортирована (' + parsed.apartments.length + ' квартир)!');
+          } else if (Array.isArray(parsed)) {
+            saveCatalogData(parsed);
+            alert('База данных успешно импортирована (' + parsed.length + ' квартир)!');
+          } else {
+            alert('Неверный формат файла JSON.');
+          }
+        } catch (err) {
+          alert('Ошибка парсинга JSON: ' + err.message);
+        }
+      };
+      reader.readAsText(file);
+      event.target.value = '';
+    }
+
+    function resetCatalogToDefault() {
+      if (confirm('Сбросить реестр к исходным 6 объектам?')) {
+        saveCatalogData(defaultCatalog);
+      }
+    }
+  </script>
+</body>
+</html>

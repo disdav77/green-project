@@ -143,9 +143,11 @@
       <nav class="nav-links">
         <a href="#projects" class="nav-link" data-i18n="navProjects">Проекты</a>
         <a href="#apartments" class="nav-link" data-i18n="navApartments">Квартиры</a>
+        <a href="apartments.html" class="nav-link nav-highlight-link">Каталог ↗</a>
         <a href="#advantages" class="nav-link" data-i18n="navStandards">Стандарты</a>
         <a href="#about" class="nav-link" data-i18n="navAbout">О комплексе</a>
         <a href="#calculator" class="nav-link" data-i18n="navCalculator">Ипотека</a>
+        <a href="mortgage.html" class="nav-link nav-highlight-link">Ипотечный центр ↗</a>
         <a href="#news" class="nav-link" data-i18n="navNews">Ход строительства</a>
         <a href="#map" class="nav-link" data-i18n="navMap">Карта</a>
         <a href="#contact" class="nav-link" data-i18n="navContact">Контакты</a>
@@ -192,9 +194,11 @@
     <nav class="drawer-links">
       <a href="#projects" class="drawer-link" data-i18n="navProjects">Проекты</a>
       <a href="#apartments" class="drawer-link" data-i18n="navApartments">Квартиры</a>
+      <a href="apartments.html" class="drawer-link" style="color: var(--primary); font-weight: 700;">Каталог квартир ↗</a>
       <a href="#advantages" class="drawer-link" data-i18n="navStandards">Стандарты</a>
       <a href="#about" class="drawer-link" data-i18n="navAbout">О комплексе</a>
       <a href="#calculator" class="drawer-link" data-i18n="navCalculator">Ипотека</a>
+      <a href="mortgage.html" class="drawer-link" style="color: var(--primary); font-weight: 700;">Ипотечный центр ↗</a>
       <a href="#news" class="drawer-link" data-i18n="navNews">Ход строительства</a>
       <a href="#map" class="drawer-link" data-i18n="navMap">Карта</a>
       <a href="#contact" class="drawer-link" data-i18n="navContact">Контакты</a>
@@ -788,8 +792,27 @@
               В каждом проекте предусмотрены двухуровневый отапливаемый подземный паркинг со скоростными лифтами Otis/Kone, межквартирная шумоизоляция 55 дБ и благоустроенный ландшафтный парк. Продажи ведутся через защищенные счета эскроу с субсидированной ипотекой от 10%.
             </p>
           </div>
-          <div class="about-floorplan-frame">
-            <img src="images/floorplan.png" alt="Планировка квартир жилого комплекса Green Project">
+          <div class="about-engineering-showcase">
+            <div class="eng-stat-item">
+              <div class="eng-stat-num">9 <span class="eng-unit">баллов</span></div>
+              <div class="eng-stat-title">Сейсмостойкость (СНиП РА)</div>
+              <p class="eng-stat-desc">Монолитный железобетонный каркас марки B25/B30 с ригельной системой.</p>
+            </div>
+            <div class="eng-stat-item">
+              <div class="eng-stat-num">55 <span class="eng-unit">дБ</span></div>
+              <div class="eng-stat-title">Акустическая изоляция</div>
+              <p class="eng-stat-desc">Межквартирные перекрытия со звукопоглощающими мембранами.</p>
+            </div>
+            <div class="eng-stat-item">
+              <div class="eng-stat-num">А+ <span class="eng-unit">класс</span></div>
+              <div class="eng-stat-title">Энергоэффективность</div>
+              <p class="eng-stat-desc">Базальтовая теплоизоляция 100 мм и двухкамерные аргоновые стеклопакеты.</p>
+            </div>
+            <div class="eng-stat-item">
+              <div class="eng-stat-num">100%</div>
+              <div class="eng-stat-title">Эскроу-безопасность</div>
+              <p class="eng-stat-desc">Защита средств покупателей в аккредитованных банках Армении.</p>
+            </div>
           </div>
         </div>
       </div>
@@ -927,6 +950,9 @@
             <button class="btn btn-primary btn-lg w-full calc-submit-btn" onclick="openModal('modalLead')" data-i18n="btnGetMortgageApproval">
               Получить одобрение ипотеки
             </button>
+            <a href="mortgage.html" class="btn btn-outline btn-lg w-full text-center" style="display: block; text-decoration: none; margin-top: 10px;">
+              Расширенный ипотечный центр (банки и субсидии) →
+            </a>
           </div>
         </div>
       </div>
@@ -1285,7 +1311,7 @@
     </section>
 
     <!-- ПРЕДФУТЕРНЫЙ БЛОК ДОВЕРИЯ И БЕЗОПАСНОСТИ (Фото 2 + Фото 3: Setl Group Trust Architecture) -->
-    <section class="escrow-section pre-footer-trust-section reveal-on-scroll">
+    <section class="escrow-section pre-footer-trust-section reveal-on-scroll" id="escrow">
       <div class="container">
         <div class="escrow-banner-card">
           <!-- Верхняя лента аккредитации (Фото 3) -->
@@ -1605,6 +1631,84 @@
       </div>
     </div>
   </aside>
+
+  <!-- ФИРМЕННЫЙ ХВОЙНЫЙ ВИДЖЕТ БЫСТРОЙ СВЯЗИ (Setl Group noble pine #183B2B) -->
+  <div class="quick-contact-widget" id="quickContactWidget">
+    <button class="widget-trigger-btn" id="btnOpenContactWidget" onclick="toggleContactWidgetModal()" aria-label="Связаться с отделом продаж">
+      <svg class="widget-icon-default" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
+      </svg>
+      <svg class="widget-icon-close" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display: none;">
+        <line x1="18" y1="6" x2="6" y2="18"></line>
+        <line x1="6" y1="6" x2="18" y2="18"></line>
+      </svg>
+    </button>
+  </div>
+
+  <!-- МОДАЛЬНОЕ ОКНО ВИДЖЕТА СВЯЗИ (2 вкладки: Заказ звонка и Чат) -->
+  <div class="modal-overlay" id="modalQuickContact">
+    <div class="modal-card quick-contact-modal-card">
+      <button class="modal-close-icon" onclick="closeModal('modalQuickContact')">✕</button>
+      
+      <!-- Вкладки табов -->
+      <div class="widget-tabs-nav" role="tablist">
+        <button class="widget-tab-btn active" id="tabBtnCall" onclick="switchWidgetTab('call')" role="tab" aria-selected="true">
+          Заказ звонка
+        </button>
+        <button class="widget-tab-btn" id="tabBtnChat" onclick="switchWidgetTab('chat')" role="tab" aria-selected="false">
+          Онлайн-чат
+        </button>
+      </div>
+
+      <!-- Контент вкладки 1: Заказ звонка с датой и временем -->
+      <div class="widget-tab-pane active" id="widgetPaneCall" role="tabpanel">
+        <h4 class="widget-pane-title">Мы перезвоним в удобное время</h4>
+        <p class="widget-pane-desc">Оставьте номер телефона, и специалист свяжется с вами точно в назначенное время.</p>
+        <form onsubmit="handleFormSubmit(event)">
+          <div class="form-field-group">
+            <label>Ваше имя</label>
+            <input required placeholder="Имя" class="form-control-input">
+          </div>
+          <div class="form-field-group">
+            <label>Телефон</label>
+            <input type="tel" required placeholder="+374 (__) __-__-__" class="form-control-input">
+          </div>
+          <div class="form-field-group">
+            <label>Когда позвонить?</label>
+            <div class="time-select-row">
+              <select class="form-control-input">
+                <option value="today">Сегодня</option>
+                <option value="tomorrow">Завтра</option>
+              </select>
+              <select class="form-control-input">
+                <option value="now">Прямо сейчас (в течение 10 мин)</option>
+                <option value="morning">Утром (10:00 - 13:00)</option>
+                <option value="day">Днём (13:00 - 17:00)</option>
+                <option value="evening">Вечером (17:00 - 20:00)</option>
+              </select>
+            </div>
+          </div>
+          <button type="submit" class="btn btn-primary btn-lg w-full">Жду звонка</button>
+        </form>
+      </div>
+
+      <!-- Контент вкладки 2: Онлайн-чат в мессенджерах -->
+      <div class="widget-tab-pane" id="widgetPaneChat" role="tabpanel" style="display: none;">
+        <h4 class="widget-pane-title">Быстрый диалог в мессенджере</h4>
+        <p class="widget-pane-desc">Отвечаем в течение 2-3 минут без навязчивых звонков. Выберите удобный канал:</p>
+        <div class="widget-messengers-list">
+          <a href="https://wa.me/37494664522?text=%D0%97%D0%B4%D1%80%D0%B0%D0%B2%D1%81%D1%82%D0%B2%D1%83%D0%B9%D1%82%D0%B5!%20%D0%A5%D0%BE%D1%87%D1%83%20%D1%83%D0%B7%D0%BD%D0%B0%D1%82%D1%8C%20%D0%BF%D0%BE%D0%B4%D1%80%D0%BE%D0%B1%D0%BD%D0%BE%D1%81%D1%82%D0%B8%20%D0%BE%20%D0%BA%D0%B2%D0%B0%D1%80%D1%82%D0%B8%D1%80%D0%B0%D1%85%20%D0%B2%20Green%20Project" target="_blank" rel="noopener" class="messenger-channel-btn btn-wa-channel">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+            <span>Написать в WhatsApp</span>
+          </a>
+          <a href="https://t.me/greenprojectarm" target="_blank" rel="noopener" class="messenger-channel-btn btn-tg-channel">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
+            <span>Написать в Telegram</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
 
   <!-- Motion Stack: Lenis Smooth Scroll & GSAP 3 + ScrollTrigger (Setl Group Standard) -->
   <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.18/dist/lenis.min.js"></script>

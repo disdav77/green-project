@@ -1,0 +1,685 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Каталог квартир и планировок | Green Project Armenia</title>
+  <meta name="description" content="Каталог квартир в Ереване (Аван, Нор-Норк) и таунхаусов в Касахе от девелопера Green Project. Цены от 14.06 млн ֏, планировки от 38 до 124 м², субсидированная ипотека от 10%.">
+  <link rel="canonical" href="https://disdav77.github.io/green-project/apartments.html">
+  <link rel="alternate" hreflang="ru" href="https://disdav77.github.io/green-project/apartments.html">
+  <link rel="alternate" hreflang="hy" href="https://disdav77.github.io/green-project/apartments.html?lang=hy">
+  <link rel="alternate" hreflang="en" href="https://disdav77.github.io/green-project/apartments.html?lang=en">
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="Каталог квартир Green Project — Планировки и цены от девелопера">
+  <meta property="og:description" content="Подберите идеальную планировку в Ереване или Касахе. Монолитные дома с подземным паркингом и парком во дворе.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://disdav77.github.io/green-project/apartments.html">
+
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- ВЕРХНЯЯ ИНФО-ПАНЕЛЬ (Естественный скролл) -->
+  <aside class="top-bar">
+    <div class="container top-bar-inner">
+      <div class="top-bar-announcement">
+        <span class="top-bar-location-badge">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0"></path><circle cx="12" cy="10" r="3"></circle></svg>
+          <span data-i18n="topBarLocation">Ереван и Котайк</span>
+        </span>
+        <span class="top-bar-sep">•</span>
+        <span data-i18n="topBarAccreditation">Аккредитация во всех банках РА • Эскроу • Ст. 156.1 НК РА</span>
+      </div>
+      <div class="top-bar-controls">
+        <!-- Валюта -->
+        <div class="pill-selector" role="group" aria-label="Валюта">
+          <button class="pill-btn active" data-currency="AMD" id="btnCurAMD">֏ AMD</button>
+          <button class="pill-btn" data-currency="USD" id="btnCurUSD">$ USD</button>
+        </div>
+        <!-- Язык -->
+        <div class="pill-selector" role="group" aria-label="Язык">
+          <button class="pill-btn active" data-lang="ru" id="btnLangRU">RU</button>
+          <button class="pill-btn" data-lang="hy" id="btnLangHY">AM</button>
+          <button class="pill-btn" data-lang="en" id="btnLangEN">EN</button>
+        </div>
+      </div>
+    </div>
+  </aside>
+
+  <!-- ШАПКА ПОРТАЛА (Мягкая фиксация) -->
+  <header class="site-header">
+    <div class="container header-inner">
+      <!-- Логотип -->
+      <a href="index.html" class="brand-logo">
+        <span class="brand-icon-box">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10Z"></path>
+            <path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"></path>
+          </svg>
+        </span>
+        <span class="brand-name" data-i18n="brandName">Green Project</span>
+      </a>
+
+      <!-- Меню ссылок -->
+      <nav class="nav-links">
+        <a href="index.html#projects" class="nav-link" data-i18n="navProjects">Проекты</a>
+        <a href="apartments.html" class="nav-link active" data-i18n="navApartments">Квартиры</a>
+        <a href="index.html#advantages" class="nav-link" data-i18n="navStandards">Стандарты</a>
+        <a href="index.html#about" class="nav-link" data-i18n="navAbout">О комплексе</a>
+        <a href="mortgage.html" class="nav-link" data-i18n="navCalculator">Ипотека</a>
+        <a href="index.html#news" class="nav-link" data-i18n="navNews">Ход строительства</a>
+        <a href="index.html#map" class="nav-link" data-i18n="navMap">Карта</a>
+        <a href="index.html#contact" class="nav-link" data-i18n="navContact">Контакты</a>
+      </nav>
+
+      <!-- Контакты и кнопка -->
+      <div class="header-right">
+        <a href="tel:+37494664522" class="header-phone-link">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M13.832 16.568a1 1 0 0 0 1.213-.303l.355-.465A2 2 0 0 1 17 15h3a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2A18 18 0 0 1 2 4a2 2 0 0 1 2-2h3a2 2 0 0 1 2 2v3a2 2 0 0 1-.8 1.6l-.468.351a1 1 0 0 0-.292 1.233 14 14 0 0 0 6.392 6.384"></path>
+          </svg>
+          <span>+374 94 66 45 22</span>
+        </a>
+        <button class="btn btn-primary btn-sm" onclick="openModal('modalLead')" data-i18n="btnRequestCall">
+          Заказать звонок
+        </button>
+        <button class="mobile-toggle-btn" id="btnToggleDrawer" aria-label="Меню">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="3" y1="12" x2="21" y2="12"></line>
+            <line x1="3" y1="6" x2="21" y2="6"></line>
+            <line x1="3" y1="18" x2="21" y2="18"></line>
+          </svg>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- МОБИЛЬНЫЙ DRAWER -->
+  <div class="drawer-backdrop" id="drawerBackdrop"></div>
+  <div class="mobile-drawer-box" id="mobileDrawer">
+    <div class="drawer-head">
+      <span class="brand-name">Green Project</span>
+      <button class="drawer-close" id="btnCloseDrawer">✕</button>
+    </div>
+    <div class="pill-selector mb-2">
+      <button class="pill-btn active" data-currency="AMD">֏ AMD</button>
+      <button class="pill-btn" data-currency="USD">$ USD</button>
+    </div>
+    <div class="pill-selector mb-2">
+      <button class="pill-btn active" data-lang="ru">RU</button>
+      <button class="pill-btn" data-lang="hy">AM</button>
+      <button class="pill-btn" data-lang="en">EN</button>
+    </div>
+    <nav class="drawer-links">
+      <a href="index.html#projects" class="drawer-link" data-i18n="navProjects">Проекты</a>
+      <a href="apartments.html" class="drawer-link" data-i18n="navApartments">Квартиры</a>
+      <a href="index.html#advantages" class="drawer-link" data-i18n="navStandards">Стандарты</a>
+      <a href="index.html#about" class="drawer-link" data-i18n="navAbout">О комплексе</a>
+      <a href="mortgage.html" class="drawer-link" data-i18n="navCalculator">Ипотека</a>
+      <a href="index.html#news" class="drawer-link" data-i18n="navNews">Ход строительства</a>
+      <a href="index.html#map" class="drawer-link" data-i18n="navMap">Карта</a>
+      <a href="index.html#contact" class="drawer-link" data-i18n="navContact">Контакты</a>
+    </nav>
+  </div>
+
+  <main>
+    <!-- ХЛЕБНЫЕ КРОШКИ И ЗАГОЛОВОК -->
+    <section class="page-header-section">
+      <div class="container">
+        <nav class="breadcrumbs" aria-label="Хлебные крошки">
+          <a href="index.html" class="breadcrumb-item">Главная</a>
+          <span class="breadcrumb-sep">/</span>
+          <span class="breadcrumb-item active">Каталог квартир</span>
+        </nav>
+        <div class="page-title-wrap">
+          <span class="section-tag-badge">Выбор недвижимости</span>
+          <h1 class="page-title">Планировки и квартиры в продаже</h1>
+          <p class="page-lead">
+            Широкий выбор квартир комфорт- и бизнес-класса в Ереване (Аван, Нор-Норк) и клубных таунхаусов в Касахе с отделкой под ключ и защищенными эскроу-счетами.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ПАНЕЛЬ МНОГОКРИТЕРИАЛЬНЫХ ФИЛЬТРОВ КАТАЛОГА -->
+    <section class="apartments-section" style="padding-top: 16px;">
+      <div class="container">
+        
+        <!-- Интерактивный паспорт проекта (динамически синхронизируется при смене фильтра) -->
+        <div class="project-passport-banner" id="projectPassportBanner">
+          <div class="passport-header">
+            <span class="passport-tag" id="passportTag">Все объекты Green Project</span>
+            <h3 class="passport-title" id="passportTitle">Портфель жилой недвижимости девелопера</h3>
+          </div>
+          <div class="passport-specs-grid">
+            <div class="passport-spec-item">
+              <span class="passport-spec-label">Комплексы:</span>
+              <strong class="passport-spec-val" id="passportLocations">Аван • Нор-Норк • Касах</strong>
+            </div>
+            <div class="passport-spec-item">
+              <span class="passport-spec-label">Технология:</span>
+              <strong class="passport-spec-val" id="passportTech">Монолитный ж/б каркас</strong>
+            </div>
+            <div class="passport-spec-item">
+              <span class="passport-spec-label">Сейсмостойкость:</span>
+              <strong class="passport-spec-val" id="passportSeismic">9 баллов (СНиП РА)</strong>
+            </div>
+            <div class="passport-spec-item">
+              <span class="passport-spec-label">Субсидия:</span>
+              <strong class="passport-spec-val" id="passportMortgage">Ст. 156.1 НК РА (возврат налога)</strong>
+            </div>
+          </div>
+        </div>
+
+        <!-- Фильтры по проектам и комнатности -->
+        <div class="catalog-filters-row">
+          <div class="catalog-filter-group">
+            <span class="filter-group-label" data-i18n="filterByProject">Проект:</span>
+            <div class="filter-pill-wrap" id="projectFilterWrap">
+              <button class="filter-pill active" data-filter-project="all" data-i18n="filterAll">Все проекты</button>
+              <button class="filter-pill" data-filter-project="avan" data-i18n="filterAvan">ЖК Green Avan</button>
+              <button class="filter-pill" data-filter-project="nork" data-i18n="filterNork">ЖК Green Nork</button>
+              <button class="filter-pill" data-filter-project="townhouse" data-i18n="filterTownhouse">Green Townhouse</button>
+            </div>
+          </div>
+
+          <div class="catalog-filter-group">
+            <span class="filter-group-label" data-i18n="filterByRooms">Комнатность:</span>
+            <div class="filter-pill-wrap" id="roomsFilterWrap">
+              <button class="filter-pill active" data-filter="all" data-i18n="filterAllRooms">Все</button>
+              <button class="filter-pill" data-filter="1k" data-i18n="filter1k">Студии & 1к</button>
+              <button class="filter-pill" data-filter="2k" data-i18n="filter2k">2-комнатные</button>
+              <button class="filter-pill" data-filter="3k" data-i18n="filter3k">3-комнатные</button>
+              <button class="filter-pill" data-filter="th" data-i18n="filterTh">Таунхаусы</button>
+            </div>
+          </div>
+
+          <!-- Сортировка -->
+          <div class="catalog-sort-group">
+            <label for="sortSelect" class="filter-group-label" data-i18n="lblSort">Сортировка:</label>
+            <select id="sortSelect" class="sort-select-input" onchange="sortApartments(this.value)">
+              <option value="price-asc" data-i18n="sortPriceAsc">Сначала дешевле</option>
+              <option value="price-desc" data-i18n="sortPriceDesc">Сначала дороже</option>
+              <option value="area-desc" data-i18n="sortAreaDesc">По площади (убывание)</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- СЕТКА КАРТОЧЕК КВАРТИР -->
+        <div class="apartments-grid" id="apartmentsGrid">
+          <!-- Квартира 1: 1-комнатная 38 м² (Avan) -->
+          <article class="apartment-card" data-room="1k" data-proj="avan" data-price-amd="14060000" data-area="38" onclick="openApartmentModal('apt1')">
+            <div class="apartment-media">
+              <img src="images/apt-3.png" alt="Компактная 1-комнатная квартира в Green Avan">
+              <span class="apartment-badge badge-reserved" data-i18n="badgeReserved">Забронирована</span>
+              <span class="apt-delivery-tag" data-i18n="deliveryAvan">Сдача: IV кв. 2026 • 90%</span>
+            </div>
+            <div class="apartment-body">
+              <p class="apartment-district" data-i18n="districtAvan">ЖК Green Avan • Аван</p>
+              <h3 class="apartment-title" data-i18n="apt1Title">Компактная 1-комнатная</h3>
+              <div class="apartment-specs-grid">
+                <div class="spec-entry">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 3H5a2 2 0 0 0-2 2v3"></path><path d="M21 8V5a2 2 0 0 0-2-2h-3"></path><path d="M3 16v3a2 2 0 0 0 2 2h3"></path><path d="M16 21h3a2 2 0 0 0 2-2v-3"></path></svg>
+                  <span>38 м²</span>
+                </div>
+                <div class="spec-entry">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 20v-8a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v8"></path><path d="M4 10V6a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v4"></path></svg>
+                  <span data-i18n="room1k">1 комн.</span>
+                </div>
+                <div class="spec-entry">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 10h.01"></path><path d="M12 14h.01"></path><rect x="4" y="2" width="16" height="20" rx="2"></rect></svg>
+                  <span>9/14</span>
+                </div>
+              </div>
+              <div class="apartment-footer">
+                <div>
+                  <span class="apartment-price price-dyn" data-raw-amd="14060000">14 060 000 ֏</span>
+                  <div class="apartment-price-sqm price-sqm-dyn" data-raw-amd-sqm="370000">370 000 ֏/м²</div>
+                </div>
+                <span class="apartment-cta" data-i18n="btnDetails">Подробнее →</span>
+              </div>
+            </div>
+          </article>
+
+          <!-- Квартира 2: Студия 42 м² (Avan) -->
+          <article class="apartment-card" data-room="1k" data-proj="avan" data-price-amd="15540000" data-area="42" onclick="openApartmentModal('apt2')">
+            <div class="apartment-media">
+              <img src="images/apt-4.png" alt="Светлая студия у парка в Green Avan">
+              <span class="apartment-badge badge-new" data-i18n="badgeNew">Новинка</span>
+              <span class="apt-delivery-tag" data-i18n="deliveryAvan">Сдача: IV кв. 2026 • 90%</span>
+            </div>
+            <div class="apartment-body">
+              <p class="apartment-district" data-i18n="districtAvan">ЖК Green Avan • Аван</p>
+              <h3 class="apartment-title" data-i18n="apt2Title">Светлая студия у парка</h3>
+              <div class="apartment-specs-grid">
+                <div class="spec-entry">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 3H5a2 2 0 0 0-2 2v3"></path><path d="M21 8V5a2 2 0 0 0-2-2h-3"></path><path d="M3 16v3a2 2 0 0 0 2 2h3"></path><path d="M16 21h3a2 2 0 0 0 2-2v-3"></path></svg>
+                  <span>42 м²</span>
+                </div>
+                <div class="spec-entry">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 20v-8a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v8"></path><path d="M4 10V6a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v4"></path></svg>
+                  <span data-i18n="roomStudio">Студия</span>
+                </div>
+                <div class="spec-entry">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 10h.01"></path><path d="M12 14h.01"></path><rect x="4" y="2" width="16" height="20" rx="2"></rect></svg>
+                  <span>4/14</span>
+                </div>
+              </div>
+              <div class="apartment-footer">
+                <div>
+                  <span class="apartment-price price-dyn" data-raw-amd="15540000">15 540 000 ֏</span>
+                  <div class="apartment-price-sqm price-sqm-dyn" data-raw-amd-sqm="370000">370 000 ֏/м²</div>
+                </div>
+                <span class="apartment-cta" data-i18n="btnDetails">Подробнее →</span>
+              </div>
+            </div>
+          </article>
+
+          <!-- Квартира 3: 2-комнатная 64 м² (Avan) -->
+          <article class="apartment-card" data-room="2k" data-proj="avan" data-price-amd="23680000" data-area="64" onclick="openApartmentModal('apt3')">
+            <div class="apartment-media">
+              <img src="images/apt-1.png" alt="Двухкомнатная с балконом в Green Avan">
+              <span class="apartment-badge badge-sale" data-i18n="badgeInSale">В продаже</span>
+              <span class="apt-delivery-tag" data-i18n="deliveryAvan">Сдача: IV кв. 2026 • 90%</span>
+            </div>
+            <div class="apartment-body">
+              <p class="apartment-district" data-i18n="districtAvan">ЖК Green Avan • Аван</p>
+              <h3 class="apartment-title" data-i18n="apt3Title">Двухкомнатная с балконом</h3>
+              <div class="apartment-specs-grid">
+                <div class="spec-entry">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 3H5a2 2 0 0 0-2 2v3"></path><path d="M21 8V5a2 2 0 0 0-2-2h-3"></path><path d="M3 16v3a2 2 0 0 0 2 2h3"></path><path d="M16 21h3a2 2 0 0 0 2-2v-3"></path></svg>
+                  <span>64 м²</span>
+                </div>
+                <div class="spec-entry">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 20v-8a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v8"></path><path d="M4 10V6a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v4"></path></svg>
+                  <span data-i18n="room2k">2 комн.</span>
+                </div>
+                <div class="spec-entry">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 10h.01"></path><path d="M12 14h.01"></path><rect x="4" y="2" width="16" height="20" rx="2"></rect></svg>
+                  <span>7/14</span>
+                </div>
+              </div>
+              <div class="apartment-footer">
+                <div>
+                  <span class="apartment-price price-dyn" data-raw-amd="23680000">23 680 000 ֏</span>
+                  <div class="apartment-price-sqm price-sqm-dyn" data-raw-amd-sqm="370000">370 000 ֏/м²</div>
+                </div>
+                <span class="apartment-cta" data-i18n="btnDetails">Подробнее →</span>
+              </div>
+            </div>
+          </article>
+
+          <!-- Квартира 4: 2-комнатная 71 м² (Nork) -->
+          <article class="apartment-card" data-room="2k" data-proj="nork" data-price-amd="33650000" data-area="71" onclick="openApartmentModal('apt4')">
+            <div class="apartment-media">
+              <img src="images/apt-2.png" alt="Двухкомнатная с видом на Арарат в Green Nork">
+              <span class="apartment-badge badge-sale" data-i18n="badgeInSale">В продаже</span>
+              <span class="apt-delivery-tag" data-i18n="deliveryNork">Сдача: II кв. 2027 • 45%</span>
+            </div>
+            <div class="apartment-body">
+              <p class="apartment-district" data-i18n="districtNork">ЖК Green Nork • Нор-Норк</p>
+              <h3 class="apartment-title" data-i18n="apt4Title">Двухкомнатная с видом на Арарат</h3>
+              <div class="apartment-specs-grid">
+                <div class="spec-entry">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 3H5a2 2 0 0 0-2 2v3"></path><path d="M21 8V5a2 2 0 0 0-2-2h-3"></path><path d="M3 16v3a2 2 0 0 0 2 2h3"></path><path d="M16 21h3a2 2 0 0 0 2-2v-3"></path></svg>
+                  <span>71 м²</span>
+                </div>
+                <div class="spec-entry">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 20v-8a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v8"></path><path d="M4 10V6a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v4"></path></svg>
+                  <span data-i18n="room2k">2 комн.</span>
+                </div>
+                <div class="spec-entry">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 10h.01"></path><path d="M12 14h.01"></path><rect x="4" y="2" width="16" height="20" rx="2"></rect></svg>
+                  <span>3/6</span>
+                </div>
+              </div>
+              <div class="apartment-footer">
+                <div>
+                  <span class="apartment-price price-dyn" data-raw-amd="33650000">33 650 000 ֏</span>
+                  <div class="apartment-price-sqm price-sqm-dyn" data-raw-amd-sqm="474000">474 000 ֏/м²</div>
+                </div>
+                <span class="apartment-cta" data-i18n="btnDetails">Подробнее →</span>
+              </div>
+            </div>
+          </article>
+
+          <!-- Квартира 5: 3-комнатная 92 м² (Avan) -->
+          <article class="apartment-card" data-room="3k" data-proj="avan" data-price-amd="34040000" data-area="92" onclick="openApartmentModal('apt5')">
+            <div class="apartment-media">
+              <img src="images/apt-6.png" alt="Семейная трёхкомнатная квартира в Green Avan">
+              <span class="apartment-badge badge-sale" data-i18n="badgeInSale">В продаже</span>
+              <span class="apt-delivery-tag" data-i18n="deliveryAvan">Сдача: IV кв. 2026 • 90%</span>
+            </div>
+            <div class="apartment-body">
+              <p class="apartment-district" data-i18n="districtAvan">ЖК Green Avan • Аван</p>
+              <h3 class="apartment-title" data-i18n="apt5Title">Семейная трёхкомнатная</h3>
+              <div class="apartment-specs-grid">
+                <div class="spec-entry">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 3H5a2 2 0 0 0-2 2v3"></path><path d="M21 8V5a2 2 0 0 0-2-2h-3"></path><path d="M3 16v3a2 2 0 0 0 2 2h3"></path><path d="M16 21h3a2 2 0 0 0 2-2v-3"></path></svg>
+                  <span>92 м²</span>
+                </div>
+                <div class="spec-entry">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 20v-8a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v8"></path><path d="M4 10V6a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v4"></path></svg>
+                  <span data-i18n="room3k">3 комн.</span>
+                </div>
+                <div class="spec-entry">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 10h.01"></path><path d="M12 14h.01"></path><rect x="4" y="2" width="16" height="20" rx="2"></rect></svg>
+                  <span>5/14</span>
+                </div>
+              </div>
+              <div class="apartment-footer">
+                <div>
+                  <span class="apartment-price price-dyn" data-raw-amd="34040000">34 040 000 ֏</span>
+                  <div class="apartment-price-sqm price-sqm-dyn" data-raw-amd-sqm="370000">370 000 ֏/м²</div>
+                </div>
+                <span class="apartment-cta" data-i18n="btnDetails">Подробнее →</span>
+              </div>
+            </div>
+          </article>
+
+          <!-- Квартира 6: Таунхаус 124 м² (Kasakh) -->
+          <article class="apartment-card" data-room="th" data-proj="townhouse" data-price-amd="45880000" data-area="124" onclick="openApartmentModal('apt6')">
+            <div class="apartment-media">
+              <img src="images/apt-5.png" alt="Таунхаус с террасой и садом в с. Касах">
+              <span class="apartment-badge badge-new" data-i18n="badgeNew">Новинка</span>
+              <span class="apt-delivery-tag" data-i18n="deliveryKasakh">Сдача: IV кв. 2026 • 85%</span>
+            </div>
+            <div class="apartment-body">
+              <p class="apartment-district" data-i18n="districtKasakh">Green Townhouse • с. Касах</p>
+              <h3 class="apartment-title" data-i18n="apt6Title">Таунхаус с террасой и садом</h3>
+              <div class="apartment-specs-grid">
+                <div class="spec-entry">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 3H5a2 2 0 0 0-2 2v3"></path><path d="M21 8V5a2 2 0 0 0-2-2h-3"></path><path d="M3 16v3a2 2 0 0 0 2 2h3"></path><path d="M16 21h3a2 2 0 0 0 2-2v-3"></path></svg>
+                  <span>124 м²</span>
+                </div>
+                <div class="spec-entry">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 20v-8a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v8"></path><path d="M4 10V6a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v4"></path></svg>
+                  <span data-i18n="roomTh">Таунхаус</span>
+                </div>
+                <div class="spec-entry">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 10h.01"></path><path d="M12 14h.01"></path><rect x="4" y="2" width="16" height="20" rx="2"></rect></svg>
+                  <span>1-2 эт.</span>
+                </div>
+              </div>
+              <div class="apartment-footer">
+                <div>
+                  <span class="apartment-price price-dyn" data-raw-amd="45880000">45 880 000 ֏</span>
+                  <div class="apartment-price-sqm price-sqm-dyn" data-raw-amd-sqm="370000">370 000 ֏/м²</div>
+                </div>
+                <span class="apartment-cta" data-i18n="btnDetails">Подробнее →</span>
+              </div>
+            </div>
+          </article>
+
+          <!-- Пустое состояние -->
+          <div id="apartmentsEmptyState" class="catalog-empty-state" style="display: none; grid-column: 1 / -1; text-align: center; padding: 48px 24px; background: var(--card); border: 1px solid var(--border); border-radius: var(--radius-2xl);">
+            <div style="font-size: 40px; margin-bottom: 12px;">🔍</div>
+            <h3 data-i18n="emptyCatalogTitle" style="font-size: 20px; font-weight: 700; margin-bottom: 8px;">Нет подходящих планировок</h3>
+            <p data-i18n="emptyCatalogDesc" style="color: var(--muted-foreground); margin-bottom: 20px; max-width: 500px; margin-left: auto; margin-right: auto;">По выбранным фильтрам квартир не найдено. Попробуйте выбрать другую комнатность или сбросить фильтры проектов.</p>
+            <button class="btn btn-outline" onclick="resetCatalogFilters()" data-i18n="btnResetFilters">Показать все квартиры</button>
+          </div>
+        </div>
+
+        <!-- ЛИД-МАГНИТ: Скачать презентацию и шахматку цен -->
+        <div class="catalog-lead-magnet-card" style="margin-top: 32px;">
+          <div class="lead-magnet-icon">📥</div>
+          <div class="lead-magnet-content">
+            <span class="lead-magnet-badge" data-i18n="leadMagnetBadge">Материалы для скачивания</span>
+            <h3 class="lead-magnet-title" data-i18n="leadMagnetH3">Генеральный каталог и шахматка актуальных цен 2026</h3>
+            <p class="lead-magnet-desc" data-i18n="leadMagnetP">Получите подробный PDF-буклет с полными планировками, спецификацией чистовой отделки и графиком субсидированных платежей по всем 3 проектам.</p>
+          </div>
+          <div class="lead-magnet-action">
+            <button class="btn btn-primary btn-lg" onclick="openModal('modalLead')" data-i18n="btnGetCatalogPdf">
+              Скачать презентацию (PDF)
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- МОДАЛЬНОЕ ОКНО: ДЕТАЛЬНЫЙ ПРОСМОТР ПЛАНИРОВКИ КВАРТИРЫ -->
+  <div class="modal-overlay" id="modalApartment">
+    <div class="modal-card apartment-modal-box">
+      <button class="modal-close-icon" onclick="closeModal('modalApartment')">✕</button>
+      <div class="apt-modal-grid">
+        <div class="apt-modal-visual">
+          <div class="apt-modal-img-wrap">
+            <img src="images/apt-3.png" id="aptModalImg" alt="План квартиры">
+          </div>
+          <div class="apt-modal-badge-row">
+            <span class="apartment-badge badge-new" id="aptModalBadge">В продаже</span>
+            <span class="apt-delivery-tag" id="aptModalDelivery">Сдача: IV кв. 2026</span>
+          </div>
+        </div>
+        <div class="apt-modal-info">
+          <p class="apartment-district" id="aptModalDistrict">ЖК Green Avan • Аван</p>
+          <h3 class="apt-modal-title" id="aptModalTitle">Компактная 1-комнатная</h3>
+
+          <div class="modal-specs-list">
+            <div class="modal-spec-row">
+              <span class="spec-label" data-i18n="specArea">Общая площадь:</span>
+              <strong id="aptModalArea">38 м²</strong>
+            </div>
+            <div class="modal-spec-row">
+              <span class="spec-label" data-i18n="specFloor">Этаж / Этажность:</span>
+              <strong id="aptModalFloor">9 из 14</strong>
+            </div>
+            <div class="modal-spec-row">
+              <span class="spec-label" data-i18n="specBalcony">Лоджия / Балкон:</span>
+              <strong data-i18n="specBalconyVal">Французский балкон (1.8 м²)</strong>
+            </div>
+            <div class="modal-spec-row">
+              <span class="spec-label" data-i18n="specFinish">Отделка:</span>
+              <strong data-i18n="specFinishVal">Чистовая (ламинат, сантехника, плитка)</strong>
+            </div>
+            <div class="modal-spec-row">
+              <span class="spec-label" data-i18n="specSeismic">Сейсмостойкость:</span>
+              <strong data-i18n="specSeismicVal">9 баллов (монолит)</strong>
+            </div>
+          </div>
+
+          <div class="apt-modal-price-box">
+            <div>
+              <div class="apt-modal-price-label" data-i18n="lblPrice">Стоимость квартиры</div>
+              <div class="apartment-price" id="aptModalPrice" style="font-size: 24px;">14 060 000 ֏</div>
+            </div>
+            <div class="apt-modal-mortgage-hint" id="aptModalMortgageHint">
+              ипотека от 27 240 ֏/мес
+            </div>
+          </div>
+
+          <div class="apt-modal-actions">
+            <button class="btn btn-primary btn-lg w-full" id="btnBookApartment" onclick="bookCurrentApartment()" data-i18n="btnBookThisApt">
+              Забронировать эту планировку
+            </button>
+            <button class="btn btn-whatsapp btn-lg w-full" onclick="bookCurrentApartmentWhatsApp()" data-i18n="btnBookWhatsApp">
+              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+              <span>Забронировать в WhatsApp</span>
+            </button>
+            <a href="mortgage.html" class="btn btn-outline btn-lg w-full text-center" id="btnGoToCalc" style="display: block; text-decoration: none;">
+              Рассчитать в ипотечном калькуляторе →
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- МОДАЛЬНОЕ ОКНО ЗАЯВКИ -->
+  <div class="modal-overlay" id="modalLead">
+    <div class="modal-card">
+      <button class="modal-close-icon" onclick="closeModal('modalLead')">✕</button>
+      <h3 class="about-title" style="font-size: 22px; margin-bottom: 8px;" data-i18n="modalLeadTitle">Оставить заявку</h3>
+      <p style="font-size: 14px; color: var(--muted-foreground); margin-bottom: 20px;" data-i18n="modalLeadSub">
+        Менеджер Green Project перезвонит вам в течение 10 минут.
+      </p>
+      <form onsubmit="handleFormSubmit(event)">
+        <div class="form-field-group">
+          <label data-i18n="fieldName">Имя</label>
+          <input required placeholder="Ваше имя" class="form-control-input">
+        </div>
+        <div class="form-field-group">
+          <label data-i18n="fieldPhone">Телефон</label>
+          <input type="tel" required placeholder="+374 (__) __-__-__" class="form-control-input">
+        </div>
+        <button type="submit" class="btn btn-primary btn-lg w-full" data-i18n="btnSubmitForm">Отправить заявку</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- ИНСТИТУЦИОНАЛЬНЫЙ ФУТЕР -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <!-- 1. О компании -->
+        <div class="footer-col footer-col-about">
+          <div class="brand-logo footer-logo mb-2">
+            <span class="brand-icon-box">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10Z"></path>
+                <path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"></path>
+              </svg>
+            </span>
+            <span class="brand-name" data-i18n="brandName">Green Project</span>
+          </div>
+          <p class="footer-about-text" data-i18n="footerAbout">
+            Институциональный девелопер полного цикла в Республике Армения. Проектирование, монолитное строительство и эксплуатация жилых комплексов повышенной комфортности.
+          </p>
+          <div class="footer-license-tag">
+            <span>Лицензия № 18492 КГД РА</span>
+          </div>
+        </div>
+
+        <!-- 2. Проекты -->
+        <div class="footer-col">
+          <h4 class="footer-heading" data-i18n="navProjects">Проекты</h4>
+          <ul class="footer-nav-list">
+            <li><a href="apartments.html?project=avan">ЖК Green Avan (Аван)</a></li>
+            <li><a href="apartments.html?project=nork">ЖК Green Nork (Нор-Норк)</a></li>
+            <li><a href="apartments.html?project=townhouse">Green Townhouse (Касах)</a></li>
+            <li><a href="apartments.html">Каталог всех планировок</a></li>
+          </ul>
+        </div>
+
+        <!-- 3. Покупателям -->
+        <div class="footer-col">
+          <h4 class="footer-heading">Покупателям</h4>
+          <ul class="footer-nav-list">
+            <li><a href="mortgage.html">Ипотечный калькулятор</a></li>
+            <li><a href="mortgage.html#tax-steps">Возврат подоходного налога</a></li>
+            <li><a href="index.html#escrow">Юридическая безопасность</a></li>
+            <li><a href="admin.html">Вход в кабинет (CMS)</a></li>
+          </ul>
+        </div>
+
+        <!-- 4. Контакты офиса продаж -->
+        <div class="footer-col">
+          <h4 class="footer-heading" data-i18n="navContact">Офис продаж</h4>
+          <div class="footer-contact-info">
+            <p><strong>г. Ереван, ул. Царав Ахбюр, 61/4</strong></p>
+            <p><a href="tel:+37494664522">+374 94 66 45 22</a></p>
+            <p>sales@greenprojectarm.com</p>
+            <p class="text-sm text-muted">Ежедневно: с 09:00 до 20:00</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="footer-bottom-bar">
+        <div>© 2026 Green Project Real Estate Development. Все права защищены.</div>
+        <div class="footer-bottom-links">
+          <a href="index.html">Главная</a>
+          <a href="apartments.html">Квартиры</a>
+          <a href="mortgage.html">Ипотека</a>
+          <a href="admin.html">Админ-панель</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ФИРМЕННЫЙ ХВОЙНЫЙ ВИДЖЕТ БЫСТРОЙ СВЯЗИ -->
+  <div class="quick-contact-widget" id="quickContactWidget">
+    <button class="widget-trigger-btn" id="btnOpenContactWidget" onclick="toggleContactWidgetModal()" aria-label="Связаться с отделом продаж">
+      <svg class="widget-icon-default" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
+      </svg>
+      <svg class="widget-icon-close" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display: none;">
+        <line x1="18" y1="6" x2="6" y2="18"></line>
+        <line x1="6" y1="6" x2="18" y2="18"></line>
+      </svg>
+    </button>
+  </div>
+
+  <!-- МОДАЛЬНОЕ ОКНО ВИДЖЕТА СВЯЗИ -->
+  <div class="modal-overlay" id="modalQuickContact">
+    <div class="modal-card quick-contact-modal-card">
+      <button class="modal-close-icon" onclick="closeModal('modalQuickContact')">✕</button>
+      
+      <div class="widget-tabs-nav" role="tablist">
+        <button class="widget-tab-btn active" id="tabBtnCall" onclick="switchWidgetTab('call')" role="tab" aria-selected="true">
+          Заказ звонка
+        </button>
+        <button class="widget-tab-btn" id="tabBtnChat" onclick="switchWidgetTab('chat')" role="tab" aria-selected="false">
+          Онлайн-чат
+        </button>
+      </div>
+
+      <div class="widget-tab-pane active" id="widgetPaneCall" role="tabpanel">
+        <h4 class="widget-pane-title">Мы перезвоним в удобное время</h4>
+        <p class="widget-pane-desc">Оставьте номер телефона, и специалист свяжется с вами точно в назначенное время.</p>
+        <form onsubmit="handleFormSubmit(event)">
+          <div class="form-field-group">
+            <label>Ваше имя</label>
+            <input required placeholder="Имя" class="form-control-input">
+          </div>
+          <div class="form-field-group">
+            <label>Телефон</label>
+            <input type="tel" required placeholder="+374 (__) __-__-__" class="form-control-input">
+          </div>
+          <div class="form-field-group">
+            <label>Когда позвонить?</label>
+            <div class="time-select-row">
+              <select class="form-control-input">
+                <option value="today">Сегодня</option>
+                <option value="tomorrow">Завтра</option>
+              </select>
+              <select class="form-control-input">
+                <option value="now">Прямо сейчас (в течение 10 мин)</option>
+                <option value="morning">Утром (10:00 - 13:00)</option>
+                <option value="day">Днём (13:00 - 17:00)</option>
+                <option value="evening">Вечером (17:00 - 20:00)</option>
+              </select>
+            </div>
+          </div>
+          <button type="submit" class="btn btn-primary btn-lg w-full">Жду звонка</button>
+        </form>
+      </div>
+
+      <div class="widget-tab-pane" id="widgetPaneChat" role="tabpanel" style="display: none;">
+        <h4 class="widget-pane-title">Быстрый диалог в мессенджере</h4>
+        <p class="widget-pane-desc">Отвечаем в течение 2-3 минут без навязчивых звонков. Выберите удобный канал:</p>
+        <div class="widget-messengers-list">
+          <a href="https://wa.me/37494664522?text=%D0%97%D0%B4%D1%80%D0%B0%D0%B2%D1%81%D1%82%D0%B2%D1%83%D0%B9%D1%82%D0%B5!%20%D0%A5%D0%BE%D1%87%D1%83%20%D1%83%D0%B7%D0%BD%D0%B0%D1%82%D1%8C%20%D0%BF%D0%BE%D0%B4%D1%80%D0%BE%D0%B1%D0%BD%D0%BE%D1%81%D1%82%D0%B8%20%D0%BE%20%D0%BA%D0%B2%D0%B0%D1%80%D1%82%D0%B8%D1%80%D0%B0%D1%85%20%D0%B2%20Green%20Project" target="_blank" rel="noopener" class="messenger-channel-btn btn-wa-channel">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+            <span>Написать в WhatsApp</span>
+          </a>
+          <a href="https://t.me/greenprojectarm" target="_blank" rel="noopener" class="messenger-channel-btn btn-tg-channel">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
+            <span>Написать в Telegram</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast -->
+  <div class="toast-box" id="toastBox">
+    <span>✓</span>
+    <span id="toastText">Заявка успешно отправлена!</span>
+  </div>
+
+  <!-- Main JavaScript Engine -->
+  <script src="app.js"></script>
+</body>
+</html>

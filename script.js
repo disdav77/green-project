@@ -1678,6 +1678,112 @@ function initTourDatePicker() {
   }
 }
 
+function toggleContactWidgetModal() {
+  const modal = document.getElementById('modalQuickContact');
+  if (modal) {
+    if (modal.classList.contains('active')) {
+      closeModal('modalQuickContact');
+    } else {
+      openModal('modalQuickContact');
+    }
+  }
+}
+
+function switchWidgetTab(tabName) {
+  const btnCall = document.getElementById('tabBtnCall');
+  const btnChat = document.getElementById('tabBtnChat');
+  const paneCall = document.getElementById('widgetPaneCall');
+  const paneChat = document.getElementById('widgetPaneChat');
+
+  if (tabName === 'call') {
+    if (btnCall) { btnCall.classList.add('active'); btnCall.setAttribute('aria-selected', 'true'); }
+    if (btnChat) { btnChat.classList.remove('active'); btnChat.setAttribute('aria-selected', 'false'); }
+    if (paneCall) paneCall.style.display = 'block';
+    if (paneChat) paneChat.style.display = 'none';
+  } else {
+    if (btnChat) { btnChat.classList.add('active'); btnChat.setAttribute('aria-selected', 'true'); }
+    if (btnCall) { btnCall.classList.remove('active'); btnCall.setAttribute('aria-selected', 'false'); }
+    if (paneCall) paneCall.style.display = 'none';
+    if (paneChat) paneChat.style.display = 'block';
+  }
+}
+
+function initBankPillButtons() {
+  document.querySelectorAll('.bank-pill-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.bank-pill-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      const rate = parseFloat(btn.getAttribute('data-bank-rate'));
+      const inputRate = document.getElementById('inputRate');
+      if (inputRate && !isNaN(rate)) {
+        inputRate.value = rate;
+        updateMortgageCalculation();
+      }
+    });
+  });
+}
+
+function checkUrlParameters() {
+  if (typeof window === 'undefined' || !window.location || !window.location.search) return;
+  const params = new URLSearchParams(window.location.search);
+
+  // Project filter (?project=avan, nork, townhouse)
+  const projParam = params.get('project');
+  if (projParam) {
+    AppState.activeProjFilter = projParam;
+    document.querySelectorAll('[data-filter-proj], [data-filter-project]').forEach(b => {
+      const val = b.getAttribute('data-filter-proj') || b.getAttribute('data-filter-project');
+      const match = val === projParam;
+      b.classList.toggle('active', match);
+      b.classList.toggle('project-active', match);
+    });
+    applyFiltersAndSort();
+    updatePassportBanner(projParam);
+  }
+
+  // Rooms filter (?rooms=1k, 2k, 3k, th)
+  const roomsParam = params.get('rooms');
+  if (roomsParam) {
+    AppState.activeRoomFilter = roomsParam;
+    document.querySelectorAll('[data-filter-room], [data-filter]').forEach(b => {
+      const val = b.getAttribute('data-filter-room') || b.getAttribute('data-filter');
+      b.classList.toggle('active', val === roomsParam);
+    });
+    applyFiltersAndSort();
+  }
+
+  // Price parameter on mortgage page (?price=23680000)
+  const priceParam = params.get('price');
+  if (priceParam) {
+    const p = parseInt(priceParam, 10);
+    const inputPrice = document.getElementById('inputPrice');
+    if (inputPrice && !isNaN(p)) {
+      inputPrice.value = p;
+      updateMortgageCalculation();
+    }
+  }
+}
+
+function loadCustomCatalogIfAvailable() {
+  if (typeof window === 'undefined' || !window.localStorage) return;
+  try {
+    const stored = localStorage.getItem('green_project_catalog');
+    if (stored) {
+      const parsed = JSON.parse(stored);
+      if (Array.isArray(parsed) && parsed.length > 0) {
+        parsed.forEach(item => {
+          if (APARTMENTS_DATA[item.id]) {
+            APARTMENTS_DATA[item.id].status = item.status;
+            if (item.priceAMD) APARTMENTS_DATA[item.id].priceAMD = item.priceAMD;
+          }
+        });
+      }
+    }
+  } catch (e) {
+    // Non-critical fallback
+  }
+}
+
 /**
  * 8. INITIALIZATION
  */
@@ -1795,7 +1901,10 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
-  // Run initial calculation, prices, passport and scroll reveal
+  // Run initial calculation, prices, passport, catalog and scroll reveal
+  loadCustomCatalogIfAvailable();
+  initBankPillButtons();
+  checkUrlParameters();
   updateMortgageCalculation();
   updateCardPrices();
   updatePassportBanner();
@@ -1835,6 +1944,10 @@ if (typeof window !== 'undefined') {
   window.clearLeads = clearLeads;
   window.initPhoneMask = initPhoneMask;
   window.initTourDatePicker = initTourDatePicker;
+  window.toggleContactWidgetModal = toggleContactWidgetModal;
+  window.switchWidgetTab = switchWidgetTab;
+  window.initBankPillButtons = initBankPillButtons;
+  window.checkUrlParameters = checkUrlParameters;
 }
 
 if (typeof module !== 'undefined' && module.exports) {
@@ -1866,7 +1979,11 @@ if (typeof module !== 'undefined' && module.exports) {
     getLeads,
     clearLeads,
     initPhoneMask,
-    initTourDatePicker
+    initTourDatePicker,
+    toggleContactWidgetModal,
+    switchWidgetTab,
+    initBankPillButtons,
+    checkUrlParameters
   };
 }
 

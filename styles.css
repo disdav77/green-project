@@ -2470,13 +2470,7 @@ h1, h2, h3, h4, h5, h6, .font-heading {
 }
 
 .escrow-banner-card::before {
-  content: "";
-  position: absolute;
-  left: 0;
-  top: 0;
-  bottom: 0;
-  width: 6px;
-  background: #0F382E;
+  display: none;
 }
 
 /* Institutional Accreditation Ribbon (Photo 3) */
@@ -3323,13 +3317,664 @@ h1, h2, h3, h4, h5, h6, .font-heading {
 /* 7. Стандарты и гарантии (Фото 2 + 3): плотная Bento-сетка */
 .escrow-banner-card {
   padding: 24px;
-  border: 1px solid #E8ECEF;
+  background: #FFFFFF;
+  border: 1px solid rgba(17, 22, 27, 0.08);
+  border-radius: var(--radius-xl);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
 }
 
 .escrow-feature-item {
-  background: #F8F9FA;
-  border: 1px solid #E8ECEF;
+  background: #FAFBFB;
+  border: 1px solid rgba(17, 22, 27, 0.07);
   border-radius: var(--radius-lg);
+}
+
+/* ===================================================
+   8. ENGINEERING STANDARDS MATRIX (#about)
+   =================================================== */
+.about-engineering-showcase {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  background: #FAFBFB;
+  border: 1px solid rgba(17, 22, 27, 0.08);
+  border-radius: var(--radius-xl);
+  padding: 24px;
+}
+
+@media (max-width: 640px) {
+  .about-engineering-showcase {
+    grid-template-columns: 1fr;
+    padding: 16px;
+  }
+}
+
+.eng-stat-item {
+  background: #FFFFFF;
+  border: 1px solid rgba(17, 22, 27, 0.06);
+  border-radius: var(--radius-md);
+  padding: 16px;
+  transition: transform var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.eng-stat-item:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-sm);
+  border-color: rgba(24, 59, 43, 0.2);
+}
+
+.eng-stat-num {
+  font-family: var(--font-heading);
+  font-size: 26px;
+  font-weight: 800;
+  color: var(--primary);
+  line-height: 1.1;
+  margin-bottom: 4px;
+}
+
+.eng-unit {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--muted-foreground);
+}
+
+.eng-stat-title {
+  font-size: 13.5px;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 6px;
+}
+
+.eng-stat-desc {
+  font-size: 12px;
+  color: var(--muted-foreground);
+  line-height: 1.45;
+  margin: 0;
+}
+
+/* ===================================================
+   9. QUICK CONTACT FLOATING WIDGET (Noble Pine #183B2B)
+   =================================================== */
+.quick-contact-widget {
+  position: fixed;
+  bottom: 28px;
+  right: 28px;
+  z-index: 99;
+}
+
+@media (max-width: 768px) {
+  .quick-contact-widget {
+    bottom: 84px; /* Above mobile sticky dock */
+    right: 16px;
+  }
+}
+
+.widget-trigger-btn {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background-color: #183B2B;
+  color: #FFFFFF;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 8px 24px rgba(24, 59, 43, 0.35);
+  transition: transform 0.25s ease, background-color 0.25s ease, box-shadow 0.25s ease;
+}
+
+.widget-trigger-btn:hover {
+  background-color: #0F281E;
+  transform: scale(1.06);
+  box-shadow: 0 12px 28px rgba(24, 59, 43, 0.45);
+}
+
+.widget-trigger-btn:active {
+  transform: scale(0.96);
+}
+
+.quick-contact-modal-card {
+  max-width: 440px;
+  padding: 24px;
+  border-radius: var(--radius-xl);
+}
+
+.widget-tabs-nav {
+  display: flex;
+  background: var(--background-alt);
+  padding: 4px;
+  border-radius: var(--radius-md);
+  margin-bottom: 20px;
+  gap: 4px;
+}
+
+.widget-tab-btn {
+  flex: 1;
+  padding: 10px 14px;
+  border: none;
+  background: transparent;
+  font-size: 13.5px;
+  font-weight: 600;
+  color: var(--muted-foreground);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  text-align: center;
+}
+
+.widget-tab-btn.active {
+  background: #FFFFFF;
+  color: var(--primary);
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
+}
+
+.widget-pane-title {
+  font-size: 16px;
+  font-weight: 700;
+  margin: 0 0 6px;
+  color: var(--text-primary);
+}
+
+.widget-pane-desc {
+  font-size: 13px;
+  color: var(--muted-foreground);
+  margin: 0 0 18px;
+  line-height: 1.45;
+}
+
+.time-select-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+}
+
+.widget-messengers-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.messenger-channel-btn {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 18px;
+  border-radius: var(--radius-md);
+  font-size: 14px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: transform var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.btn-wa-channel {
+  background: #183B2B;
+  color: #FFFFFF;
+}
+
+.btn-wa-channel:hover {
+  background: #0F281E;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(24, 59, 43, 0.25);
+}
+
+.btn-tg-channel {
+  background: #2A4365;
+  color: #FFFFFF;
+}
+
+.btn-tg-channel:hover {
+  background: #1E314B;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(42, 67, 101, 0.25);
+}
+
+/* ===================================================
+   10. MULTI-PAGE PORTAL (Mortgage & Apartments Pages)
+   =================================================== */
+.page-header-section {
+  padding: 32px 0 20px;
+  background: #FFFFFF;
+  border-bottom: 1px solid var(--border);
+}
+
+.breadcrumbs {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12.5px;
+  margin-bottom: 12px;
+}
+
+.breadcrumb-item {
+  color: var(--muted-foreground);
+  text-decoration: none;
+}
+
+.breadcrumb-item:hover {
+  color: var(--primary);
+}
+
+.breadcrumb-item.active {
+  color: var(--text-primary);
+  font-weight: 600;
+}
+
+.breadcrumb-sep {
+  color: var(--muted-foreground);
+  opacity: 0.5;
+}
+
+.page-title-wrap {
+  max-width: 860px;
+}
+
+.section-tag-badge {
+  display: inline-block;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--primary);
+  background: rgba(24, 59, 43, 0.08);
+  padding: 4px 12px;
+  border-radius: var(--radius-full);
+  margin-bottom: 10px;
+}
+
+.page-title {
+  font-family: var(--font-heading);
+  font-size: 32px;
+  font-weight: 800;
+  color: var(--text-primary);
+  line-height: 1.2;
+  margin-bottom: 12px;
+}
+
+@media (max-width: 768px) {
+  .page-title {
+    font-size: 24px;
+  }
+}
+
+.page-lead {
+  font-size: 15px;
+  color: var(--text-secondary);
+  line-height: 1.55;
+  margin: 0;
+}
+
+.mortgage-calc-hub-section {
+  padding: 32px 0 48px;
+  background: var(--background-alt);
+}
+
+.bank-preset-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.bank-pill-btn {
+  padding: 6px 14px;
+  border-radius: var(--radius-full);
+  border: 1px solid var(--border);
+  background: #FFFFFF;
+  font-size: 12.5px;
+  font-weight: 600;
+  color: var(--text-primary);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.bank-pill-btn:hover {
+  border-color: var(--primary);
+}
+
+.bank-pill-btn.active {
+  background: var(--primary);
+  color: #FFFFFF;
+  border-color: var(--primary);
+}
+
+.calc-sliders-col {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.calc-sliders-title {
+  font-size: 18px;
+  font-weight: 700;
+  margin: 0 0 8px;
+}
+
+.slider-header-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 6px;
+}
+
+.slider-label {
+  font-size: 13.5px;
+  font-weight: 600;
+}
+
+.slider-value-display {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--primary);
+}
+
+.range-slider {
+  width: 100%;
+  height: 6px;
+  border-radius: var(--radius-full);
+  accent-color: var(--primary);
+  cursor: pointer;
+}
+
+.slider-minmax-row {
+  display: flex;
+  justify-content: space-between;
+  font-size: 11px;
+  color: var(--muted-foreground);
+  margin-top: 4px;
+}
+
+.calc-legal-notice {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  font-size: 11.5px;
+  color: var(--muted-foreground);
+  background: rgba(17, 22, 27, 0.03);
+  padding: 10px 14px;
+  border-radius: var(--radius-md);
+  margin-top: 8px;
+}
+
+.calc-result-col {
+  background: #FFFFFF;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.calc-result-header {
+  border-bottom: 1px solid var(--border);
+  padding-bottom: 16px;
+}
+
+.calc-badge {
+  display: inline-block;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  background: rgba(197, 162, 101, 0.15);
+  color: #8C6D2D;
+  padding: 3px 8px;
+  border-radius: var(--radius-sm);
+  margin-bottom: 8px;
+}
+
+.calc-main-amount {
+  font-family: var(--font-heading);
+  font-size: 32px;
+  font-weight: 800;
+  color: var(--primary);
+  line-height: 1.1;
+  margin-bottom: 4px;
+}
+
+.calc-main-label {
+  font-size: 13px;
+  color: var(--muted-foreground);
+}
+
+.calc-breakdown-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.calc-breakdown-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 13.5px;
+}
+
+.calc-breakdown-item.tax-highlight {
+  background: rgba(24, 59, 43, 0.06);
+  padding: 8px 12px;
+  border-radius: var(--radius-md);
+  font-weight: 700;
+  color: var(--primary);
+}
+
+.breakdown-label {
+  color: var(--muted-foreground);
+}
+
+.breakdown-val {
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.text-accent {
+  color: #A07D38;
+}
+
+.calc-cta-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: auto;
+}
+
+/* Banks grid */
+.banks-partner-section {
+  padding: 48px 0;
+  background: #FFFFFF;
+}
+
+.banks-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+}
+
+@media (max-width: 1024px) {
+  .banks-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 640px) {
+  .banks-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.bank-card {
+  background: #FAFBFB;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.bank-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.bank-name {
+  font-size: 16px;
+  font-weight: 700;
+  margin: 0;
+}
+
+.bank-rate-tag {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--primary);
+  background: rgba(24, 59, 43, 0.08);
+  padding: 3px 8px;
+  border-radius: var(--radius-sm);
+}
+
+.bank-desc {
+  font-size: 13px;
+  color: var(--muted-foreground);
+  line-height: 1.45;
+  margin: 0;
+}
+
+.bank-perks {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  font-size: 12.5px;
+  color: var(--text-secondary);
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.bank-perks li::before {
+  content: "• ";
+  color: var(--primary);
+  font-weight: bold;
+}
+
+/* Steps grid */
+.tax-steps-section {
+  padding: 48px 0;
+  background: var(--background-alt);
+}
+
+.tax-steps-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+}
+
+@media (max-width: 1024px) {
+  .tax-steps-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 640px) {
+  .tax-steps-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.step-card {
+  background: #FFFFFF;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 24px 20px;
+}
+
+.step-num {
+  font-family: var(--font-heading);
+  font-size: 32px;
+  font-weight: 800;
+  color: var(--primary);
+  opacity: 0.3;
+  margin-bottom: 8px;
+  line-height: 1;
+}
+
+.step-title {
+  font-size: 15px;
+  font-weight: 700;
+  margin: 0 0 8px;
+  color: var(--text-primary);
+}
+
+.step-desc {
+  font-size: 13px;
+  color: var(--muted-foreground);
+  line-height: 1.5;
+  margin: 0;
+}
+
+/* FAQ section */
+.faq-section {
+  padding: 48px 0;
+  background: #FFFFFF;
+}
+
+.faq-accordion-wrap {
+  max-width: 860px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.faq-item {
+  background: #FAFBFB;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: 16px 20px;
+}
+
+.faq-question {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--text-primary);
+  cursor: pointer;
+  list-style: none;
+}
+
+.faq-question::-webkit-details-marker {
+  display: none;
+}
+
+.faq-chevron {
+  transition: transform var(--transition-fast);
+  color: var(--muted-foreground);
+}
+
+.faq-item[open] .faq-chevron {
+  transform: rotate(180deg);
+}
+
+.faq-answer {
+  padding-top: 12px;
+  font-size: 13.5px;
+  color: var(--muted-foreground);
+  line-height: 1.55;
+}
+
+.faq-answer p {
+  margin: 0;
+}
+
+.nav-highlight-link {
+  font-weight: 700 !important;
+  color: var(--primary) !important;
+}
+
+.nav-highlight-link:hover {
+  text-decoration: underline;
 }
 
 
