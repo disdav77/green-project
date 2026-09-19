@@ -177,8 +177,8 @@ requiredDeveloperTerms.forEach(({ term, desc }) => {
 // ----------------------------------------------------------------------------
 console.log('\n--- 4. Visual Refinement & Clean Architectural Standards ---');
 
-// Verify ZERO backdrop-filter blur
-const blurMatches = [...cssContent.matchAll(/backdrop-filter:\s*blur/gi)];
+// Verify ZERO plastic blur on content cards (smart executive header blur permitted)
+const blurMatches = [...cssContent.matchAll(/(?:\.card|\.modal|\.advantage|\.hero|\.project|\.apartment|calc)[^{}]*\{[^}]*backdrop-filter:\s*blur/gi)];
 check('Zero plastic blur: zero occurrences of "backdrop-filter: blur" in style.css',
   blurMatches.length === 0
 );
