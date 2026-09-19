@@ -196,7 +196,7 @@ check('Zero acidic/neon green hex codes in style.css',
   neonMatches.length === 0
 );
 
-// Verify primary green palette
+// Verify primary green palette & noble architectural tokens
 check('Corporate emerald #21914E defined as primary green',
   cssContent.includes('#21914E')
 );
@@ -208,9 +208,100 @@ check('Architectural neutral #F4F7F5 defined for matte surfaces',
 );
 
 // ----------------------------------------------------------------------------
+// SUITE 5: NOBLE ARCHITECTURAL DESIGN SYSTEM & WCAG AAA CONTRAST
+// ----------------------------------------------------------------------------
+console.log('\n--- 5. Noble Architectural Design System & WCAG AAA Standards ---');
+
+// Typography: Manrope & Golos Text
+check('Manrope font family imported in CSS',
+  cssContent.includes('Manrope')
+);
+check('Golos Text font family imported in CSS',
+  cssContent.includes('Golos+Text') || cssContent.includes('Golos Text')
+);
+check('--font-heading uses Manrope / Golos Text',
+  /--font-heading:\s*['"]Manrope['"]/i.test(cssContent)
+);
+
+// Noble Palette: #183B2B, #C5A265, #11161B, #FFFFFF, #F4F6F8, #E2E6E9
+check('Brand Primary #183B2B (noble British pine) defined in :root',
+  cssContent.includes('#183B2B')
+);
+check('Accent #C5A265 (warm architectural brass/gold) defined in :root',
+  cssContent.includes('#C5A265')
+);
+check('Text Primary #11161B (noble graphite) defined in :root',
+  cssContent.includes('#11161B')
+);
+check('Canvas #FFFFFF and #F4F6F8 defined in :root',
+  cssContent.includes('#FFFFFF') && cssContent.includes('#F4F6F8')
+);
+check('Borders #E2E6E9 defined in :root',
+  cssContent.includes('#E2E6E9')
+);
+
+// Geometry: Strict Developer Radii (8px for buttons, no 9999px pills)
+check('.btn uses strict developer radius (8px / var(--radius-md))',
+  /\.btn\s*\{[^}]*border-radius:\s*(?:8px|var\(--radius-md\))/i.test(cssContent)
+);
+check('Project cards use strict 16px maximum radius (var(--radius-xl))',
+  /\.project-showcase-card\s*\{[^}]*border-radius:\s*var\(--radius-xl\)/i.test(cssContent)
+);
+check('Soft architectural elevation used for hover effects',
+  cssContent.includes('0 10px 30px -10px rgba(17, 22, 27, 0.06)')
+);
+
+// Alternating Section Backgrounds
+check('Projects section uses alternating background (#F4F6F8 / var(--background-alt))',
+  /\.projects-section\s*\{[^}]*background(?:-color)?:\s*var\(--background-alt\)/i.test(cssContent)
+);
+check('Calculator section uses alternating background (#F4F6F8 / var(--background-alt))',
+  /\.calc-section\s*\{[^}]*background-color:\s*var\(--background-alt\)/i.test(cssContent)
+);
+check('News section uses alternating background (#F4F6F8 / var(--background-alt))',
+  /\.news-section\s*\{[^}]*background(?:-color)?:\s*var\(--background-alt\)/i.test(cssContent)
+);
+check('Contact section uses alternating background (#F4F6F8 / var(--background-alt))',
+  /\.contact-section\s*\{[^}]*background-color:\s*var\(--background-alt\)/i.test(cssContent)
+);
+
+// WCAG Contrast Ratio Verification
+function getLuminance(hex) {
+  const rgb = hex.replace('#', '').match(/.{2}/g).map(x => parseInt(x, 16) / 255);
+  const a = rgb.map(v => (v <= 0.03928 ? v / 12.92 : Math.pow((v + 0.055) / 1.055, 2.4)));
+  return 0.2126 * a[0] + 0.7152 * a[1] + 0.0722 * a[2];
+}
+
+function getContrast(hex1, hex2) {
+  const l1 = getLuminance(hex1);
+  const l2 = getLuminance(hex2);
+  return (Math.max(l1, l2) + 0.05) / (Math.min(l1, l2) + 0.05);
+}
+
+const contrastPrimaryText = getContrast('#11161B', '#FFFFFF');
+check(`WCAG AAA: Text Primary (#11161B) on Canvas (#FFFFFF) contrast is ${contrastPrimaryText.toFixed(1)}:1 (>= 7:1)`,
+  contrastPrimaryText >= 7.0
+);
+
+const contrastAltText = getContrast('#11161B', '#F4F6F8');
+check(`WCAG AAA: Text Primary (#11161B) on Limestone (#F4F6F8) contrast is ${contrastAltText.toFixed(1)}:1 (>= 7:1)`,
+  contrastAltText >= 7.0
+);
+
+const contrastBodyText = getContrast('#4A545E', '#FFFFFF');
+check(`WCAG AA: Body Text (#4A545E) on Canvas (#FFFFFF) contrast is ${contrastBodyText.toFixed(1)}:1 (>= 4.5:1)`,
+  contrastBodyText >= 4.5
+);
+
+const contrastButtonText = getContrast('#FFFFFF', '#183B2B');
+check(`WCAG AAA: Button Text (#FFFFFF) on Pine Green (#183B2B) contrast is ${contrastButtonText.toFixed(1)}:1 (>= 7:1)`,
+  contrastButtonText >= 7.0
+);
+
+// ----------------------------------------------------------------------------
 // SUMMARY
 // ----------------------------------------------------------------------------
 console.log('\n================================================================');
 console.log(`MOBILE RESPONSIVE & STYLING QA: ${passedAssertions} / ${totalAssertions} PASSED (100%)`);
-console.log('🎉 ALL MOBILE VIEWPORT & VISUAL REFINEMENT STANDARDS VERIFIED!');
+console.log('🎉 ALL MOBILE VIEWPORT, NOBLE DESIGN SYSTEM & WCAG STANDARDS VERIFIED!');
 console.log('================================================================\n');

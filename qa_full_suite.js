@@ -564,11 +564,12 @@ assert(/id=["']mobileStickyDock["']/i.test(html), 'Mobile sticky dock (#mobileSt
 assert(/\.mobile-sticky-dock\s*\{[^}]*position:\s*fixed/i.test(css), 'Mobile sticky dock is fixed to bottom viewport in CSS');
 assert(/html\s*\{[^}]*overflow-x:\s*hidden/i.test(css) && /body\s*\{[^}]*overflow-x:\s*hidden/i.test(css), 'Horizontal scroll strictly prevented with overflow-x: hidden on both html and body');
 
-// 8. Color Tokens verification: #0F382E, #21914E, #DCF7E1, #F9FDFA
-assert(/--forest(?:-dark)?:\s*#0F382E/i.test(css), 'Color token #0F382E (deep forest green) defined in :root');
-assert(/--primary:\s*#21914e/i.test(css) || /--emerald:\s*#21914E/i.test(css), 'Color token #21914E (emerald) defined in :root');
-assert(/--secondary:\s*#dcf7e1/i.test(css) || /--mint:\s*#DCF7E1/i.test(css), 'Color token #DCF7E1 (mint accent) defined in :root');
-assert(/--background:\s*#f9fdfa/i.test(css), 'Color token #F9FDFA (background) defined in :root');
+// 8. Color Tokens verification: #FFFFFF canvas, #183B2B, #C5A265, and backward compatibility
+assert(/--forest(?:-dark)?:\s*#(?:0F382E|183B2B)/i.test(css), 'Color token deep forest green defined in :root');
+assert(/--primary:\s*#(?:183b2b|21914e)/i.test(css) || /--emerald:\s*#21914E/i.test(css), 'Color token primary brand green defined in :root');
+assert(/--secondary:\s*#(?:f4f6f8|dcf7e1)/i.test(css) || /--mint:\s*#DCF7E1/i.test(css), 'Color token secondary surface defined in :root');
+assert(/--background:\s*#(?:ffffff|f9fdfa)/i.test(css), 'Color token #FFFFFF canvas defined in :root');
+assert(/--accent:\s*#(?:c5a265|c5a880)/i.test(css), 'Color token brass/gold accent defined in :root');
 
 // -------------------------------------------------------------
 // FINAL SUMMARY

@@ -1,68 +1,83 @@
 /* ===================================================
-   GREEN PROJECT ARMENIA - DESIGN SYSTEM
-   Exact light, fresh, modern style of nedvijka-gamma.vercel.app
-   Clean white (#f9fdfa), crisp green (#21914e), mint (#dcf7e1)
+   GREEN PROJECT ARMENIA - NOBLE ARCHITECTURAL DESIGN SYSTEM
+   Benchmark: Setl Group (setlgroup.ru) - Solid Architectural Minimalism
+   Pure White (#FFFFFF), Limestone (#F4F6F8), Noble Graphite (#11161B),
+   British Pine (#183B2B), Brass Accent (#C5A265), Hairline Borders (#E2E6E9)
    =================================================== */
 
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@500;600;700;800&family=Noto+Sans+Armenian:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&family=Noto+Sans+Armenian:wght@400;500;600;700&display=swap');
 
 :root {
   color-scheme: light;
-  --background: #f9fdfa;
-  --foreground: #1A1D20;
   
-  --card: #ffffff;
-  --card-foreground: #1A1D20;
+  /* Canvas & Alternating Sections (Pure White & Limestone) */
+  --canvas: #FFFFFF;
+  --canvas-alt: #F4F6F8;
+  --background: #FFFFFF;
+  --background-alt: #F4F6F8;
   
-  --popover: #ffffff;
-  --popover-foreground: #1A1D20;
+  --card: #FFFFFF;
+  --card-foreground: #11161B;
   
-  /* Primary Green & Corporate Palette (Setl Group architectural standard) */
-  --primary: #21914E;
-  --primary-hover: #176B38;
-  --primary-foreground: #f7fef8;
+  --popover: #FFFFFF;
+  --popover-foreground: #11161B;
   
+  /* Text System: Noble Graphite & Steel Slate */
+  --foreground: #11161B;
+  --text-primary: #11161B;
+  --text-secondary: #616D78;
+  --text-body: #4A545E;
+  --text-muted: #616D78;
+  
+  /* Brand Primary: Deep British Racing / Pine Green (Setl Group architectural standard) */
+  --primary: #183B2B;
+  --primary-hover: #122D21;
+  --primary-foreground: #FFFFFF;
+  --brand-primary: #183B2B;
+  --brand-pine: #1E4334;
+  
+  /* Accent: Warm Architectural Brass / Sand Gold */
+  --accent: #C5A265;
+  --accent-hover: #B59154;
+  --accent-foreground: #FFFFFF;
+  
+  /* Architectural Hairline Borders & Inputs */
+  --border: #E2E6E9;
+  --border-subtle: rgba(17, 22, 27, 0.08);
+  --input: #E2E6E9;
+  --ring: #183B2B;
+  
+  /* Secondary / Muted surfaces */
+  --secondary: #F4F6F8;
+  --secondary-foreground: #11161B;
+  --muted: #F4F6F8;
+  --muted-foreground: #616D78;
+  
+  /* Legacy & Architectural Token Aliases (Maintained for Backward Compatibility) */
   --forest: #0F382E;
   --forest-dark: #0F382E;
   --emerald: #21914E;
   --mint: #DCF7E1;
   
-  /* Mint green secondary */
-  --secondary: #DCF7E1;
-  --secondary-foreground: #0F382E;
-  
-  /* Muted backgrounds & text */
-  --muted: #F8F9FA;
-  --muted-foreground: #6C757D;
-  
-  /* Gold / Amber accent */
-  --accent: #C5A880;
-  --accent-foreground: #412805;
-  
-  /* Borders & Inputs */
-  --border: #E5E7EB;
-  --border-subtle: rgba(229, 231, 235, 0.8);
-  --input: #E5E7EB;
-  --ring: #21914E;
-  
-  /* Radii */
-  --radius-sm: 8px;
-  --radius-md: 12px;
-  --radius-lg: 16px;
-  --radius-xl: 24px;
-  --radius-2xl: 32px;
-  --radius-full: 9999px;
+  /* Radii: Strict Developer Standard (8px for inputs/buttons, 12-16px for cards) */
+  --radius-xs: 4px;
+  --radius-sm: 6px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --radius-xl: 16px;
+  --radius-2xl: 16px;
+  --radius-full: 8px; /* Strict 8px developer radius (no bubbly pill buttons) */
 
-  /* Typography */
-  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-  --font-heading: 'Poppins', 'Inter', sans-serif;
-  --font-armenian: 'Noto Sans Armenian', 'Inter', sans-serif;
+  /* Modern Architectural Grotesque Typography */
+  --font-sans: 'Manrope', 'Golos Text', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-heading: 'Manrope', 'Golos Text', sans-serif;
+  --font-armenian: 'Noto Sans Armenian', 'Manrope', sans-serif;
 
-  /* Shadows matching luxury architectural portals */
-  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.04);
-  --shadow-md: 0 4px 16px -2px rgba(26, 29, 32, 0.06), 0 2px 6px -1px rgba(26, 29, 32, 0.03);
-  --shadow-lg: 0 12px 28px -3px rgba(15, 56, 46, 0.08), 0 4px 12px -4px rgba(15, 56, 46, 0.04);
-  --shadow-xl: 0 20px 32px -5px rgba(15, 56, 46, 0.10);
+  /* Architectural Soft Elevations (Zero dirty black shadows) */
+  --shadow-sm: 0 1px 3px 0 rgba(17, 22, 27, 0.04);
+  --shadow-md: 0 4px 16px -2px rgba(17, 22, 27, 0.05), 0 2px 6px -1px rgba(17, 22, 27, 0.02);
+  --shadow-lg: 0 10px 30px -10px rgba(17, 22, 27, 0.06);
+  --shadow-xl: 0 20px 35px -10px rgba(17, 22, 27, 0.08);
   
   --transition-fast: 0.15s cubic-bezier(0.2, 0, 0, 1);
   --transition-normal: 0.25s cubic-bezier(0.2, 0, 0, 1);
@@ -96,7 +111,9 @@ body {
   display: flex;
   flex-direction: column;
   background-color: var(--background);
-  color: var(--foreground);
+  color: var(--text-body);
+  font-size: 16px;
+  line-height: 1.6;
   overflow-x: hidden;
   width: 100%;
 }
@@ -126,72 +143,85 @@ button, input, select, textarea {
   padding-inline: clamp(16px, 3.5vw, 48px);
 }
 
-/* Typography Helpers */
-.font-heading {
+/* Typography & Headings */
+h1, h2, h3, h4, h5, h6, .font-heading {
   font-family: var(--font-heading);
+  color: var(--text-primary);
+  letter-spacing: -0.025em;
+  font-weight: 600;
+  line-height: 1.2;
 }
 
-/* Buttons */
+/* Buttons (Strict Developer Geometry: 8px, 14px 28px padding) */
 .btn {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 8px;
-  border-radius: var(--radius-full);
-  font-weight: 500;
+  gap: 10px;
+  border-radius: var(--radius-md);
+  font-weight: 600;
   font-size: 14px;
-  padding: 9px 20px;
+  padding: 14px 28px;
   cursor: pointer;
   border: 1px solid transparent;
-  transition: all var(--transition-fast);
+  transition: all 0.25s cubic-bezier(0.2, 0, 0, 1);
   white-space: nowrap;
+  letter-spacing: 0.01em;
 }
 
 .btn-sm {
-  padding: 6px 14px;
+  padding: 8px 18px;
   font-size: 13px;
-  height: 32px;
+  height: 36px;
+  border-radius: var(--radius-sm);
 }
 
 .btn-lg {
-  padding: 12px 26px;
+  padding: 16px 32px;
   font-size: 15px;
-  height: 44px;
+  height: 48px;
+  border-radius: var(--radius-md);
 }
 
 .btn-primary {
   background-color: var(--primary);
   color: var(--primary-foreground);
-  box-shadow: 0 2px 8px rgba(33, 145, 78, 0.25);
+  border: 1px solid var(--primary);
+  box-shadow: 0 4px 14px rgba(24, 59, 43, 0.22);
 }
 
 .btn-primary:hover {
   background-color: var(--primary-hover);
+  border-color: var(--primary-hover);
   transform: translateY(-1px);
-  box-shadow: 0 4px 12px rgba(33, 145, 78, 0.35);
+  box-shadow: 0 8px 22px rgba(24, 59, 43, 0.32);
 }
 
 .btn-outline {
-  background-color: var(--background);
+  background-color: transparent;
   border: 1px solid var(--border);
-  color: var(--foreground);
+  color: var(--text-primary);
 }
 
 .btn-outline:hover {
-  background-color: var(--muted);
-  border-color: var(--primary);
-  color: var(--foreground);
+  background-color: var(--background-alt);
+  border-color: var(--text-secondary);
+  color: var(--text-primary);
   transform: translateY(-1px);
 }
 
 .btn-secondary {
-  background-color: var(--secondary);
-  color: var(--secondary-foreground);
+  background-color: transparent;
+  border: 1px solid var(--border);
+  color: var(--text-primary);
   font-weight: 600;
 }
 
 .btn-secondary:hover {
-  background-color: #cbf2d3;
+  background-color: var(--background-alt);
+  border-color: var(--text-secondary);
+  color: var(--text-primary);
+  transform: translateY(-1px);
 }
 
 .w-full {
@@ -671,9 +701,9 @@ button, input, select, textarea {
    =================================================== */
 .projects-section {
   padding-block: clamp(80px, 7vw, 120px);
-  background: #FFFFFF;
-  border-top: 1px solid var(--border-subtle);
-  border-bottom: 1px solid var(--border-subtle);
+  background: var(--background-alt);
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
 }
 
 .section-title-wrap {
@@ -682,10 +712,10 @@ button, input, select, textarea {
 
 .section-top-label {
   display: inline-block;
-  font-size: 12.5px;
-  font-weight: 700;
+  font-size: 12px;
+  font-weight: 600;
   text-transform: uppercase;
-  letter-spacing: 0.1em;
+  letter-spacing: 0.06em;
   color: var(--primary);
   margin-bottom: 8px;
 }
@@ -704,13 +734,13 @@ button, input, select, textarea {
   display: flex;
   flex-direction: column;
   box-shadow: var(--shadow-sm);
-  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s ease, border-color 0.3s ease;
+  transition: transform 0.25s cubic-bezier(0.2, 0, 0, 1), box-shadow 0.25s ease, border-color 0.25s ease;
 }
 
 .project-showcase-card:hover {
-  transform: translateY(-8px);
-  box-shadow: 0 20px 35px -10px rgba(15, 56, 46, 0.12);
-  border-color: rgba(33, 145, 78, 0.4);
+  transform: translateY(-4px);
+  box-shadow: 0 10px 30px -10px rgba(17, 22, 27, 0.06);
+  border-color: var(--border);
 }
 
 /* Статусная карточка объекта 16:9 с кинематографичным оверлеем */
@@ -727,11 +757,11 @@ button, input, select, textarea {
   height: 100%;
   object-fit: cover;
   display: block;
-  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: transform 0.4s cubic-bezier(0.2, 0, 0, 1);
 }
 
 .project-showcase-card:hover .project-media-wrap img {
-  transform: scale(1.06);
+  transform: scale(1.03);
 }
 
 .project-media-overlay {
@@ -1007,31 +1037,32 @@ button, input, select, textarea {
 }
 
 .filter-button {
-  border-radius: var(--radius-full);
+  border-radius: var(--radius-md);
   border: 1px solid var(--border);
   background-color: var(--card);
-  color: var(--foreground);
-  padding: 8px 16px;
-  font-size: 13.5px;
+  color: var(--text-primary);
+  padding: 8px 18px;
+  font-size: 13px;
   font-weight: 600;
   cursor: pointer;
   transition: all var(--transition-fast);
 }
 
 .filter-button:hover {
-  border-color: rgba(33, 145, 78, 0.4);
+  border-color: var(--text-secondary);
+  background-color: var(--background-alt);
 }
 
 .filter-button.active {
   background-color: var(--primary);
   border-color: var(--primary);
-  color: var(--primary-foreground);
+  color: #FFFFFF;
 }
 
 .filter-button.project-active {
-  background-color: var(--secondary);
+  background-color: var(--primary);
   border-color: var(--primary);
-  color: var(--secondary-foreground);
+  color: #FFFFFF;
 }
 
 /* 3-Column Apartment Cards Grid */
@@ -1046,45 +1077,47 @@ button, input, select, textarea {
   flex-direction: column;
   overflow: hidden;
   border-radius: var(--radius-lg);
-  border: 1px solid var(--border-subtle);
+  border: 1px solid var(--border);
   background-color: var(--card);
-  transition: all 0.3s ease;
+  transition: transform 0.25s cubic-bezier(0.2, 0, 0, 1), box-shadow 0.25s ease, border-color 0.25s ease;
   box-shadow: var(--shadow-sm);
   cursor: pointer;
 }
 
 .apartment-card:hover {
-  transform: translateY(-4px);
-  border-color: rgba(33, 145, 78, 0.4);
-  box-shadow: var(--shadow-xl);
+  transform: translateY(-3px);
+  border-color: var(--border);
+  box-shadow: 0 10px 30px -10px rgba(17, 22, 27, 0.06);
 }
 
 .apartment-media {
   position: relative;
   aspect-ratio: 4 / 3;
   overflow: hidden;
-  background-color: var(--muted);
+  background-color: var(--background-alt);
 }
 
 .apartment-media img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  transition: transform 0.5s ease;
+  transition: transform 0.4s cubic-bezier(0.2, 0, 0, 1);
 }
 
 .apartment-card:hover .apartment-media img {
-  transform: scale(1.05);
+  transform: scale(1.03);
 }
 
 .apartment-badge {
   position: absolute;
   top: 12px;
   left: 12px;
-  border-radius: var(--radius-full);
-  padding: 4px 12px;
-  font-size: 12px;
+  border-radius: var(--radius-sm);
+  padding: 4px 10px;
+  font-size: 11px;
   font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
 }
 
 .badge-new {
@@ -1290,7 +1323,9 @@ button, input, select, textarea {
    =================================================== */
 .calc-section {
   padding-block: clamp(80px, 7vw, 120px);
-  background-color: var(--muted);
+  background-color: var(--background-alt);
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
 }
 
 .calc-card-container {
@@ -1301,7 +1336,7 @@ button, input, select, textarea {
   border: 1px solid var(--border);
   border-radius: var(--radius-xl);
   padding: 32px;
-  box-shadow: var(--shadow-md);
+  box-shadow: var(--shadow-sm);
   margin-top: 28px;
   align-items: stretch;
 }
@@ -1321,9 +1356,11 @@ button, input, select, textarea {
 }
 
 .bank-presets-label {
-  font-size: 13px;
+  font-size: 12px;
   font-weight: 600;
-  color: var(--muted-foreground);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--text-secondary);
 }
 
 .bank-presets-pills {
@@ -1334,26 +1371,31 @@ button, input, select, textarea {
 }
 
 .bank-btn {
-  border-radius: var(--radius-full);
+  border-radius: var(--radius-sm);
   border: 1px solid var(--border);
-  background-color: var(--background);
-  padding: 5px 12px;
-  font-size: 12.5px;
+  background-color: var(--card);
+  padding: 6px 14px;
+  font-size: 12px;
   font-weight: 600;
-  color: var(--foreground);
+  color: var(--text-primary);
   cursor: pointer;
-  transition: background-color var(--transition-fast), border-color var(--transition-fast), color var(--transition-fast);
+  transition: all var(--transition-fast);
+}
+
+.bank-btn:hover {
+  background-color: var(--background-alt);
+  border-color: var(--text-secondary);
 }
 
 .bank-btn.active {
   background-color: var(--primary);
   border-color: var(--primary);
-  color: var(--primary-foreground);
+  color: #FFFFFF;
 }
 
 .calc-group {
   margin-bottom: 0;
-  background: var(--background);
+  background: var(--card);
   border: 1px solid var(--border);
   border-radius: var(--radius-md);
   padding: 12px 16px;
@@ -1596,8 +1638,9 @@ button, input, select, textarea {
    =================================================== */
 .news-section {
   padding-block: clamp(80px, 7vw, 120px);
-  background: var(--background);
-  border-top: 1px solid var(--border-subtle);
+  background: var(--background-alt);
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
 }
 
 .news-grid {
@@ -1614,13 +1657,13 @@ button, input, select, textarea {
   display: flex;
   flex-direction: column;
   box-shadow: var(--shadow-sm);
-  transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+  transition: transform 0.25s cubic-bezier(0.2, 0, 0, 1), box-shadow 0.25s ease, border-color 0.25s ease;
 }
 
 .news-card:hover {
-  transform: translateY(-6px);
-  box-shadow: var(--shadow-md);
-  border-color: rgba(33, 145, 78, 0.35);
+  transform: translateY(-4px);
+  box-shadow: 0 10px 30px -10px rgba(17, 22, 27, 0.06);
+  border-color: var(--border);
 }
 
 .news-img-wrap {
@@ -1634,11 +1677,11 @@ button, input, select, textarea {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  transition: transform 0.5s ease;
+  transition: transform 0.4s cubic-bezier(0.2, 0, 0, 1);
 }
 
 .news-card:hover .news-img-wrap img {
-  transform: scale(1.05);
+  transform: scale(1.03);
 }
 
 .news-progress-bar-wrap {
@@ -1707,7 +1750,7 @@ button, input, select, textarea {
    9. CONTACT SECTION (Exact nedvijka-gamma)
    =================================================== */
 .contact-section {
-  background-color: #F8F9FA;
+  background-color: var(--background-alt);
   border-top: 1px solid var(--border);
   padding-block: clamp(80px, 7vw, 120px);
 }
@@ -1748,8 +1791,8 @@ button, input, select, textarea {
 }
 
 .contact-form-box {
-  border-radius: var(--radius-2xl);
-  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-xl);
+  border: 1px solid var(--border);
   background-color: var(--card);
   padding: 32px;
   box-shadow: var(--shadow-sm);
@@ -1761,8 +1804,9 @@ button, input, select, textarea {
 
 .form-field-group label {
   display: block;
-  font-size: 14px;
+  font-size: 13.5px;
   font-weight: 600;
+  color: var(--text-primary);
   margin-bottom: 6px;
 }
 
@@ -1770,8 +1814,9 @@ button, input, select, textarea {
   width: 100%;
   border-radius: var(--radius-md);
   border: 1px solid var(--border);
-  background-color: var(--background);
-  padding: 10px 16px;
+  background-color: var(--card);
+  color: var(--text-primary);
+  padding: 12px 16px;
   font-size: 14px;
   outline: none;
   transition: all var(--transition-fast);
@@ -1779,7 +1824,7 @@ button, input, select, textarea {
 
 .form-control-input:focus {
   border-color: var(--primary);
-  box-shadow: 0 0 0 3px rgba(33, 145, 78, 0.15);
+  box-shadow: 0 0 0 3px rgba(24, 59, 43, 0.12);
 }
 
 /* ===================================================
@@ -1787,8 +1832,8 @@ button, input, select, textarea {
    =================================================== */
 .site-footer {
   border-top: 1px solid var(--border-subtle);
-  background-color: #0F382E;
-  color: #F9FDFA;
+  background-color: var(--forest);
+  color: #F4F6F8;
   padding: 64px 0 32px;
 }
 
