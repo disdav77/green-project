@@ -98,7 +98,7 @@ const I18N = {
     aboutBadge: "О комплексе",
     aboutTitle: "Инженерное качество и сейсмическая безопасность 9 баллов",
     aboutP1: "Green Project — девелопер полного цикла в Армении. Мы возводим монолитные жилые комплексы с железобетонным каркасом марки B25/B30, расчетной сейсмостойкостью 9 баллов (СНиП РА) и двухкамерными стеклопакетами с аргоновым наполнением.",
-    aboutP2: "В каждом проекте предусмотрены двухуровневый отапливаемый паркинг со скоростными лифтами Otis/Kone, межквартирная шумоизоляция 55 дБ и закрытый двор-парк без машин. Продажи ведутся через защищенные счета эскроу с субсидированной ипотекой от 10%.",
+    aboutP2: "В каждом проекте предусмотрены двухуровневый отапливаемый подземный паркинг со скоростными лифтами Otis/Kone, межквартирная шумоизоляция 55 дБ и ландшафтный дизайн-парк во дворе. Продажи ведутся через защищенные счета эскроу с субсидированной ипотекой от 10%.",
 
     // Calculator
     calcH2: "Калькулятор ипотеки и возврата подоходного налога",
@@ -244,9 +244,9 @@ const I18N = {
     projAvanTime: "10 мин до центра",
     projNorkTime: "15 мин до центра",
     projKasakhTime: "12 мин до центра",
-    projAvanFeatures: "14 этажей • Двор-парк без машин • Подземный паркинг • Школа и садик рядом",
-    projNorkFeatures: "6 этажей • Панорамный вид на Арарат • Чистый горный воздух • Эко-среда",
-    projKasakhFeatures: "2 этажа • Собственная терраса и сад 124 м² • Бессрочный возврат налога",
+    projAvanFeatures: "14 этажей • Ландшафтный дизайн-парк во дворе, зоны воркаута • Отапливаемый подземный паркинг • Школа и садик рядом",
+    projNorkFeatures: "6 этажей • Панорамный вид на Арарат • Монолитно-кирпичная технология, класс энергоэффективности А+",
+    projKasakhFeatures: "2 этажа • Собственная терраса и благоустроенный участок 124 м² • Закрытая охраняемая территория, видеонаблюдение",
     btnSelectApartment: "Выбрать квартиру",
     btnSelectTownhouse: "Выбрать таунхаус",
     fromPriceLabel: "от",
@@ -353,7 +353,7 @@ const I18N = {
     aboutBadge: "Համալիրի մասին",
     aboutTitle: "Ինժեներական որակ և 9 բալ սեյսմիկ անվտանգություն",
     aboutP1: "Green Project-ը լիարժեք ցիկլով կառուցապատող է Հայաստանում: Մենք կառուցում ենք B25/B30 մակնիշի երկաթբետոնե մոնոլիտ կարկասով, 9 բալ սեյսմակայունությամբ (ՀՀ ՇՆ) և արգոնով լցված երկխցիկ ապակեպատմամբ բնակելի համալիրներ:",
-    aboutP2: "Յուրաքանչյուր նախագծում նախատեսված է երկմակարդակ ջեռուցվող պարկինգ Otis/Kone արագընթաց վերելակներով, 55 դԲ միջբնակարանային ձայնամեկուսացում և փակ բակ-պուրակ առանց մեքենաների: Վաճառքը՝ էսքրոու հաշիվներով:",
+    aboutP2: "Յուրաքանչյուր նախագծում նախատեսված է երկմակարդակ ջեռուցվող ստորգետնյա պարկինգ Otis/Kone արագընթաց վերելակներով, 55 դԲ միջբնակարանային ձայնամեկուսացում և բարեկարգ լանդշաֆտային պուրակ: Վաճառքը՝ էսքրոու հաշիվներով:",
 
     calcH2: "Հիփոթեքի և եկամտահարկի վերադարձի հաշվիչ",
     calcSub: "Հաշվարկեք ամսական վճարը և տեսեք, թե որքան գումար է փոխհատուցում պետությունը՝",
@@ -495,9 +495,9 @@ const I18N = {
     projAvanTime: "10 րոպե մինչև կենտրոն",
     projNorkTime: "15 րոպե մինչև կենտրոն",
     projKasakhTime: "12 րոպե մինչև կենտրոն",
-    projAvanFeatures: "14 հարկ • Կանաչ բակ առանց մեքենաների • Ստորգետնյա պարկինգ • Դպրոց և մանկապարտեզ",
-    projNorkFeatures: "6 հարկ • Համայնապատկերային տեսարան դեպի Արարատ • Մաքուր լեռնային օդ",
-    projKasakhFeatures: "2 հարկ • Սեփական տեռասա և այգի 124 քմ • Եկամտահարկի անժամկետ վերադարձ",
+    projAvanFeatures: "14 հարկ • Լանդշաֆտային դիզայն-պուրակ բակում • Ջեռուցվող ստորգետնյա պարկինգ • Դպրոց և մանկապարտեզ",
+    projNorkFeatures: "6 հարկ • Համայնապատկերային տեսարան դեպի Արարատ • Մոնոլիտ-աղյուսային տեխնոլոգիա, A+ էներգաարդյունավետություն",
+    projKasakhFeatures: "2 հարկ • Սեփական տեռասա և բարեկարգ տարածք 124 քմ • Փակ պահպանվող տարածք, տեսահսկում",
     btnSelectApartment: "Ընտրել բնակարան",
     btnSelectTownhouse: "Ընտրել թաունհաուս",
     fromPriceLabel: "սկսած",
@@ -604,7 +604,7 @@ const I18N = {
     aboutBadge: "About Complex",
     aboutTitle: "Engineering Quality & 9-Point Seismic Resistance",
     aboutP1: "Green Project is a full-cycle real estate developer in Armenia. We build monolithic residential complexes using B25/B30 grade reinforced concrete, engineered for 9-point seismic resistance (RA building codes) and argon-filled double glazing.",
-    aboutP2: "Each project features two-level heated underground parking with Otis/Kone high-speed elevators, 55 dB inter-apartment acoustic insulation, and private car-free park courtyards. Sales secured by escrow with mortgages from 10% down.",
+    aboutP2: "Each project features two-level heated underground parking with Otis/Kone high-speed elevators, 55 dB inter-apartment acoustic insulation, and landscaped courtyard park. Sales secured by escrow with subsidized mortgages from 10% down.",
 
     calcH2: "Mortgage & Income Tax Refund Calculator",
     calcSub: "Calculate your monthly payments and see how much the Armenian state refunds under Tax Code Art. 156.1:",
@@ -746,9 +746,9 @@ const I18N = {
     projAvanTime: "10 min to center",
     projNorkTime: "15 min to center",
     projKasakhTime: "12 min to center",
-    projAvanFeatures: "14 floors • Car-free park • Underground parking • Schools nearby",
-    projNorkFeatures: "6 floors • Mount Ararat panoramic view • Clean mountain air",
-    projKasakhFeatures: "2 floors • Private terrace & garden 124 sqm • Indefinite tax refund",
+    projAvanFeatures: "14 floors • Landscaped courtyard park, workout zones • Heated underground parking • Schools nearby",
+    projNorkFeatures: "6 floors • Ararat panoramic views • Monolithic brick construction, Class A+ energy rating",
+    projKasakhFeatures: "2 floors • Private terrace & landscaped plot 124 sqm • Gated secured territory, 24/7 CCTV",
     btnSelectApartment: "Choose Apartment",
     btnSelectTownhouse: "Choose Townhouse",
     fromPriceLabel: "from",
@@ -1272,10 +1272,10 @@ function updatePassportBanner(proj = AppState.activeProjFilter) {
     if (pIcon) pIcon.textContent = '🏢';
     pTitle.textContent = I18N[AppState.lang].districtAvan;
     pDesc.textContent = AppState.lang === 'ru'
-      ? '14 этажей, чистовая отделка, закрытый двор-парк без машин, ул. Царав Ахбюр 61/4.'
+      ? '14 этажей, чистовая отделка, отапливаемый подземный паркинг, ул. Царав Ахбюр 61/4.'
       : (AppState.lang === 'hy'
-        ? '14 հարկ, ամբողջական մաքուր հարդարում, փակ կանաչ բակ, Ծարավ Աղբյուր փ. 61/4:'
-        : '14 floors, turnkey finish, private car-free park, 61/4 Tsarav Aghbyur St.');
+        ? '14 հարկ, մաքուր հարդարում, ջեռուցվող ստորգետնյա պարկինգ, Ծարավ Աղբյուր փ. 61/4:'
+        : '14 floors, turnkey finish, heated underground parking, 61/4 Tsarav Aghbyur St.');
   } else if (proj === 'nork') {
     if (pIcon) pIcon.textContent = '⛰️';
     pTitle.textContent = I18N[AppState.lang].districtNork;

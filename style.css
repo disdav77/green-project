@@ -10,48 +10,51 @@
 :root {
   color-scheme: light;
   
-  /* Canvas & Alternating Sections (Pure White & Limestone) */
+  /* Canvas & Alternating Sections (Pure White & Noble Architectural Light #F8F9FA) */
   --canvas: #FFFFFF;
-  --canvas-alt: #F4F6F8;
+  --canvas-alt: #F8F9FA;
   --background: #FFFFFF;
-  --background-alt: #F4F6F8;
+  --background-alt: #F8F9FA;
+  --background-limestone: #F4F6F8;
   
   --card: #FFFFFF;
-  --card-foreground: #11161B;
+  --card-foreground: #12161A;
   
   --popover: #FFFFFF;
-  --popover-foreground: #11161B;
+  --popover-foreground: #12161A;
   
-  /* Text System: Noble Graphite & Steel Slate */
-  --foreground: #11161B;
-  --text-primary: #11161B;
-  --text-secondary: #616D78;
-  --text-body: #4A545E;
-  --text-muted: #616D78;
+  /* Text System: Noble Graphite (#12161A & #11161B) & Steel Slate */
+  --foreground: #12161A;
+  --text-primary: #12161A;
+  --text-graphite: #11161B;
+  --text-secondary: #5F6B76;
+  --text-body: #47515A;
+  --text-muted: #5F6B76;
   
-  /* Brand Primary: Deep British Racing / Pine Green (Setl Group architectural standard) */
-  --primary: #183B2B;
-  --primary-hover: #122D21;
+  /* Brand Primary: Deep Pine / British Racing Green (#1C3D2E & #183B2B) */
+  --primary: #1C3D2E;
+  --primary-hover: #142D22;
   --primary-foreground: #FFFFFF;
-  --brand-primary: #183B2B;
-  --brand-pine: #1E4334;
+  --brand-primary: #1C3D2E;
+  --brand-pine: #183B2B;
   
-  /* Accent: Warm Architectural Brass / Sand Gold */
-  --accent: #C5A265;
-  --accent-hover: #B59154;
+  /* Accent: Warm Architectural Brass / Sand Gold (#C29F68 & #C5A265) */
+  --accent: #C29F68;
+  --accent-hover: #B28F58;
+  --accent-gold: #C5A265;
   --accent-foreground: #FFFFFF;
   
   /* Architectural Hairline Borders & Inputs */
   --border: #E2E6E9;
-  --border-subtle: rgba(17, 22, 27, 0.08);
+  --border-subtle: rgba(18, 22, 26, 0.08);
   --input: #E2E6E9;
-  --ring: #183B2B;
+  --ring: #1C3D2E;
   
   /* Secondary / Muted surfaces */
-  --secondary: #F4F6F8;
-  --secondary-foreground: #11161B;
-  --muted: #F4F6F8;
-  --muted-foreground: #616D78;
+  --secondary: #F8F9FA;
+  --secondary-foreground: #12161A;
+  --muted: #F8F9FA;
+  --muted-foreground: #5F6B76;
   
   /* Legacy & Architectural Token Aliases (Maintained for Backward Compatibility) */
   --forest: #0F382E;
@@ -59,13 +62,13 @@
   --emerald: #21914E;
   --mint: #DCF7E1;
   
-  /* Radii: Strict Developer Standard (8px for inputs/buttons, 12-16px for cards) */
+  /* Radii: Strict Developer Standard (8px for inputs/buttons, max 12px for cards) */
   --radius-xs: 4px;
   --radius-sm: 6px;
   --radius-md: 8px;
   --radius-lg: 12px;
-  --radius-xl: 16px;
-  --radius-2xl: 16px;
+  --radius-xl: 12px;
+  --radius-2xl: 12px;
   --radius-full: 8px; /* Strict 8px developer radius (no bubbly pill buttons) */
 
   /* Modern Architectural Grotesque Typography */
@@ -137,7 +140,7 @@ button, input, select, textarea {
 
 /* Container (Setl Group standard: 1520px wide grid) */
 .container {
-  width: 100%;
+  width: calc(100% - 48px);
   max-width: 1520px;
   margin-inline: auto;
   padding-inline: clamp(16px, 3.5vw, 48px);
@@ -591,57 +594,22 @@ h1, h2, h3, h4, h5, h6, .font-heading {
   object-fit: cover;
 }
 
-/* Floating Card 1: Bottom Left */
-.floating-card-bl {
-  position: absolute;
-  bottom: -20px;
-  left: -16px;
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  border-radius: var(--radius-lg);
-  border: 1px solid var(--border-subtle);
-  background-color: var(--card);
-  padding: 14px 20px;
-  box-shadow: var(--shadow-lg);
+/* Floating Cards: Hidden for Clean Presentation (Slop-free Hero) */
+.floating-card-bl,
+.floating-card-tr {
+  display: none !important;
 }
 
 .floating-icon-box {
-  width: 40px;
-  height: 40px;
-  border-radius: var(--radius-md);
-  background-color: var(--secondary);
-  color: var(--primary);
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  display: none;
 }
 
 .floating-card-title {
-  font-family: var(--font-heading);
-  font-size: 14px;
-  font-weight: 700;
-  line-height: 1.2;
+  display: none;
 }
 
 .floating-card-sub {
-  font-size: 12px;
-  color: var(--muted-foreground);
-}
-
-/* Floating Card 2: Top Right */
-.floating-card-tr {
-  position: absolute;
-  top: 24px;
-  right: -12px;
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  border-radius: var(--radius-lg);
-  border: 1px solid var(--border-subtle);
-  background-color: var(--card);
-  padding: 14px 20px;
-  box-shadow: var(--shadow-lg);
+  display: none;
 }
 
 .floating-icon-box-accent {
@@ -1322,7 +1290,7 @@ h1, h2, h3, h4, h5, h6, .font-heading {
    8. MORTGAGE & TAX REFUND CALCULATOR (Setl Group Single-Screen Grid)
    =================================================== */
 .calc-section {
-  padding-block: clamp(80px, 7vw, 120px);
+  padding-block: clamp(48px, 5vw, 68px);
   background-color: var(--background-alt);
   border-top: 1px solid var(--border);
   border-bottom: 1px solid var(--border);
@@ -1331,20 +1299,20 @@ h1, h2, h3, h4, h5, h6, .font-heading {
 .calc-card-container {
   display: grid;
   grid-template-columns: 1.2fr 0.8fr;
-  gap: 32px;
+  gap: 24px;
   background: var(--card);
   border: 1px solid var(--border);
   border-radius: var(--radius-xl);
-  padding: 32px;
+  padding: 24px;
   box-shadow: var(--shadow-sm);
-  margin-top: 28px;
+  margin-top: 20px;
   align-items: stretch;
 }
 
 .calc-inputs-col {
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 12px;
 }
 
 .bank-presets-row {
@@ -1480,11 +1448,11 @@ h1, h2, h3, h4, h5, h6, .font-heading {
   background-color: var(--background);
   border: 1px solid var(--border);
   border-radius: var(--radius-lg);
-  padding: 24px;
+  padding: 20px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  gap: 14px;
+  gap: 12px;
 }
 
 .calc-hero-result {
@@ -2647,12 +2615,19 @@ h1, h2, h3, h4, h5, h6, .font-heading {
 }
 
 .eco-pill-icon {
-  font-size: 20px;
-  line-height: 1;
+  width: 28px;
+  height: 28px;
   display: inline-flex;
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
+  color: var(--primary);
+}
+
+.eco-pill-icon svg {
+  width: 20px;
+  height: 20px;
+  stroke: var(--primary);
 }
 
 @media (max-width: 1024px) {
@@ -2935,7 +2910,7 @@ h1, h2, h3, h4, h5, h6, .font-heading {
    INTERACTIVE MAP SECTION (#map) (Yandex Maps & Anti-Layout Shift)
    ========================================================================== */
 .map-section {
-  padding-block: clamp(80px, 7vw, 120px);
+  padding-block: clamp(44px, 4.5vw, 64px);
   background-color: var(--background);
   border-top: 1px solid var(--border);
   border-bottom: 1px solid var(--border);
@@ -2981,8 +2956,8 @@ h1, h2, h3, h4, h5, h6, .font-heading {
   grid-template-columns: 1.4fr 1fr;
   gap: 24px;
   align-items: stretch;
-  height: min(600px, 65vh);
-  min-height: 520px;
+  height: 500px;
+  max-height: 520px;
 }
 
 .map-canvas-container {
