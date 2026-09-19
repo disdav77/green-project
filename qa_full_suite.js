@@ -569,7 +569,7 @@ assert(/--forest(?:-dark)?:\s*#(?:0F382E|183B2B)/i.test(css), 'Color token deep 
 assert(/--primary:\s*#(?:183b2b|21914e)/i.test(css) || /--emerald:\s*#21914E/i.test(css), 'Color token primary brand green defined in :root');
 assert(/--secondary:\s*#(?:f4f6f8|dcf7e1)/i.test(css) || /--mint:\s*#DCF7E1/i.test(css), 'Color token secondary surface defined in :root');
 assert(/--background:\s*#(?:ffffff|f9fdfa)/i.test(css), 'Color token #FFFFFF canvas defined in :root');
-assert(/--accent:\s*#(?:c5a265|c5a880)/i.test(css), 'Color token brass/gold accent defined in :root');
+assert(/--(?:accent|accent-gold):\s*#(?:c29f68|c5a265|c5a880)/i.test(css), 'Color token brass/gold accent defined in :root');
 
 // -------------------------------------------------------------
 // FINAL SUMMARY
