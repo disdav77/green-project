@@ -1306,13 +1306,10 @@ function initLenisScroll() {
   if (typeof window === 'undefined' || typeof Lenis === 'undefined') return;
   try {
     lenisInstance = new Lenis({
-      duration: 1.2,
-      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-      orientation: 'vertical',
-      gestureOrientation: 'vertical',
+      duration: 0.6,
+      lerp: 0.15,
       smoothWheel: true,
-      wheelMultiplier: 1,
-      touchMultiplier: 1.5,
+      syncTouch: false,
     });
 
     function raf(time) {
