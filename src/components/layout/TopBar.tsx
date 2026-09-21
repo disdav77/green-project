@@ -1,14 +1,23 @@
 'use client';
 
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { useApp } from '@/context/AppContext';
 import { Currency, Language } from '@/types/database';
 
 export function TopBar() {
   const { language, currency, dictionary, setLanguage, setCurrency } = useApp();
+  const [isScrolled, setIsScrolled] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 25);
+    };
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   return (
-    <aside className="top-bar">
+    <aside className={`top-bar ${isScrolled ? 'top-bar-hidden' : ''}`} aria-label="Информационная панель">
       <div className="container top-bar-inner">
         <div className="top-bar-announcement">
           <span className="top-bar-location-badge">

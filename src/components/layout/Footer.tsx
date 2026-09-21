@@ -65,9 +65,6 @@ export function Footer() {
               <li>
                 <Link href="/#escrow">Эскроу-счета и гарантии</Link>
               </li>
-              <li>
-                <Link href="/admin">Панель управления CMS</Link>
-              </li>
             </ul>
           </div>
 
@@ -95,7 +92,20 @@ export function Footer() {
 
         <div className="footer-copyright-row">
           <p>© 2026 Green Project. Все права защищены.</p>
-          <p>г. Ереван, Республика Армения</p>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '20px' }}>
+            <Link
+              href="/admin"
+              style={{
+                color: 'rgba(249, 253, 250, 0.35)',
+                fontSize: '12px',
+                textDecoration: 'none',
+              }}
+              title="Панель управления девелопера"
+            >
+              Вход для администрации
+            </Link>
+            <p style={{ margin: 0 }}>г. Ереван, Республика Армения</p>
+          </div>
         </div>
       </div>
     </footer>

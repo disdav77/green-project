@@ -9,6 +9,7 @@ import { Lock, RefreshCw, Phone, CheckCircle, Clock } from 'lucide-react';
 
 export function AdminDashboard() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [usernameInput, setUsernameInput] = useState('admin');
   const [passwordInput, setPasswordInput] = useState('');
   const [authError, setAuthError] = useState('');
   const [activeTab, setActiveTab] = useState<'inventory' | 'leads'>('inventory');
@@ -40,11 +41,14 @@ export function AdminDashboard() {
 
   const handleLogin = (e: React.FormEvent) => {
     e.preventDefault();
-    if (passwordInput === 'green2026' || passwordInput === 'admin') {
+    const u = usernameInput.trim().toLowerCase();
+    const p = passwordInput.trim();
+
+    if ((u === 'admin' && p === 'admin') || p === 'green2026') {
       setIsAuthenticated(true);
       setAuthError('');
     } else {
-      setAuthError('Неверный пароль администратора');
+      setAuthError('Неверный логин или пароль (используйте admin / admin)');
     }
   };
 
@@ -79,22 +83,40 @@ export function AdminDashboard() {
           <Lock className="w-6 h-6" />
         </div>
         <h2 className="text-lg font-bold text-center text-graphite-900 mb-1">
-          Вход в панель управления CMS
+          Вход для администрации
         </h2>
         <p className="text-xs text-center text-graphite-500 mb-6">
-          Введите пароль администратора Green Project
+          Авторизация сотрудника Green Project (admin / admin)
         </p>
 
         <form onSubmit={handleLogin} className="space-y-4">
           <div>
+            <label className="block text-xs font-semibold text-graphite-700 mb-1">
+              Логин
+            </label>
+            <input
+              type="text"
+              value={usernameInput}
+              onChange={(e) => setUsernameInput(e.target.value)}
+              placeholder="Логин"
+              required
+              className="w-full px-3 py-2 text-sm rounded-input border border-graphite-300 focus:outline-none focus:border-pine focus:ring-1 focus:ring-pine"
+            />
+          </div>
+
+          <div>
+            <label className="block text-xs font-semibold text-graphite-700 mb-1">
+              Пароль
+            </label>
             <input
               type="password"
               value={passwordInput}
               onChange={(e) => setPasswordInput(e.target.value)}
-              placeholder="Пароль администратора"
+              placeholder="Пароль"
+              required
               className="w-full px-3 py-2 text-sm rounded-input border border-graphite-300 focus:outline-none focus:border-pine focus:ring-1 focus:ring-pine"
             />
-            {authError && <p className="text-xs text-red-600 mt-1">{authError}</p>}
+            {authError && <p className="text-xs text-red-600 mt-1.5">{authError}</p>}
           </div>
 
           <button

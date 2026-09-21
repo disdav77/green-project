@@ -99,7 +99,7 @@ html {
   color: var(--foreground);
   line-height: 1.5;
   -webkit-font-smoothing: antialiased;
-  overflow-x: hidden;
+  overflow-x: clip;
   width: 100%;
 }
 
@@ -116,7 +116,7 @@ body {
   color: var(--text-body);
   font-size: 16px;
   line-height: 1.6;
-  overflow-x: hidden;
+  overflow-x: clip;
   width: 100%;
 }
 
@@ -247,6 +247,19 @@ h1, h2, h3, h4, h5, h6, .font-heading {
   font-size: 13px;
   padding: 6px 0;
   color: var(--foreground);
+  transition: max-height 0.35s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.25s ease, padding 0.3s ease;
+  will-change: max-height, opacity;
+  max-height: 48px;
+  overflow: hidden;
+}
+
+.top-bar.top-bar-hidden {
+  max-height: 0 !important;
+  opacity: 0 !important;
+  padding-top: 0 !important;
+  padding-bottom: 0 !important;
+  border-bottom: none !important;
+  pointer-events: none !important;
 }
 
 .top-bar-inner {
@@ -1191,13 +1204,301 @@ h1, h2, h3, h4, h5, h6, .font-heading {
 }
 
 /* ===================================================
-   6. ADVANTAGES SECTION (Exact nedvijka-gamma)
+   6. ARCHITECTURAL BLUEPRINT & ENGINEERING DOSSIER
    =================================================== */
-.advantages-section {
-  padding-block: clamp(36px, 4vw, 52px);
+.advantages-section,
+.engineering-section {
+  padding-block: clamp(44px, 5vw, 68px);
   background-color: var(--background);
 }
 
+.eng-tabs-nav {
+  display: flex;
+  gap: 10px;
+  overflow-x: auto;
+  padding-bottom: 8px;
+  margin-top: 24px;
+  margin-bottom: 24px;
+  scrollbar-width: none;
+}
+
+.eng-tabs-nav::-webkit-scrollbar {
+  display: none;
+}
+
+.eng-tab-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 20px;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border);
+  background-color: var(--card);
+  color: var(--muted-foreground);
+  font-family: var(--font-heading);
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all var(--transition-fast);
+}
+
+.eng-tab-btn:hover {
+  border-color: var(--primary);
+  color: var(--foreground);
+  background-color: var(--secondary);
+}
+
+.eng-tab-btn.active {
+  background-color: #183B2B;
+  color: #FFFFFF;
+  border-color: #183B2B;
+  box-shadow: 0 4px 14px rgba(24, 59, 43, 0.2);
+}
+
+.eng-tab-btn.active svg {
+  color: #C5A265;
+}
+
+.eng-dossier-grid {
+  display: grid;
+  grid-template-columns: 1.15fr 0.85fr;
+  gap: 24px;
+  margin-bottom: 32px;
+}
+
+.eng-blueprint-card {
+  border-radius: 16px;
+  border: 1px solid var(--border);
+  background: var(--card);
+  padding: 28px;
+  box-shadow: var(--shadow-sm);
+  display: flex;
+  flex-direction: column;
+  justifyContent: space-between;
+}
+
+.eng-blueprint-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 20px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid var(--border-subtle);
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.eng-badge-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 12px;
+  border-radius: var(--radius-full);
+  background-color: rgba(28, 61, 46, 0.08);
+  color: #183B2B;
+  font-size: 12px;
+  font-weight: 600;
+  border: 1px solid rgba(28, 61, 46, 0.15);
+}
+
+.eng-specs-metrics {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 14px;
+  margin-bottom: 24px;
+}
+
+.eng-metric-box {
+  background-color: #F8F9FA;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: 14px 16px;
+}
+
+.eng-metric-label {
+  font-size: 11.5px;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--muted-foreground);
+  margin-bottom: 4px;
+}
+
+.eng-metric-value {
+  font-family: var(--font-heading);
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--foreground);
+}
+
+.eng-anatomy-title {
+  font-family: var(--font-heading);
+  font-size: 14.5px;
+  font-weight: 700;
+  color: var(--foreground);
+  margin-bottom: 12px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.eng-layers-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.eng-layer-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  font-size: 13.5px;
+  line-height: 1.5;
+  color: var(--text-body);
+}
+
+.eng-layer-idx {
+  flex-shrink: 0;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background-color: rgba(197, 162, 101, 0.15);
+  color: #B28F58;
+  font-size: 11px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.eng-inspector-card {
+  border-radius: 16px;
+  border: 1px solid rgba(197, 162, 101, 0.35);
+  background: #11161B;
+  color: #FFFFFF;
+  padding: 28px;
+  display: flex;
+  flex-direction: column;
+  justifyContent: space-between;
+  box-shadow: 0 12px 30px rgba(17, 22, 27, 0.18);
+  position: relative;
+  overflow: hidden;
+}
+
+.eng-inspector-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, #C5A265, #21914E);
+}
+
+.eng-checklist {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  margin-top: 16px;
+  margin-bottom: 24px;
+}
+
+.eng-check-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  font-size: 13px;
+  line-height: 1.5;
+  color: #CBD5E1;
+}
+
+.eng-check-icon {
+  flex-shrink: 0;
+  width: 20px;
+  height: 20px;
+  border-radius: 4px;
+  background-color: rgba(33, 145, 78, 0.2);
+  color: #4ADE80;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 2px;
+}
+
+/* Comparative Matrix Table */
+.eng-matrix-box {
+  border-radius: 16px;
+  border: 1px solid var(--border);
+  background: var(--card);
+  padding: 24px;
+  margin-bottom: 32px;
+  box-shadow: var(--shadow-sm);
+  overflow-x: auto;
+}
+
+.eng-matrix-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+  min-width: 680px;
+}
+
+.eng-matrix-table th {
+  padding: 12px 16px;
+  font-family: var(--font-heading);
+  font-size: 12.5px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--muted-foreground);
+  border-bottom: 2px solid var(--border);
+  background-color: #F8F9FA;
+}
+
+.eng-matrix-table td {
+  padding: 14px 16px;
+  font-size: 13.5px;
+  line-height: 1.5;
+  border-bottom: 1px solid var(--border-subtle);
+  color: var(--text-body);
+  vertical-align: top;
+}
+
+.eng-matrix-table tr:last-child td {
+  border-bottom: none;
+}
+
+.eng-pill-green {
+  display: inline-block;
+  font-weight: 700;
+  color: #183B2B;
+  background-color: rgba(28, 61, 46, 0.08);
+  padding: 3px 8px;
+  border-radius: 4px;
+}
+
+.eng-pill-muted {
+  display: inline-block;
+  color: #718096;
+}
+
+/* Passport CTA */
+.eng-passport-cta {
+  background: linear-gradient(135deg, #183B2B 0%, #0F281D 100%);
+  color: #FFFFFF;
+  border-radius: 16px;
+  padding: 28px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  border: 1px solid rgba(197, 162, 101, 0.3);
+  box-shadow: 0 8px 24px rgba(24, 59, 43, 0.15);
+  margin-bottom: 40px;
+}
+
+/* Legacy advantages support */
 .advantages-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -1241,6 +1542,79 @@ h1, h2, h3, h4, h5, h6, .font-heading {
   font-size: 14px;
   line-height: 1.625;
   color: var(--muted-foreground);
+}
+
+/* About Section Bento Grid Showcase */
+.about-engineering-showcase {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+}
+
+.eng-stat-item {
+  background-color: #F8F9FA;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 20px;
+  transition: transform var(--transition-fast), border-color var(--transition-fast);
+}
+
+.eng-stat-item:hover {
+  transform: translateY(-2px);
+  border-color: #C5A265;
+}
+
+.eng-stat-num {
+  font-family: var(--font-heading);
+  font-size: 32px;
+  font-weight: 800;
+  line-height: 1.1;
+  color: #183B2B;
+  margin-bottom: 6px;
+}
+
+.eng-stat-num .eng-unit {
+  font-size: 16px;
+  font-weight: 600;
+  color: #C5A265;
+  margin-left: 4px;
+}
+
+.eng-stat-title {
+  font-family: var(--font-heading);
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--foreground);
+  margin-bottom: 6px;
+}
+
+.eng-stat-desc {
+  font-size: 13px;
+  line-height: 1.5;
+  color: var(--muted-foreground);
+  margin: 0;
+}
+
+@media (max-width: 900px) {
+  .eng-dossier-grid {
+    grid-template-columns: 1fr;
+  }
+  .about-card-banner {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 640px) {
+  .eng-specs-metrics {
+    grid-template-columns: 1fr;
+  }
+  .about-engineering-showcase {
+    grid-template-columns: 1fr;
+  }
+  .eng-passport-cta {
+    flex-direction: column;
+    align-items: stretch;
+  }
 }
 
 /* ===================================================

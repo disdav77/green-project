@@ -10,7 +10,7 @@ export function Header() {
 
   return (
     <>
-      <header className="site-header">
+      <header className="site-header" style={{ position: 'sticky', top: 0, zIndex: 50 }}>
         <div className="container header-inner">
           {/* Brand Logo */}
           <Link href="/" className="brand-logo">
@@ -45,9 +45,6 @@ export function Header() {
             </Link>
             <Link href="/mortgage" className="nav-link nav-highlight-link">
               {dictionary.nav.mortgage} ↗
-            </Link>
-            <Link href="/admin" className="nav-link" style={{ opacity: 0.7 }}>
-              {dictionary.nav.admin}
             </Link>
           </nav>
 
@@ -128,9 +125,6 @@ export function Header() {
               </Link>
               <Link href="/#engineering" className="drawer-link" onClick={() => setIsDrawerOpen(false)}>
                 {dictionary.nav.standards}
-              </Link>
-              <Link href="/admin" className="drawer-link" onClick={() => setIsDrawerOpen(false)}>
-                {dictionary.nav.admin}
               </Link>
             </nav>
 
