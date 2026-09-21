@@ -20,8 +20,8 @@ export function ProjectSpecsTable({ project }: ProjectSpecsTableProps) {
   ];
 
   return (
-    <section className="py-16 bg-limestone-alt border-b border-graphite-200">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
+    <section style={{ padding: '36px 0', backgroundColor: 'var(--background-alt)', borderBottom: '1px solid var(--border)' }}>
+      <div className="container" style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
         <div className="space-y-2">
           <span className="text-xs font-bold uppercase tracking-wider text-pine bg-pine-50 px-3 py-1 rounded-btn border border-pine-200">
             Инженерная спецификация

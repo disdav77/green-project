@@ -69,8 +69,8 @@ function ApartmentsCatalogContent() {
   };
 
   return (
-    <div className="py-12 bg-limestone-alt min-h-[80vh]">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
+    <div style={{ padding: '36px 0 60px', backgroundColor: 'var(--background-alt)', minHeight: '80vh' }}>
+      <div className="container" style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
         {/* Header Title */}
         <div className="space-y-2">
           <div className="inline-flex items-center gap-2 text-xs font-bold text-pine uppercase tracking-wider">

@@ -2,122 +2,100 @@
 
 import React from 'react';
 import Link from 'next/link';
-import { Building2, MapPin, Phone, Mail, ShieldAlert } from 'lucide-react';
 import { useApp } from '@/context/AppContext';
 
 export function Footer() {
   const { dictionary } = useApp();
 
   return (
-    <footer className="bg-graphite-900 text-graphite-300 border-t border-graphite-800 pt-16 pb-12">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 pb-12 border-b border-graphite-800">
-          {/* Col 1: Developer Info */}
-          <div className="space-y-4">
-            <div className="flex items-center gap-3">
-              <div className="w-9 h-9 rounded-btn bg-pine flex items-center justify-center text-white">
-                <Building2 className="w-5 h-5 text-brass" />
-              </div>
-              <span className="font-heading font-bold text-lg text-white tracking-tight">
-                {dictionary.brand.name}
+    <footer className="site-footer">
+      <div className="container">
+        <div className="footer-grid">
+          {/* 1. About Developer */}
+          <div className="footer-col-about">
+            <Link href="/" className="brand-logo" style={{ marginBottom: '8px', display: 'inline-flex' }}>
+              <span className="brand-icon-box">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                  <path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10Z" />
+                  <path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12" />
+                </svg>
               </span>
-            </div>
-            <p className="text-sm text-graphite-400 leading-relaxed">
-              {dictionary.brand.tagline}
+              <span className="brand-name">{dictionary.brand.name}</span>
+            </Link>
+            <p className="footer-desc">
+              Современные жилые комплексы среди зелени в Ереване. Квартиры с отделкой под ключ, закрытые благоустроенные дворы и развитая эко-инфраструктура.
             </p>
-            <div className="text-xs text-brass font-medium pt-1">
-              Лицензия № 18492 КГД РА
+            <div className="footer-license-note">
+              Лицензия девелопера РА № 18492 • Строительство по стандартам сейсмостойкости 9 баллов (СНиП РА II-6.02-2006)
             </div>
           </div>
 
-          {/* Col 2: Projects */}
-          <div className="space-y-3">
-            <h4 className="text-sm font-semibold text-white uppercase tracking-wider">
-              {dictionary.nav.projects}
-            </h4>
-            <ul className="space-y-2 text-sm">
+          {/* 2. Residential Complexes */}
+          <div>
+            <h3 className="footer-heading">{dictionary.nav.projects}</h3>
+            <ul className="footer-links-list">
               <li>
-                <Link href="/projects/avan" className="hover:text-brass-light transition-colors">
-                  ЖК Green Avan (Ереван, Аван)
-                </Link>
+                <Link href="/projects/avan">ЖК Green Avan • Аван</Link>
               </li>
               <li>
-                <Link href="/projects/nork" className="hover:text-brass-light transition-colors">
-                  ЖК Green Nork (Ереван, Нор-Норк)
-                </Link>
+                <Link href="/projects/nork">ЖК Green Nork • Нор-Норк</Link>
               </li>
               <li>
-                <Link href="/projects/townhouse" className="hover:text-brass-light transition-colors">
-                  Green Townhouse (с. Касах)
-                </Link>
+                <Link href="/projects/townhouse">Green Townhouse • с. Касах</Link>
               </li>
               <li>
-                <Link href="/apartments" className="hover:text-brass-light transition-colors text-brass">
-                  {dictionary.nav.catalog} ↗
-                </Link>
+                <Link href="/apartments">Все квартиры и планировки →</Link>
               </li>
             </ul>
           </div>
 
-          {/* Col 3: Services & Legal */}
-          <div className="space-y-3">
-            <h4 className="text-sm font-semibold text-white uppercase tracking-wider">
-              Финансы и Сервис
-            </h4>
-            <ul className="space-y-2 text-sm">
+          {/* 3. Buyers & Finance */}
+          <div>
+            <h3 className="footer-heading">Покупателям</h3>
+            <ul className="footer-links-list">
               <li>
-                <Link href="/mortgage" className="hover:text-brass-light transition-colors">
-                  {dictionary.nav.mortgage} (Ст. 156.1 НК РА)
-                </Link>
+                <Link href="/apartments">Каталог квартир</Link>
               </li>
               <li>
-                <Link href="/#engineering" className="hover:text-brass-light transition-colors">
-                  Инженерные стандарты (СНиП РА)
-                </Link>
+                <Link href="/mortgage">Ипотека со ст. 156.1 НК РА</Link>
               </li>
               <li>
-                <Link href="/admin" className="hover:text-brass-light transition-colors text-graphite-400">
-                  Панель управления CMS
-                </Link>
+                <Link href="/#engineering">Инженерные стандарты</Link>
+              </li>
+              <li>
+                <Link href="/#escrow">Эскроу-счета и гарантии</Link>
+              </li>
+              <li>
+                <Link href="/admin">Панель управления CMS</Link>
               </li>
             </ul>
           </div>
 
-          {/* Col 4: Contacts */}
-          <div className="space-y-3">
-            <h4 className="text-sm font-semibold text-white uppercase tracking-wider">
-              Офис продаж
-            </h4>
-            <div className="space-y-2 text-sm">
-              <div className="flex items-start gap-2 text-graphite-300">
-                <MapPin className="w-4 h-4 text-brass shrink-0 mt-0.5" />
-                <span>{dictionary.brand.address}</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <Phone className="w-4 h-4 text-brass shrink-0" />
-                <a href={`tel:${dictionary.brand.phone.replace(/\s+/g, '')}`} className="hover:text-white transition-colors">
+          {/* 4. Sales Office Contacts */}
+          <div>
+            <h3 className="footer-heading">Контакты</h3>
+            <ul className="footer-links-list">
+              <li>Офис продаж: {dictionary.brand.address}</li>
+              <li>
+                <a href={`tel:${dictionary.brand.phone.replace(/\s+/g, '')}`}>
                   {dictionary.brand.phone}
                 </a>
-              </div>
-              <div className="flex items-center gap-2">
-                <Mail className="w-4 h-4 text-brass shrink-0" />
-                <a href={`mailto:${dictionary.brand.email}`} className="hover:text-white transition-colors">
+              </li>
+              <li>
+                <a href={`mailto:${dictionary.brand.email}`}>
                   {dictionary.brand.email}
                 </a>
-              </div>
-            </div>
+              </li>
+              <li style={{ color: 'rgba(249, 253, 250, 0.55)' }}>
+                Ежедневно: 09:00 — 20:00
+              </li>
+            </ul>
           </div>
         </div>
 
-        {/* Legal Disclaimer */}
-        <div className="pt-8 flex flex-col md:flex-row items-start md:items-center justify-between gap-4 text-xs text-graphite-500">
-          <div className="flex items-center gap-2 max-w-3xl">
-            <ShieldAlert className="w-4 h-4 text-graphite-400 shrink-0" />
-            <p>{dictionary.bookingPolicy.text}</p>
-          </div>
-          <div className="whitespace-nowrap">
-            © {new Date().getFullYear()} {dictionary.brand.name}. Все права защищены.
-          </div>
+        <div className="footer-copyright-row">
+          <p>© 2026 Green Project. Все права защищены.</p>
+          <p>г. Ереван, Республика Армения</p>
         </div>
       </div>
     </footer>

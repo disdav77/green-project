@@ -3,25 +3,23 @@
 import React from 'react';
 import { MortgageCalculator } from '@/features/mortgage/MortgageCalculator';
 import { TaxLawExplanation } from '@/features/mortgage/TaxLawExplanation';
-import { Calculator, Award } from 'lucide-react';
 import { useApp } from '@/context/AppContext';
 
 export default function MortgagePage() {
   const { dictionary } = useApp();
 
   return (
-    <div className="py-12 bg-limestone-alt min-h-[80vh]">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-10">
+    <div style={{ backgroundColor: 'var(--background-alt)', padding: '36px 0 64px', minHeight: '80vh' }}>
+      <div className="container">
         {/* Top Title Banner */}
-        <div className="space-y-3">
-          <div className="inline-flex items-center gap-2 text-xs font-bold text-pine uppercase tracking-wider bg-pine-50 px-3 py-1 rounded-btn border border-pine-200">
-            <Award className="w-4 h-4 text-brass" />
-            <span>Государственная поддержка покупателей новостроек</span>
-          </div>
-          <h1 className="text-3xl sm:text-4xl font-heading font-extrabold text-graphite-900 tracking-tight">
+        <div className="section-title-wrap" style={{ textAlign: 'left', marginBottom: '24px' }}>
+          <span className="section-top-label">
+            Государственная поддержка покупателей новостроек • Ст. 156.1 НК РА
+          </span>
+          <h1 className="section-h2" style={{ fontSize: '32px', marginBottom: '8px' }}>
             {dictionary.mortgage.title}
           </h1>
-          <p className="text-sm sm:text-base text-graphite-600 max-w-3xl">
+          <p className="section-subtitle" style={{ margin: '0', maxWidth: '800px' }}>
             {dictionary.mortgage.subtitle}. Рассчитайте сумму государственной субсидии и фактический размер ежемесячного платежа с учетом созаёмщиков.
           </p>
         </div>
@@ -30,7 +28,9 @@ export default function MortgagePage() {
         <MortgageCalculator />
 
         {/* Legal Breakdown & FAQs */}
-        <TaxLawExplanation />
+        <div style={{ marginTop: '36px' }}>
+          <TaxLawExplanation />
+        </div>
       </div>
     </div>
   );

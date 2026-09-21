@@ -1,80 +1,127 @@
 'use client';
 
 import React from 'react';
-import { FileCheck, ShieldCheck, Building, Landmark } from 'lucide-react';
-import { useApp } from '@/context/AppContext';
 
 export function PublicCertificates() {
-  const { dictionary } = useApp();
-
-  const documents = [
-    {
-      icon: FileCheck,
-      title: dictionary.certificates.licenseName,
-      authority: 'Комитет государственных доходов РА',
-      description: 'Государственная лицензия девелопера на проектирование и строительство капитальных жилых зданий.',
-    },
-    {
-      icon: Building,
-      title: dictionary.certificates.avanPermit,
-      authority: 'Мэрия г. Ереван',
-      description: 'Официальное разрешение на строительство 14-этажного жилого комплекса Green Avan в административном районе Аван.',
-    },
-    {
-      icon: Building,
-      title: dictionary.certificates.norkPermit,
-      authority: 'Мэрия г. Ереван',
-      description: 'Официальное разрешение на строительство клубного дома Green Nork по адресу ул. Гюрджяна, 14.',
-    },
-    {
-      icon: Landmark,
-      title: dictionary.certificates.escrowNote,
-      authority: 'ЦБ Республики Армения',
-      description: 'Все финансовые расчеты ведутся через целевые эскроу-счета уполномоченных банков до сдачи объектов в эксплуатацию.',
-    },
-  ];
-
   return (
-    <section className="py-16 bg-white border-b border-graphite-200">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
-        <div className="text-center max-w-3xl mx-auto space-y-2">
-          <div className="inline-flex items-center gap-1.5 text-xs font-semibold text-pine uppercase tracking-wider">
-            <ShieldCheck className="w-4 h-4 text-pine" />
-            <span>Юридическая прозрачность</span>
-          </div>
-          <h2 className="text-2xl sm:text-3xl font-heading font-extrabold text-graphite-900 tracking-tight">
-            {dictionary.certificates.title}
-          </h2>
-          <p className="text-xs sm:text-sm text-graphite-500">
-            {dictionary.certificates.subtitle}
-          </p>
-        </div>
-
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-          {documents.map((doc, idx) => {
-            const Icon = doc.icon;
-            return (
-              <div
-                key={idx}
-                className="p-5 rounded-card bg-limestone-alt border border-graphite-200/80 hover:bg-white hover:border-pine/30 transition-all shadow-subtle space-y-3"
-              >
-                <div className="w-8 h-8 rounded-btn bg-pine-50 text-pine flex items-center justify-center">
-                  <Icon className="w-4 h-4" />
-                </div>
-                <div>
-                  <h3 className="text-xs font-bold text-graphite-900 leading-snug">
-                    {doc.title}
-                  </h3>
-                  <div className="text-[11px] font-medium text-brass mt-0.5">
-                    {doc.authority}
-                  </div>
-                </div>
-                <p className="text-xs text-graphite-600 leading-relaxed">
-                  {doc.description}
-                </p>
+    <section className="escrow-section pre-footer-trust-section" id="escrow">
+      <div className="container">
+        <div className="escrow-banner-card">
+          {/* Верхняя лента аккредитации */}
+          <div className="trust-accreditation-bar">
+            <div className="trust-accreditation-badge">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+              </svg>
+              <span>Институциональный девелопер</span>
+            </div>
+            <div className="trust-banks-flow">
+              <span className="trust-banks-label">• Аккредитация во всех банках РА • Эскроу • Ст. 156.1 НК РА</span>
+              <div className="trust-banks-pills">
+                <span className="trust-bank-pill">Ameriabank</span>
+                <span className="trust-bank-pill">Inecobank</span>
+                <span className="trust-bank-pill">Ardshinbank</span>
+                <span className="trust-bank-pill">ACBA</span>
+                <span className="trust-bank-pill">Converse</span>
               </div>
-            );
-          })}
+            </div>
+          </div>
+
+          {/* Заголовок и правовой статус */}
+          <div className="escrow-header">
+            <div className="escrow-shield-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+              </svg>
+            </div>
+            <div>
+              <h3 className="escrow-title">
+                100% юридическая безопасность: защита средств по закону РА
+              </h3>
+              <p className="escrow-subtitle">
+                Покупка квартиры напрямую от застройщика Green Project через специальные банковские счета эскроу в соответствии с Законом Республики Армения «О градостроительстве».
+              </p>
+            </div>
+          </div>
+
+          {/* Сетка 3 ключевых гарантий покупателя */}
+          <div className="escrow-features-grid">
+            <div className="escrow-feature-item">
+              <span className="escrow-check-icon">✓</span>
+              <div>
+                <div className="escrow-item-title">Эскроу-счета (Escrow)</div>
+                <div className="escrow-item-desc">
+                  Ваши деньги замораживаются в банке-партнере и переводятся застройщику только после сдачи дома и регистрации в Кадастре.
+                </div>
+              </div>
+            </div>
+            <div className="escrow-feature-item">
+              <span className="escrow-check-icon">✓</span>
+              <div>
+                <div className="escrow-item-title">Нотариальная регистрация</div>
+                <div className="escrow-item-desc">
+                  Каждый предварительный договор заверяется нотариусом и регистрируется в Государственном комитете кадастра РА.
+                </div>
+              </div>
+            </div>
+            <div className="escrow-feature-item">
+              <span className="escrow-check-icon">✓</span>
+              <div>
+                <div className="escrow-item-title">Возврат подоходного налога</div>
+                <div className="escrow-item-desc">
+                  Официальная аккредитация во всех системообразующих банках Армении с прямой передачей документов в КГД РА.
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Презентационная плашка корпоративных стандартов */}
+          <div className="trust-eco-standards-row">
+            <div className="eco-standard-pill">
+              <span className="eco-pill-icon" aria-hidden="true">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M12 22v-7" />
+                  <path d="M17 14v-2a5 5 0 0 0-10 0v2" />
+                  <path d="M5 14a3 3 0 0 1 3-3h8a3 3 0 0 1 3 3v2a3 3 0 0 1-3 3H8a3 3 0 0 1-3-3v-2z" />
+                </svg>
+              </span>
+              <span>Ландшафтный дизайн-парк во дворе</span>
+            </div>
+            <div className="eco-standard-pill">
+              <span className="eco-pill-icon" aria-hidden="true">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2" />
+                </svg>
+              </span>
+              <span>Класс энергоэффективности А+</span>
+            </div>
+            <div className="eco-standard-pill">
+              <span className="eco-pill-icon" aria-hidden="true">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <line x1="4" y1="21" x2="20" y2="21" />
+                  <line x1="4" y1="10" x2="20" y2="10" />
+                  <line x1="12" y1="3" x2="12" y2="10" />
+                  <line x1="6" y1="10" x2="6" y2="21" />
+                  <line x1="10" y1="10" x2="10" y2="21" />
+                  <line x1="14" y1="10" x2="14" y2="21" />
+                  <line x1="18" y1="10" x2="18" y2="21" />
+                </svg>
+              </span>
+              <span>Сейсмостойкость 9 баллов (СНиП РА)</span>
+            </div>
+            <div className="eco-standard-pill">
+              <span className="eco-pill-icon" aria-hidden="true">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+                  <polyline points="14 2 14 8 20 8" />
+                  <line x1="16" y1="13" x2="8" y2="13" />
+                  <line x1="16" y1="17" x2="8" y2="17" />
+                  <polyline points="10 9 9 9 8 9" />
+                </svg>
+              </span>
+              <span>Лицензия девелопера РА № 18492</span>
+            </div>
+          </div>
         </div>
       </div>
     </section>

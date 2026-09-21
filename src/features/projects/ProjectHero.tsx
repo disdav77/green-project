@@ -15,7 +15,7 @@ export function ProjectHero({ project }: ProjectHeroProps) {
   const { currency, openConsultModal } = useApp();
 
   return (
-    <section className="relative bg-graphite-900 text-white overflow-hidden py-16 border-b border-graphite-800">
+    <section className="relative bg-graphite-900 text-white overflow-hidden border-b border-graphite-800" style={{ padding: '40px 0' }}>
       <div className="absolute inset-0 z-0 opacity-20">
         <Image
           src={project.image}
@@ -27,7 +27,7 @@ export function ProjectHero({ project }: ProjectHeroProps) {
         <div className="absolute inset-0 bg-gradient-to-t from-graphite-900 via-graphite-900/80 to-graphite-900/60" />
       </div>
 
-      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
+      <div className="relative z-10 container space-y-6">
         {/* Breadcrumb & Badge */}
         <div className="flex flex-wrap items-center gap-3">
           <span className="px-2.5 py-1 rounded-btn bg-pine-900/80 border border-pine-500/40 text-brass-light text-xs font-semibold uppercase">

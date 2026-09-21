@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import './globals.css';
+import './style.css';
 import { AppProvider } from '@/context/AppContext';
 import { TopBar } from '@/components/layout/TopBar';
 import { Header } from '@/components/layout/Header';

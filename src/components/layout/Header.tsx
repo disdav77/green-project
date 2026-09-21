@@ -2,172 +2,153 @@
 
 import React, { useState } from 'react';
 import Link from 'next/link';
-import { usePathname } from 'next/navigation';
-import { Phone, Menu, X, ChevronDown, Building2 } from 'lucide-react';
 import { useApp } from '@/context/AppContext';
 
 export function Header() {
   const { dictionary, openConsultModal } = useApp();
-  const pathname = usePathname();
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [projectsDropdownOpen, setProjectsDropdownOpen] = useState(false);
-
-  const navLinks = [
-    { label: dictionary.nav.catalog, href: '/apartments' },
-    { label: dictionary.nav.mortgage, href: '/mortgage' },
-    { label: dictionary.nav.standards, href: '/#engineering' },
-    { label: dictionary.nav.admin, href: '/admin' },
-  ];
-
-  const projectItems = [
-    { name: 'ЖК Green Avan', slug: 'avan', desc: '14 этажей • Аван • от 14 млн ֏' },
-    { name: 'ЖК Green Nork', slug: 'nork', desc: '6 этажей • Нор-Норк • Клубный дом' },
-    { name: 'Green Townhouse', slug: 'townhouse', desc: '2 этажа • с. Касах • Участок 124 м²' },
-  ];
+  const [isDrawerOpen, setIsDrawerOpen] = useState(false);
 
   return (
-    <header className="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-graphite-200/80 transition-all shadow-subtle">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-18 flex items-center justify-between">
-        {/* Brand Logo */}
-        <Link href="/" className="flex items-center gap-3 group">
-          <div className="w-10 h-10 rounded-btn bg-pine flex items-center justify-center text-white shadow-sm group-hover:bg-pine-800 transition-colors">
-            <Building2 className="w-5 h-5 text-brass" />
-          </div>
-          <div className="flex flex-col">
-            <span className="font-heading font-bold text-lg text-graphite-900 tracking-tight leading-none group-hover:text-pine transition-colors">
-              {dictionary.brand.name}
+    <>
+      <header className="site-header">
+        <div className="container header-inner">
+          {/* Brand Logo */}
+          <Link href="/" className="brand-logo">
+            <span className="brand-icon-box">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10Z" />
+                <path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12" />
+              </svg>
             </span>
-            <span className="text-[11px] text-graphite-500 tracking-wider uppercase mt-1">
-              Development
-            </span>
-          </div>
-        </Link>
+            <span className="brand-name">{dictionary.brand.name}</span>
+          </Link>
 
-        {/* Desktop Navigation */}
-        <nav className="hidden md:flex items-center gap-6 lg:gap-8">
-          {/* Projects Dropdown */}
-          <div
-            className="relative"
-            onMouseEnter={() => setProjectsDropdownOpen(true)}
-            onMouseLeave={() => setProjectsDropdownOpen(false)}
-          >
+          {/* Navigation Links */}
+          <nav className="nav-links">
+            <Link href="/#projects" className="nav-link">
+              {dictionary.nav.projects}
+            </Link>
+            <Link href="/projects/avan" className="nav-link">
+              Green Avan
+            </Link>
+            <Link href="/projects/nork" className="nav-link">
+              Green Nork
+            </Link>
+            <Link href="/projects/townhouse" className="nav-link">
+              Townhouse
+            </Link>
+            <Link href="/apartments" className="nav-link nav-highlight-link">
+              {dictionary.nav.catalog} ↗
+            </Link>
+            <Link href="/#engineering" className="nav-link">
+              {dictionary.nav.standards}
+            </Link>
+            <Link href="/mortgage" className="nav-link nav-highlight-link">
+              {dictionary.nav.mortgage} ↗
+            </Link>
+            <Link href="/admin" className="nav-link" style={{ opacity: 0.7 }}>
+              {dictionary.nav.admin}
+            </Link>
+          </nav>
+
+          {/* Right Section */}
+          <div className="header-right">
+            <a href={`tel:${dictionary.brand.phone.replace(/\s+/g, '')}`} className="header-phone-link">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M13.832 16.568a1 1 0 0 0 1.213-.303l.355-.465A2 2 0 0 1 17 15h3a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2A18 18 0 0 1 2 4a2 2 0 0 1 2-2h3a2 2 0 0 1 2 2v3a2 2 0 0 1-.8 1.6l-.468.351a1 1 0 0 0-.292 1.233 14 14 0 0 0 6.392 6.384" />
+              </svg>
+              <span>{dictionary.brand.phone}</span>
+            </a>
+
             <button
               type="button"
-              className="inline-flex items-center gap-1.5 text-sm font-medium text-graphite-700 hover:text-pine transition-colors py-2 cursor-pointer"
+              className="btn btn-primary btn-sm"
+              onClick={() => openConsultModal()}
             >
-              <span>{dictionary.nav.projects}</span>
-              <ChevronDown className={`w-4 h-4 transition-transform ${projectsDropdownOpen ? 'rotate-180 text-pine' : 'text-graphite-400'}`} />
+              Заказать звонок
             </button>
 
-            {projectsDropdownOpen && (
-              <div className="absolute top-full left-0 w-72 bg-white rounded-card shadow-elevated border border-graphite-200/80 py-2 animate-in fade-in slide-in-from-top-1 duration-150">
-                {projectItems.map((item) => (
-                  <Link
-                    key={item.slug}
-                    href={`/projects/${item.slug}`}
-                    onClick={() => setProjectsDropdownOpen(false)}
-                    className="block px-4 py-2.5 hover:bg-limestone-alt transition-colors"
-                  >
-                    <div className="text-sm font-semibold text-graphite-900">{item.name}</div>
-                    <div className="text-xs text-graphite-500 mt-0.5">{item.desc}</div>
-                  </Link>
-                ))}
-              </div>
-            )}
+            <button
+              type="button"
+              className="mobile-toggle-btn"
+              onClick={() => setIsDrawerOpen(true)}
+              aria-label="Меню"
+            >
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <line x1="3" y1="12" x2="21" y2="12" />
+                <line x1="3" y1="6" x2="21" y2="6" />
+                <line x1="3" y1="18" x2="21" y2="18" />
+              </svg>
+            </button>
           </div>
-
-          {navLinks.map((link) => {
-            const isActive = pathname === link.href;
-            return (
-              <Link
-                key={link.href}
-                href={link.href}
-                className={`text-sm font-medium transition-colors ${
-                  isActive ? 'text-pine font-semibold' : 'text-graphite-700 hover:text-pine'
-                }`}
-              >
-                {link.label}
-              </Link>
-            );
-          })}
-        </nav>
-
-        {/* Right CTA */}
-        <div className="hidden lg:flex items-center gap-4">
-          <a
-            href={`tel:${dictionary.brand.phone.replace(/\s+/g, '')}`}
-            className="flex items-center gap-2 text-sm font-medium text-graphite-800 hover:text-pine transition-colors"
-          >
-            <div className="w-8 h-8 rounded-btn bg-limestone flex items-center justify-center text-pine">
-              <Phone className="w-4 h-4" />
-            </div>
-            <span>{dictionary.brand.phone}</span>
-          </a>
-
-          <button
-            type="button"
-            onClick={() => openConsultModal()}
-            className="px-4 py-2 rounded-btn bg-pine text-white text-sm font-semibold hover:bg-pine-800 transition-colors shadow-subtle cursor-pointer"
-          >
-            {dictionary.nav.requestCall}
-          </button>
         </div>
-
-        {/* Mobile Hamburger */}
-        <button
-          type="button"
-          onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-          className="md:hidden p-2 rounded-btn text-graphite-700 hover:bg-limestone transition-colors"
-          aria-label="Toggle navigation menu"
-        >
-          {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
-        </button>
-      </div>
+      </header>
 
       {/* Mobile Drawer */}
-      {mobileMenuOpen && (
-        <div className="md:hidden bg-white border-b border-graphite-200 px-4 pt-3 pb-6 space-y-4">
-          <div className="space-y-1 border-b border-graphite-100 pb-3">
-            <span className="text-xs font-semibold text-graphite-400 uppercase tracking-wider px-2">
-              {dictionary.nav.projects}
-            </span>
-            {projectItems.map((item) => (
-              <Link
-                key={item.slug}
-                href={`/projects/${item.slug}`}
-                onClick={() => setMobileMenuOpen(false)}
-                className="block px-3 py-2 rounded-btn text-sm font-medium text-graphite-800 hover:bg-limestone"
+      {isDrawerOpen && (
+        <>
+          <div
+            className="drawer-backdrop"
+            style={{ opacity: 1, pointerEvents: 'auto' }}
+            onClick={() => setIsDrawerOpen(false)}
+          />
+          <div className="mobile-drawer-box active" style={{ transform: 'translateX(0)' }}>
+            <div className="drawer-head">
+              <span className="brand-name">{dictionary.brand.name}</span>
+              <button
+                type="button"
+                className="drawer-close"
+                onClick={() => setIsDrawerOpen(false)}
               >
-                {item.name}
-              </Link>
-            ))}
-          </div>
+                ✕
+              </button>
+            </div>
 
-          <div className="space-y-1">
-            {navLinks.map((link) => (
-              <Link
-                key={link.href}
-                href={link.href}
-                onClick={() => setMobileMenuOpen(false)}
-                className="block px-3 py-2 rounded-btn text-sm font-medium text-graphite-800 hover:bg-limestone"
+            <nav className="drawer-links">
+              <Link href="/#projects" className="drawer-link" onClick={() => setIsDrawerOpen(false)}>
+                {dictionary.nav.projects}
+              </Link>
+              <Link href="/projects/avan" className="drawer-link" onClick={() => setIsDrawerOpen(false)}>
+                ЖК Green Avan
+              </Link>
+              <Link href="/projects/nork" className="drawer-link" onClick={() => setIsDrawerOpen(false)}>
+                ЖК Green Nork
+              </Link>
+              <Link href="/projects/townhouse" className="drawer-link" onClick={() => setIsDrawerOpen(false)}>
+                Green Townhouse
+              </Link>
+              <Link href="/apartments" className="drawer-link" style={{ color: 'var(--primary)', fontWeight: 700 }} onClick={() => setIsDrawerOpen(false)}>
+                {dictionary.nav.catalog} ↗
+              </Link>
+              <Link href="/mortgage" className="drawer-link" style={{ color: 'var(--primary)', fontWeight: 700 }} onClick={() => setIsDrawerOpen(false)}>
+                {dictionary.nav.mortgage} ↗
+              </Link>
+              <Link href="/#engineering" className="drawer-link" onClick={() => setIsDrawerOpen(false)}>
+                {dictionary.nav.standards}
+              </Link>
+              <Link href="/admin" className="drawer-link" onClick={() => setIsDrawerOpen(false)}>
+                {dictionary.nav.admin}
+              </Link>
+            </nav>
+
+            <div style={{ marginTop: 'auto', paddingTop: '1.5rem' }}>
+              <a href={`tel:${dictionary.brand.phone.replace(/\s+/g, '')}`} className="btn btn-outline w-full mb-2">
+                📞 {dictionary.brand.phone}
+              </a>
+              <button
+                type="button"
+                className="btn btn-primary w-full"
+                onClick={() => {
+                  setIsDrawerOpen(false);
+                  openConsultModal();
+                }}
               >
-                {link.label}
-              </Link>
-            ))}
+                Заказать звонок
+              </button>
+            </div>
           </div>
-
-          <button
-            type="button"
-            onClick={() => {
-              setMobileMenuOpen(false);
-              openConsultModal();
-            }}
-            className="w-full py-2.5 rounded-btn bg-pine text-white text-sm font-semibold hover:bg-pine-800 transition-colors"
-          >
-            {dictionary.nav.requestCall}
-          </button>
-        </div>
+        </>
       )}
-    </header>
+    </>
   );
 }

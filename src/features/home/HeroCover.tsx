@@ -2,153 +2,128 @@
 
 import React from 'react';
 import Link from 'next/link';
-import Image from 'next/image';
-import { ArrowRight, ShieldCheck, Waves, Award } from 'lucide-react';
 import { useApp } from '@/context/AppContext';
-import { formatPrice } from '@/lib/currency';
 
 export function HeroCover() {
-  const { dictionary, currency, openConsultModal } = useApp();
-
-  const portals = [
-    {
-      id: 'avan',
-      name: 'ЖК Green Avan',
-      location: 'Ереван, Аван',
-      desc: '14 этажей • Закрытый двор-парк • 2 лифта',
-      priceFrom: 14060000,
-      image: '/images/apt-3.png',
-      slug: 'avan',
-      badge: 'Комфорт-плюс',
-    },
-    {
-      id: 'nork',
-      name: 'ЖК Green Nork',
-      location: 'Ереван, Нор-Норк',
-      desc: '6 этажей • Панорама Арарата • 55 дБ',
-      priceFrom: 33650000,
-      image: '/images/apt-2.png',
-      slug: 'nork',
-      badge: 'Бизнес-класс',
-    },
-    {
-      id: 'townhouse',
-      name: 'Green Townhouse',
-      location: 'Котайк, с. Касах',
-      desc: '2 этажа • Участок 124 м² • Бессрочный налог',
-      priceFrom: 45880000,
-      image: '/images/apt-5.png',
-      slug: 'townhouse',
-      badge: 'Премиум',
-    },
-  ];
+  const { dictionary, openConsultModal } = useApp();
 
   return (
-    <section className="relative bg-graphite-900 text-white overflow-hidden pt-12 pb-20 border-b border-graphite-800">
-      {/* Background Architectural Canvas */}
-      <div className="absolute inset-0 z-0 opacity-25">
-        <Image
-          src="/images/hero-complex.png"
-          alt="Green Project Architecture"
-          fill
-          priority
-          className="object-cover object-center"
-        />
-        <div className="absolute inset-0 bg-gradient-to-t from-graphite-900 via-graphite-900/80 to-transparent" />
-      </div>
+    <section className="hero-section">
+      <div className="container">
+        <div className="hero-grid">
+          {/* Left Column: Heading, Text, Buttons, Stats */}
+          <div>
+            <span className="hero-badge-pill">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10Z" />
+                <path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12" />
+              </svg>
+              <span>Монолитные кварталы класса А+ в Ереване</span>
+            </span>
 
-      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
-        {/* Manifest Header */}
-        <div className="max-w-3xl space-y-6">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-btn bg-pine-900/80 border border-pine-500/40 text-brass-light text-xs font-semibold uppercase tracking-wider">
-            <Award className="w-3.5 h-3.5 text-brass" />
-            <span>Премиальный девелопмент в Республике Армения</span>
+            <h1 className="hero-heading">
+              Монолитное жилье с чистовой отделкой и подземным паркингом
+            </h1>
+
+            <p className="hero-text">
+              Девелопер монолитных жилых кварталов класса А+ в Ереване: сейсмостойкость 9 баллов, подземный отапливаемый паркинг, бессрочный возврат налога по Ст. 156.1 НК РА и защищенные эскроу-счета.
+            </p>
+
+            <div className="hero-btn-group">
+              <Link href="/apartments" className="btn btn-primary btn-lg">
+                Смотреть квартиры
+              </Link>
+              <button
+                type="button"
+                className="btn btn-outline btn-lg"
+                onClick={() => openConsultModal()}
+              >
+                Записаться на просмотр
+              </button>
+            </div>
+
+            <dl className="hero-stats-dl">
+              <div>
+                <dt className="stat-dt">от 38 м²</dt>
+                <dd className="stat-dd">площадь</dd>
+              </div>
+              <div>
+                <dt className="stat-dt">14</dt>
+                <dd className="stat-dd">этажей</dd>
+              </div>
+              <div>
+                <dt className="stat-dt">10%</dt>
+                <dd className="stat-dd">ипотека</dd>
+              </div>
+              <div>
+                <dt className="stat-dt">3</dt>
+                <dd className="stat-dd">флагманских проекта</dd>
+              </div>
+            </dl>
           </div>
 
-          <h1 className="text-3xl sm:text-5xl lg:text-6xl font-heading font-extrabold tracking-tight text-white leading-tight">
-            {dictionary.hero.title}
-          </h1>
+          {/* Right Column: Framed Image with Floating Badges */}
+          <div className="hero-image-wrapper">
+            <div className="hero-image-frame">
+              <img
+                src="/images/hero-complex.png"
+                alt="Современный жилой комплекс Green Project"
+                style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+              />
+            </div>
 
-          <p className="text-base sm:text-lg text-graphite-300 leading-relaxed max-w-2xl font-normal">
-            {dictionary.hero.subtitle}
-          </p>
+            {/* Floating Card 1: Green Courtyard */}
+            <div className="floating-card-bl">
+              <span className="floating-icon-box">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="m17 14 3 3.3a1 1 0 0 1-.7 1.7H4.7a1 1 0 0 1-.7-1.7L7 14h-.3a1 1 0 0 1-.7-1.7L9 9h-.2A1 1 0 0 1 8 7.3L12 3l4 4.3a1 1 0 0 1-.8 1.7H15l3 3.3a1 1 0 0 1-.7 1.7H17Z" />
+                  <path d="M12 22v-3" />
+                </svg>
+              </span>
+              <div>
+                <p className="floating-card-title">Зелёные дворы</p>
+                <p className="floating-card-sub">без машин</p>
+              </div>
+            </div>
 
-          <div className="flex flex-wrap items-center gap-4 pt-2">
-            <button
-              type="button"
-              onClick={() => openConsultModal()}
-              className="px-6 py-3 rounded-btn bg-pine text-white text-sm font-semibold hover:bg-pine-800 transition-all shadow-md flex items-center gap-2 cursor-pointer"
-            >
-              <span>{dictionary.hero.chooseApartment}</span>
-              <ArrowRight className="w-4 h-4 text-brass" />
-            </button>
-
-            <Link
-              href="/mortgage"
-              className="px-6 py-3 rounded-btn bg-graphite-800/90 text-graphite-200 hover:text-white hover:bg-graphite-700/90 text-sm font-semibold transition-all border border-graphite-700 flex items-center gap-2"
-            >
-              <span>{dictionary.hero.calculateMortgage}</span>
-              <span className="text-xs text-brass font-normal">(Ст. 156.1 НК РА)</span>
-            </Link>
+            {/* Floating Card 2: Tax Refund */}
+            <div className="floating-card-tr">
+              <span className="floating-icon-box-accent">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M10 12h4" />
+                  <path d="M10 8h4" />
+                  <path d="M14 21v-3a2 2 0 0 0-4 0v3" />
+                  <path d="M6 10H4a2 2 0 0 0-2 2v7a2 2 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-2" />
+                  <path d="M6 21V5a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v16" />
+                </svg>
+              </span>
+              <div>
+                <p className="floating-card-title">Возврат налога</p>
+                <p className="floating-card-sub">до 500 тыс ֏/мес</p>
+              </div>
+            </div>
           </div>
         </div>
 
-        {/* 3 Architectural Portal Cards */}
-        <div className="pt-4">
-          <div className="flex items-center justify-between mb-4">
-            <h2 className="text-xs uppercase tracking-widest text-graphite-400 font-semibold">
-              Флагманские жилые комплексы
-            </h2>
-            <Link
-              href="/apartments"
-              className="text-xs text-brass hover:text-brass-light font-medium flex items-center gap-1 transition-colors"
-            >
-              <span>Смотреть все планировки</span>
-              <ArrowRight className="w-3 h-3" />
-            </Link>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {portals.map((item) => (
-              <Link
-                key={item.id}
-                href={`/projects/${item.slug}`}
-                className="group relative bg-graphite-800/80 hover:bg-graphite-800 rounded-card border border-graphite-700/80 p-5 transition-all duration-200 hover:border-brass/60 hover:-translate-y-0.5 shadow-card"
-              >
-                <div className="relative h-44 w-full rounded-btn overflow-hidden mb-4 bg-graphite-950">
-                  <Image
-                    src={item.image}
-                    alt={item.name}
-                    fill
-                    className="object-cover group-hover:scale-105 transition-transform duration-500"
-                  />
-                  <div className="absolute top-3 left-3 px-2 py-0.5 rounded-btn bg-graphite-900/85 backdrop-blur-sm text-[11px] font-semibold text-brass-light border border-graphite-700">
-                    {item.badge}
-                  </div>
-                </div>
-
-                <div className="space-y-1.5">
-                  <div className="text-xs text-graphite-400">{item.location}</div>
-                  <h3 className="text-lg font-heading font-bold text-white group-hover:text-brass-light transition-colors">
-                    {item.name}
-                  </h3>
-                  <p className="text-xs text-graphite-300 line-clamp-1">{item.desc}</p>
-
-                  <div className="pt-3 border-t border-graphite-700/60 flex items-center justify-between">
-                    <div>
-                      <div className="text-[10px] text-graphite-400 uppercase">Стоимость от</div>
-                      <div className="text-sm font-bold text-white">
-                        {formatPrice(item.priceFrom, currency)}
-                      </div>
-                    </div>
-                    <span className="text-xs font-semibold text-brass flex items-center gap-1 group-hover:translate-x-1 transition-transform">
-                      <span>В комплекс</span>
-                      <ArrowRight className="w-3.5 h-3.5" />
-                    </span>
-                  </div>
-                </div>
-              </Link>
-            ))}
+        {/* Setl Group Promo Ribbon */}
+        <div className="hero-promo-ribbon">
+          <Link href="/mortgage" className="hero-promo-card">
+            <span className="hero-promo-badge">Господдержка</span>
+            <strong className="hero-promo-title">
+              Ипотека от 10% • Возврат налога до 500 000 ֏/мес (до 1 000 000 ֏ с созаёмщиком)
+            </strong>
+          </Link>
+          <Link href="/projects/townhouse" className="hero-promo-card">
+            <span className="hero-promo-badge">Старт продаж</span>
+            <strong className="hero-promo-title">
+              Старт продаж в с. Касах — бессрочная господдержка
+            </strong>
+          </Link>
+          <div className="hero-promo-card">
+            <span className="hero-promo-badge">Надёжность</span>
+            <strong className="hero-promo-title">
+              Сейсмостойкость 9 баллов (монолит) • Сдача 2026
+            </strong>
           </div>
         </div>
       </div>

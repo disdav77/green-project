@@ -56,8 +56,8 @@ export function FloorPlanSelector({ project, buildings, units }: FloorPlanSelect
   }, [projectUnits, selectedBuildingId, selectedFloor, project.address]);
 
   return (
-    <section id="floor-selector" className="py-16 bg-white border-b border-graphite-200">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
+    <section id="floor-selector" style={{ padding: '40px 0', backgroundColor: '#FFFFFF', borderBottom: '1px solid var(--border)' }}>
+      <div className="container" style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-4">
           <div className="space-y-2">
             <span className="text-xs font-bold uppercase tracking-wider text-pine bg-pine-50 px-3 py-1 rounded-btn border border-pine-200">
