@@ -47,7 +47,7 @@ export function PublicCertificates() {
           {/* Сетка 3 ключевых гарантий покупателя */}
           <div className="escrow-features-grid">
             <div className="escrow-feature-item">
-              <span className="escrow-check-icon">✓</span>
+              <span className="escrow-check-icon"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12" /></svg></span>
               <div>
                 <div className="escrow-item-title">Эскроу-счета (Escrow)</div>
                 <div className="escrow-item-desc">
@@ -56,7 +56,7 @@ export function PublicCertificates() {
               </div>
             </div>
             <div className="escrow-feature-item">
-              <span className="escrow-check-icon">✓</span>
+              <span className="escrow-check-icon"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12" /></svg></span>
               <div>
                 <div className="escrow-item-title">Нотариальная регистрация</div>
                 <div className="escrow-item-desc">
@@ -65,7 +65,7 @@ export function PublicCertificates() {
               </div>
             </div>
             <div className="escrow-feature-item">
-              <span className="escrow-check-icon">✓</span>
+              <span className="escrow-check-icon"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12" /></svg></span>
               <div>
                 <div className="escrow-item-title">Возврат подоходного налога</div>
                 <div className="escrow-item-desc">

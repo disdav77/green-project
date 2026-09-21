@@ -63,7 +63,7 @@ export function FlagshipUnits() {
                     <h3 className="apartment-title">{unit.roomsLabel}</h3>
                     <div className="apartment-specs-grid">
                       <div className="spec-entry">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                           <path d="M8 3H5a2 2 0 0 0-2 2v3" />
                           <path d="M21 8V5a2 2 0 0 0-2-2h-3" />
                           <path d="M3 16v3a2 2 0 0 0 2 2h3" />
@@ -72,14 +72,14 @@ export function FlagshipUnits() {
                         <span>{unit.areaSqm} м²</span>
                       </div>
                       <div className="spec-entry">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                           <path d="M2 20v-8a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v8" />
                           <path d="M4 10V6a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v4" />
                         </svg>
                         <span>{unit.rooms} комн.</span>
                       </div>
                       <div className="spec-entry">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                           <path d="M12 10h.01" />
                           <path d="M12 14h.01" />
                           <rect x="4" y="2" width="16" height="20" rx="2" />

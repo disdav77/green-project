@@ -5,7 +5,7 @@ import Image from 'next/image';
 import { Project, Building, Unit, UnitStatus } from '@/types/database';
 import { useApp } from '@/context/AppContext';
 import { formatPrice, formatPricePerSqm } from '@/lib/currency';
-import { CheckCircle2, ShieldAlert, Phone, Maximize2, MapPin, Layers } from 'lucide-react';
+import { CheckCircle2, ShieldAlert, Phone, Maximize2, MapPin, Layers, X } from 'lucide-react';
 
 interface FloorPlanSelectorProps {
   project: Project;
@@ -261,7 +261,7 @@ export function FloorPlanSelector({ project, buildings, units }: FloorPlanSelect
                   onClick={() => setSelectedUnit(null)}
                   className="p-2 rounded-btn text-graphite-400 hover:text-graphite-800 hover:bg-limestone"
                 >
-                  ✕
+                  <X className="w-5 h-5" />
                 </button>
               </div>
 

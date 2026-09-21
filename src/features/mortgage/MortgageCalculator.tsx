@@ -262,7 +262,12 @@ export function MortgageCalculator() {
           </div>
 
           <div className="salary-requirement-box">
-            <div style={{ fontSize: '18px', lineHeight: 1 }}>💼</div>
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', width: '20px', height: '20px', flexShrink: 0 }}>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <rect width="20" height="14" x="2" y="7" rx="2" ry="2"/>
+                <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/>
+              </svg>
+            </div>
             <div>
               <span className="salary-title">{dictionary.mortgage.requiredSalary}:</span>
               <div className="salary-val">

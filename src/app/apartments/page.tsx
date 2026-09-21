@@ -7,7 +7,7 @@ import { initialUnits } from '@/lib/initialCatalog';
 import { CatalogFilters, CatalogFilterState } from '@/features/catalog/CatalogFilters';
 import { CatalogUnitCard } from '@/features/catalog/CatalogUnitCard';
 import { CatalogTableView } from '@/features/catalog/CatalogTableView';
-import { MapPin, Phone, Building2 } from 'lucide-react';
+import { MapPin, Phone, Building2, X } from 'lucide-react';
 import Image from 'next/image';
 import { useApp } from '@/context/AppContext';
 import { formatPrice, formatPricePerSqm } from '@/lib/currency';
@@ -146,7 +146,7 @@ function ApartmentsCatalogContent() {
                   onClick={() => setSelectedUnit(null)}
                   className="p-2 rounded-btn text-graphite-400 hover:text-graphite-800 hover:bg-limestone"
                 >
-                  ✕
+                  <X className="w-5 h-5" />
                 </button>
               </div>
 

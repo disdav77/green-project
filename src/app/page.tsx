@@ -6,12 +6,12 @@ import { PublicCertificates } from '@/features/home/PublicCertificates';
 
 export default function HomePage() {
   return (
-    <main>
+    <>
       <HeroCover />
       <ProjectsShowcase />
       <FlagshipUnits />
       <EngineeringSpecs />
       <PublicCertificates />
-    </main>
+    </>
   );
 }
