@@ -3,9 +3,12 @@
 import React from 'react';
 import Link from 'next/link';
 import { useApp } from '@/context/AppContext';
+import { initialProjects } from '@/lib/initialCatalog';
+import { getLocalizedProject } from '@/lib/catalogLocalization';
 
 export function Footer() {
-  const { dictionary } = useApp();
+  const { language, dictionary } = useApp();
+  const localizedProjects = initialProjects.map((p) => getLocalizedProject(p, language));
 
   return (
     <footer className="site-footer">
@@ -23,56 +26,56 @@ export function Footer() {
               <span className="brand-name">{dictionary.brand.name}</span>
             </Link>
             <p className="footer-desc">
-              Современные жилые комплексы среди зелени в Ереване. Квартиры с отделкой под ключ, закрытые благоустроенные дворы и развитая эко-инфраструктура.
+              {dictionary.hero.subtitle}
             </p>
             <div className="footer-license-note">
-              Лицензия девелопера РА № 18492 • Строительство по стандартам сейсмостойкости 9 баллов (СНиП РА II-6.02-2006)
+              {dictionary.footer.developerCharter} • {dictionary.engineering.disciplines.seismic.badge}
             </div>
           </div>
 
           {/* 2. Residential Complexes */}
           <div>
-            <h3 className="footer-heading">{dictionary.nav.projects}</h3>
+            <h3 className="footer-heading">{dictionary.footer.projectsTitle}</h3>
             <ul className="footer-links-list">
+              {localizedProjects.map((proj) => (
+                <li key={proj.slug}>
+                  <Link href={`/projects/${proj.slug}`}>
+                    {proj.name} • {proj.district}
+                  </Link>
+                </li>
+              ))}
               <li>
-                <Link href="/projects/avan">ЖК Green Avan • Аван</Link>
-              </li>
-              <li>
-                <Link href="/projects/nork">ЖК Green Nork • Нор-Норк</Link>
-              </li>
-              <li>
-                <Link href="/projects/townhouse">Green Townhouse • с. Касах</Link>
-              </li>
-              <li>
-                <Link href="/apartments">Все квартиры и планировки →</Link>
+                <Link href="/apartments">{dictionary.flagship.allCatalogBtn}</Link>
               </li>
             </ul>
           </div>
 
           {/* 3. Buyers & Finance */}
           <div>
-            <h3 className="footer-heading">Покупателям</h3>
+            <h3 className="footer-heading">{dictionary.footer.buyersTitle}</h3>
             <ul className="footer-links-list">
               <li>
-                <Link href="/apartments">Каталог квартир</Link>
+                <Link href="/apartments">{dictionary.nav.catalog}</Link>
               </li>
               <li>
-                <Link href="/mortgage">Ипотека со ст. 156.1 НК РА</Link>
+                <Link href="/mortgage">{dictionary.nav.mortgage}</Link>
               </li>
               <li>
-                <Link href="/#engineering">Инженерные стандарты</Link>
+                <Link href="/#advantages">{dictionary.nav.standards}</Link>
               </li>
               <li>
-                <Link href="/#escrow">Эскроу-счета и гарантии</Link>
+                <Link href="/#escrow">{dictionary.escrow.sectionTitle}</Link>
               </li>
             </ul>
           </div>
 
           {/* 4. Sales Office Contacts */}
           <div>
-            <h3 className="footer-heading">Контакты</h3>
+            <h3 className="footer-heading">{dictionary.footer.contactsTitle}</h3>
             <ul className="footer-links-list">
-              <li>Офис продаж: {dictionary.brand.address}</li>
+              <li>
+                {dictionary.footer.salesOffice} {dictionary.brand.address}
+              </li>
               <li>
                 <a href={`tel:${dictionary.brand.phone.replace(/\s+/g, '')}`}>
                   {dictionary.brand.phone}
@@ -84,14 +87,14 @@ export function Footer() {
                 </a>
               </li>
               <li style={{ color: 'rgba(249, 253, 250, 0.55)' }}>
-                Ежедневно: 09:00 — 20:00
+                {dictionary.footer.workingHours}
               </li>
             </ul>
           </div>
         </div>
 
         <div className="footer-copyright-row">
-          <p>© 2026 Green Project. Все права защищены.</p>
+          <p>© 2026 Green Project. {dictionary.footer.allRightsReserved}</p>
           <div style={{ display: 'flex', alignItems: 'center', gap: '20px' }}>
             <Link
               href="/admin"
@@ -100,11 +103,11 @@ export function Footer() {
                 fontSize: '12px',
                 textDecoration: 'none',
               }}
-              title="Панель управления девелопера"
+              title={dictionary.nav.admin}
             >
-              Вход для администрации
+              {dictionary.footer.adminLink}
             </Link>
-            <p style={{ margin: 0 }}>г. Ереван, Республика Армения</p>
+            <p style={{ margin: 0 }}>{dictionary.brand.address}</p>
           </div>
         </div>
       </div>

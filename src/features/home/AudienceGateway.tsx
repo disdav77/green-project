@@ -13,50 +13,20 @@ export function AudienceGateway() {
     {
       id: 'family' as const,
       icon: Users,
-      label: dictionary.audience.tabFamily,
-      title: 'Уют и безопасность для нескольких поколений семьи',
-      description: dictionary.audience.tabFamilyDesc,
-      benefits: [
-        'Закрытые дворы без доступа автотранспорта',
-        'Современные развивающие игровые площадки во дворе',
-        'Школы, детские сады и супермаркеты в шаговой доступности',
-        'Просторные кухни-гостиные и раздельные санузлы',
-      ],
-      recommendedProject: 'ЖК Green Avan',
+      data: dictionary.audience.tabFamily,
       recommendedLink: '/apartments?project=avan&rooms=2k',
-      recommendedCta: 'Смотреть семейные планировки 2к и 3к',
     },
     {
       id: 'it' as const,
       icon: Laptop,
-      label: dictionary.audience.tabIT,
-      title: 'Максимальный возврат подоходного налога по Ст. 156.1 НК РА',
-      description: dictionary.audience.tabITDesc,
-      benefits: [
-        'Возврат до 500 000 ֏ ежемесячно (до 1 000 000 ֏ с созаёмщиком)',
-        'Высокоскоростной оптоволоконный интернет и эргономичные кабинеты',
-        'Шумоизоляция 55 дБ: тишина во время созвонов и удаленной работы',
-        '10 минут до IT-хабов и коворкингов Еревана',
-      ],
-      recommendedProject: 'ЖК Green Avan & Green Nork',
+      data: dictionary.audience.tabIT,
       recommendedLink: '/mortgage',
-      recommendedCta: 'Рассчитать персональную субсидию',
     },
     {
       id: 'investor' as const,
       icon: TrendingUp,
-      label: dictionary.audience.tabInvestor,
-      title: 'Высокая арендная доходность и защищенные инвестиции',
-      description: dictionary.audience.tabInvestorDesc,
-      benefits: [
-        'Арендная доходность 9–12% годовых в драмах/долларах',
-        'Рост стоимости метра на этапе строительства до 25%',
-        '100% безопасность сделки: депонирование средств на счетах эскроу',
-        'Возможность дистанционного оформления для диаспоры (Power of Attorney)',
-      ],
-      recommendedProject: 'Green Townhouse & Green Nork',
+      data: dictionary.audience.tabInvestor,
       recommendedLink: '/apartments?status=available',
-      recommendedCta: 'Смотреть инвестиционный каталог',
     },
   ];
 
@@ -72,6 +42,9 @@ export function AudienceGateway() {
           <h2 className="text-2xl sm:text-3xl font-heading font-extrabold text-graphite-900 tracking-tight">
             {dictionary.audience.title}
           </h2>
+          <p className="text-sm text-graphite-600">
+            {dictionary.audience.subtitle}
+          </p>
         </div>
 
         {/* Tab Selector Buttons */}
@@ -92,7 +65,7 @@ export function AudienceGateway() {
                   }`}
                 >
                   <Icon className={`w-4 h-4 ${isActive ? 'text-pine' : 'text-graphite-400'}`} />
-                  <span>{tab.label}</span>
+                  <span>{tab.data.label}</span>
                 </button>
               );
             })}
@@ -104,14 +77,14 @@ export function AudienceGateway() {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 items-center">
             <div className="md:col-span-2 space-y-4">
               <h3 className="text-xl font-heading font-bold text-graphite-900">
-                {currentTab.title}
+                {currentTab.data.title}
               </h3>
               <p className="text-sm text-graphite-600 leading-relaxed">
-                {currentTab.description}
+                {currentTab.data.desc}
               </p>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5 pt-2">
-                {currentTab.benefits.map((benefit, idx) => (
+                {currentTab.data.benefits.map((benefit, idx) => (
                   <div key={idx} className="flex items-start gap-2 text-xs text-graphite-700">
                     <CheckCircle2 className="w-4 h-4 text-pine shrink-0 mt-0.5" />
                     <span>{benefit}</span>
@@ -123,10 +96,10 @@ export function AudienceGateway() {
             <div className="bg-limestone rounded-card p-5 border border-graphite-200/80 space-y-4 text-center md:text-left">
               <div>
                 <span className="text-[11px] font-semibold text-graphite-500 uppercase tracking-wider">
-                  Рекомендуемый комплекс
+                  {dictionary.projects.label}
                 </span>
                 <div className="text-base font-bold text-graphite-900 mt-0.5">
-                  {currentTab.recommendedProject}
+                  {currentTab.data.recommendedProject}
                 </div>
               </div>
 
@@ -134,7 +107,7 @@ export function AudienceGateway() {
                 href={currentTab.recommendedLink}
                 className="inline-flex items-center justify-center gap-2 w-full py-2.5 px-4 rounded-btn bg-pine text-white text-xs font-semibold hover:bg-pine-800 transition-colors shadow-subtle"
               >
-                <span>{currentTab.recommendedCta}</span>
+                <span>{currentTab.data.recommendedCta}</span>
                 <ArrowRight className="w-3.5 h-3.5" />
               </Link>
             </div>

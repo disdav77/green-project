@@ -9,12 +9,13 @@ import { CatalogUnitCard } from '@/features/catalog/CatalogUnitCard';
 import { CatalogTableView } from '@/features/catalog/CatalogTableView';
 import { MapPin, Phone, Building2, X } from 'lucide-react';
 import Image from 'next/image';
+import { getLocalizedUnit } from '@/lib/catalogLocalization';
 import { useApp } from '@/context/AppContext';
 import { formatPrice, formatPricePerSqm } from '@/lib/currency';
 
 function ApartmentsCatalogContent() {
   const searchParams = useSearchParams();
-  const { currency, openConsultModal } = useApp();
+  const { currency, language, dictionary, openConsultModal } = useApp();
 
   const [filters, setFilters] = useState<CatalogFilterState>({
     project: searchParams.get('project') || 'all',
@@ -75,13 +76,13 @@ function ApartmentsCatalogContent() {
         <div className="space-y-2">
           <div className="inline-flex items-center gap-2 text-xs font-bold text-pine uppercase tracking-wider">
             <Building2 className="w-4 h-4" />
-            <span>Каталог недвижимости</span>
+            <span>{dictionary.catalog.headerBadge}</span>
           </div>
           <h1 className="text-3xl sm:text-4xl font-heading font-extrabold text-graphite-900 tracking-tight">
-            Квартиры и таунхаусы застройщика
+            {dictionary.catalog.headerTitle}
           </h1>
           <p className="text-sm text-graphite-600">
-            Официальные планировки, актуальные статусы и точные адреса объектов
+            {dictionary.catalog.headerSubtitle}
           </p>
         </div>
 
@@ -97,14 +98,14 @@ function ApartmentsCatalogContent() {
         {filteredUnits.length === 0 ? (
           <div className="p-12 text-center bg-white rounded-card border border-graphite-200 shadow-subtle space-y-3">
             <p className="text-sm text-graphite-600">
-              По выбранным фильтрам планировок не найдено.
+              {dictionary.catalog.noUnitsFound}
             </p>
             <button
               type="button"
               onClick={handleReset}
               className="px-4 py-2 rounded-btn bg-pine text-white text-xs font-bold hover:bg-pine-800 transition-colors"
             >
-              Сбросить фильтры
+              {dictionary.catalog.resetFilters}
             </button>
           </div>
         ) : filters.viewMode === 'grid' ? (
@@ -125,89 +126,92 @@ function ApartmentsCatalogContent() {
         )}
 
         {/* Selected Unit Modal */}
-        {selectedUnit && (
-          <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-graphite-900/70 backdrop-blur-sm animate-in fade-in duration-150">
-            <div className="bg-white rounded-card shadow-elevated border border-graphite-200 max-w-2xl w-full p-6 space-y-6 relative overflow-hidden">
-              <div className="flex items-start justify-between border-b border-graphite-100 pb-4">
-                <div>
-                  <div className="text-xs font-bold text-pine uppercase tracking-wider">
-                    {selectedUnit.roomsLabel} • Этаж {selectedUnit.floorNumber}
-                  </div>
-                  <h3 className="text-xl font-bold text-graphite-900 mt-0.5">
-                    Квартира № {selectedUnit.unitNumber} ({selectedUnit.areaSqm} м²)
-                  </h3>
-                  <div className="flex items-center gap-1.5 text-xs text-graphite-500 mt-1">
-                    <MapPin className="w-3.5 h-3.5 text-brass" />
-                    <span>{selectedUnit.exactAddress}</span>
-                  </div>
-                </div>
-                <button
-                  type="button"
-                  onClick={() => setSelectedUnit(null)}
-                  className="p-2 rounded-btn text-graphite-400 hover:text-graphite-800 hover:bg-limestone"
-                >
-                  <X className="w-5 h-5" />
-                </button>
-              </div>
-
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 items-center">
-                <div className="relative h-60 w-full bg-limestone rounded-card p-4 flex items-center justify-center border border-graphite-200">
-                  <Image
-                    src={selectedUnit.image}
-                    alt={selectedUnit.roomsLabel}
-                    fill
-                    className="object-contain p-3"
-                  />
-                </div>
-
-                <div className="space-y-4">
-                  <div className="grid grid-cols-2 gap-2 text-xs">
-                    <div className="p-2.5 rounded-btn bg-limestone-alt border border-graphite-100">
-                      <span className="text-graphite-400 block text-[11px]">Площадь</span>
-                      <strong className="text-graphite-900 text-sm">{selectedUnit.areaSqm} м²</strong>
+        {selectedUnit && (() => {
+          const currentUnit = getLocalizedUnit(selectedUnit, language);
+          return (
+            <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-graphite-900/70 backdrop-blur-sm animate-in fade-in duration-150">
+              <div className="bg-white rounded-card shadow-elevated border border-graphite-200 max-w-2xl w-full p-6 space-y-6 relative overflow-hidden">
+                <div className="flex items-start justify-between border-b border-graphite-100 pb-4">
+                  <div>
+                    <div className="text-xs font-bold text-pine uppercase tracking-wider">
+                      {currentUnit.roomsLabel} • {dictionary.common.floor} {currentUnit.floorNumber}
                     </div>
-                    <div className="p-2.5 rounded-btn bg-limestone-alt border border-graphite-100">
-                      <span className="text-graphite-400 block text-[11px]">Потолки</span>
-                      <strong className="text-graphite-900 text-sm">{selectedUnit.ceilingHeight} м</strong>
-                    </div>
-                    <div className="p-2.5 rounded-btn bg-limestone-alt border border-graphite-100">
-                      <span className="text-graphite-400 block text-[11px]">Балкон</span>
-                      <strong className="text-graphite-900 text-sm">{selectedUnit.balconyArea} м²</strong>
-                    </div>
-                    <div className="p-2.5 rounded-btn bg-limestone-alt border border-graphite-100">
-                      <span className="text-graphite-400 block text-[11px]">Статус</span>
-                      <strong className="text-emerald-700 text-sm">
-                        {selectedUnit.status === 'available' ? 'В продаже' : 'Забронирована'}
-                      </strong>
+                    <h3 className="text-xl font-bold text-graphite-900 mt-0.5">
+                      № {currentUnit.unitNumber} ({currentUnit.areaSqm} {dictionary.common.sqm})
+                    </h3>
+                    <div className="flex items-center gap-1.5 text-xs text-graphite-500 mt-1">
+                      <MapPin className="w-3.5 h-3.5 text-brass" />
+                      <span>{currentUnit.exactAddress}</span>
                     </div>
                   </div>
-
-                  <div className="p-3 rounded-btn bg-pine-50 border border-pine-200">
-                    <span className="text-[11px] text-graphite-600 block">Стоимость квартиры</span>
-                    <div className="text-2xl font-black text-pine">
-                      {formatPrice(selectedUnit.priceAMD, currency)}
-                    </div>
-                    <div className="text-xs text-graphite-500 mt-0.5">
-                      {formatPricePerSqm(selectedUnit.priceAMD, selectedUnit.areaSqm, currency)}
-                    </div>
-                  </div>
-
                   <button
                     type="button"
-                    onClick={() => {
-                      setSelectedUnit(null);
-                      openConsultModal(selectedUnit.projectId);
-                    }}
-                    className="w-full py-2.5 rounded-btn bg-pine text-white text-xs font-bold hover:bg-pine-800 transition-colors shadow-sm cursor-pointer flex items-center justify-center gap-2"
+                    onClick={() => setSelectedUnit(null)}
+                    className="p-2 rounded-btn text-graphite-400 hover:text-graphite-800 hover:bg-limestone"
                   >
-                    <Phone className="w-4 h-4 text-brass" />
-                    <span>Забронировать по телефону</span>
+                    <X className="w-5 h-5" />
                   </button>
+                </div>
+
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6 items-center">
+                  <div className="relative h-60 w-full bg-limestone rounded-card p-4 flex items-center justify-center border border-graphite-200">
+                    <Image
+                      src={currentUnit.image}
+                      alt={currentUnit.roomsLabel}
+                      fill
+                      className="object-contain p-3"
+                    />
+                  </div>
+
+                  <div className="space-y-4">
+                    <div className="grid grid-cols-2 gap-2 text-xs">
+                      <div className="p-2.5 rounded-btn bg-limestone-alt border border-graphite-100">
+                        <span className="text-graphite-400 block text-[11px]">{dictionary.catalog.colArea}</span>
+                        <strong className="text-graphite-900 text-sm">{currentUnit.areaSqm} {dictionary.common.sqm}</strong>
+                      </div>
+                      <div className="p-2.5 rounded-btn bg-limestone-alt border border-graphite-100">
+                        <span className="text-graphite-400 block text-[11px]">{dictionary.catalog.ceilingLabel}</span>
+                        <strong className="text-graphite-900 text-sm">{currentUnit.ceilingHeight} {language === 'en' ? 'm' : 'м'}</strong>
+                      </div>
+                      <div className="p-2.5 rounded-btn bg-limestone-alt border border-graphite-100">
+                        <span className="text-graphite-400 block text-[11px]">{dictionary.catalog.balconyLabel}</span>
+                        <strong className="text-graphite-900 text-sm">{currentUnit.balconyArea} {dictionary.common.sqm}</strong>
+                      </div>
+                      <div className="p-2.5 rounded-btn bg-limestone-alt border border-graphite-100">
+                        <span className="text-graphite-400 block text-[11px]">{dictionary.catalog.colStatus}</span>
+                        <strong className="text-emerald-700 text-sm">
+                          {currentUnit.status === 'available' ? dictionary.catalog.statusAvailable : dictionary.catalog.statusReserved}
+                        </strong>
+                      </div>
+                    </div>
+
+                    <div className="p-3 rounded-btn bg-pine-50 border border-pine-200">
+                      <span className="text-[11px] text-graphite-600 block">{dictionary.catalog.propertyPriceLabel}</span>
+                      <div className="text-2xl font-black text-pine">
+                        {formatPrice(currentUnit.priceAMD, currency)}
+                      </div>
+                      <div className="text-xs text-graphite-500 mt-0.5">
+                        {formatPricePerSqm(currentUnit.priceAMD, currentUnit.areaSqm, currency)}
+                      </div>
+                    </div>
+
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setSelectedUnit(null);
+                        openConsultModal(currentUnit.projectId);
+                      }}
+                      className="w-full py-2.5 rounded-btn bg-pine text-white text-xs font-bold hover:bg-pine-800 transition-colors shadow-sm cursor-pointer flex items-center justify-center gap-2"
+                    >
+                      <Phone className="w-4 h-4 text-brass" />
+                      <span>{dictionary.catalog.bookByPhone}</span>
+                    </button>
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
-        )}
+          );
+        })()}
       </div>
     </div>
   );
@@ -215,7 +219,7 @@ function ApartmentsCatalogContent() {
 
 export default function ApartmentsPage() {
   return (
-    <Suspense fallback={<div className="p-12 text-center text-graphite-500 text-sm">Загрузка каталога...</div>}>
+    <Suspense fallback={<div className="p-12 text-center text-graphite-500 text-sm">Loading...</div>}>
       <ApartmentsCatalogContent />
     </Suspense>
   );

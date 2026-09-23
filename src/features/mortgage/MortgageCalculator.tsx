@@ -58,7 +58,7 @@ export function MortgageCalculator() {
       <div className="calc-inputs-col">
         {/* Bank presets */}
         <div className="bank-presets-row">
-          <span className="bank-presets-label">Банки-партнеры:</span>
+          <span className="bank-presets-label">{dictionary.mortgage.partnerBanks}</span>
           <div className="bank-presets-pills">
             {initialBanks.map((bank) => {
               const isSelected = selectedBankId === bank.id;
@@ -82,7 +82,7 @@ export function MortgageCalculator() {
             <div className="calc-label-left">
               <label className="calc-label">{dictionary.mortgage.coBorrowerToggle}</label>
               <span className="tax-law-cap-badge">
-                {hasCoBorrower ? 'Лимит: 1 000 000 ֏/мес' : 'Лимит: 500 000 ֏/мес'}
+                {hasCoBorrower ? dictionary.mortgage.limitWithCoBorrower : dictionary.mortgage.limitSingleBorrower}
               </span>
             </div>
             <label style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', cursor: 'pointer', fontSize: '13px', fontWeight: 600, color: 'var(--primary)' }}>
@@ -92,7 +92,7 @@ export function MortgageCalculator() {
                 onChange={(e) => setHasCoBorrower(e.target.checked)}
                 style={{ accentColor: 'var(--primary)', cursor: 'pointer' }}
               />
-              <span>{hasCoBorrower ? 'Созаёмщик включен' : 'Один заёмщик'}</span>
+              <span>{hasCoBorrower ? dictionary.mortgage.coBorrowerOn : dictionary.mortgage.coBorrowerOff}</span>
             </label>
           </div>
         </div>
@@ -102,7 +102,7 @@ export function MortgageCalculator() {
           <div className="calc-label-row">
             <div className="calc-label-left">
               <label className="calc-label">{dictionary.mortgage.propertyPrice}</label>
-              <span className="tax-law-cap-badge">Порог ст. 156.1: до 55 млн ֏</span>
+              <span className="tax-law-cap-badge">{dictionary.mortgage.lawArticle156Cap}</span>
             </div>
             <span className="calc-val-badge">
               {formatPrice(propertyPriceAMD, currency)}
@@ -143,7 +143,7 @@ export function MortgageCalculator() {
           <div className="calc-label-row">
             <label className="calc-label">{dictionary.mortgage.loanTerm}</label>
             <span className="calc-val-badge">
-              {loanTermYears} лет ({loanTermYears * 12} мес)
+              {loanTermYears} {dictionary.mortgage.yearsUnit} ({loanTermYears * 12} {dictionary.mortgage.monthsUnit})
             </span>
           </div>
           <input
@@ -187,14 +187,14 @@ export function MortgageCalculator() {
           <span className="calc-hero-label">{dictionary.mortgage.effectivePayment}:</span>
           <div className="effective-val">
             {formatPrice(taxRefundResult.effectiveMonthlyPaymentAMD, currency)}
-            <span style={{ fontSize: '15px', fontWeight: 500, opacity: 0.8 }}> / мес.</span>
+            <span style={{ fontSize: '15px', fontWeight: 500, opacity: 0.8 }}> / {dictionary.mortgage.perMonth}</span>
           </div>
         </div>
 
         {/* Loan Principal & Standard Payment */}
         <div className="calc-meta-row">
           <div className="calc-meta-item">
-            <span className="calc-meta-label">Сумма кредита:</span>
+            <span className="calc-meta-label">{dictionary.mortgage.loanAmount}:</span>
             <strong className="calc-meta-val">
               {formatPrice(mortgageResult.loanAmountAMD, currency)}
             </strong>
@@ -216,7 +216,7 @@ export function MortgageCalculator() {
             </div>
           </div>
           <small>
-            Компенсируется государством из подоходного налога по Ст. 156.1 НК РА
+            {dictionary.mortgage.subsidizedByState}
           </small>
         </div>
 
@@ -226,20 +226,20 @@ export function MortgageCalculator() {
             <div
               className="ratio-client"
               style={{ width: `${clientPayRatio}%` }}
-              title={`Ваш платёж: ${Math.round(clientPayRatio)}%`}
+              title={`${dictionary.mortgage.yourPayment}: ${Math.round(clientPayRatio)}%`}
             />
             <div
               className="ratio-gov"
               style={{ width: `${govPayRatio}%` }}
-              title={`Гасит государство: ${Math.round(govPayRatio)}%`}
+              title={`${dictionary.mortgage.stateCovers}: ${Math.round(govPayRatio)}%`}
             />
           </div>
           <div className="payment-ratio-legend">
             <span className="legend-client">
-              ● Ваш платёж: ~{Math.round(clientPayRatio)}%
+              ● {dictionary.mortgage.yourPayment}: ~{Math.round(clientPayRatio)}%
             </span>
             <span className="legend-gov">
-              ● Гасит гос-во: ~{Math.round(govPayRatio)}%
+              ● {dictionary.mortgage.stateCovers}: ~{Math.round(govPayRatio)}%
             </span>
           </div>
         </div>
@@ -248,7 +248,7 @@ export function MortgageCalculator() {
         <div className="calc-sub-grid">
           <div className="savings-counter-box">
             <div className="savings-row">
-              <span>Экономия за 1-й год:</span>
+              <span>{dictionary.mortgage.savings1Year}:</span>
               <strong className="savings-val">
                 + {formatPrice(taxRefundResult.oneYearSavingsAMD, currency)}
               </strong>
@@ -271,7 +271,7 @@ export function MortgageCalculator() {
             <div>
               <span className="salary-title">{dictionary.mortgage.requiredSalary}:</span>
               <div className="salary-val">
-                от {formatPrice(mortgageResult.requiredGrossSalaryAMD, currency)}
+                {dictionary.mortgage.fromPrefix} {formatPrice(mortgageResult.requiredGrossSalaryAMD, currency)}
               </div>
             </div>
           </div>
@@ -284,7 +284,7 @@ export function MortgageCalculator() {
             onClick={() => openConsultModal()}
             className="btn btn-primary w-full calc-submit-btn"
           >
-            Получить одобрение ипотеки
+            {dictionary.mortgage.ctaApproval}
           </button>
           <button
             type="button"
@@ -292,7 +292,7 @@ export function MortgageCalculator() {
             className="btn btn-secondary w-full"
             style={{ fontSize: '12px', padding: '8px 12px' }}
           >
-            Распечатать расчет (PDF)
+            {dictionary.mortgage.printPdf}
           </button>
         </div>
       </div>

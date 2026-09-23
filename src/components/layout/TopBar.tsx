@@ -17,7 +17,7 @@ export function TopBar() {
   }, []);
 
   return (
-    <aside className={`top-bar ${isScrolled ? 'top-bar-hidden' : ''}`} aria-label="Информационная панель">
+    <aside className={`top-bar ${isScrolled ? 'top-bar-hidden' : ''}`} aria-label="Announcement banner">
       <div className="container top-bar-inner">
         <div className="top-bar-announcement">
           <span className="top-bar-location-badge">
@@ -33,7 +33,7 @@ export function TopBar() {
 
         <div className="top-bar-controls">
           {/* Currency */}
-          <div className="pill-selector" role="group" aria-label="Валюта">
+          <div className="pill-selector" role="group" aria-label="Currency selection">
             <button
               type="button"
               onClick={() => setCurrency('AMD')}
@@ -51,7 +51,7 @@ export function TopBar() {
           </div>
 
           {/* Language */}
-          <div className="pill-selector" role="group" aria-label="Язык">
+          <div className="pill-selector" role="group" aria-label="Language selection">
             <button
               type="button"
               onClick={() => setLanguage('ru')}

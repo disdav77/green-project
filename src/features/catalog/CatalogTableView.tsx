@@ -4,6 +4,7 @@ import React from 'react';
 import { Unit } from '@/types/database';
 import { useApp } from '@/context/AppContext';
 import { initialProjects } from '@/lib/initialCatalog';
+import { getLocalizedProject, getLocalizedUnit } from '@/lib/catalogLocalization';
 import { formatPrice, formatPricePerSqm } from '@/lib/currency';
 
 interface CatalogTableViewProps {
@@ -12,26 +13,28 @@ interface CatalogTableViewProps {
 }
 
 export function CatalogTableView({ units, onSelect }: CatalogTableViewProps) {
-  const { currency, openConsultModal } = useApp();
+  const { currency, language, dictionary, openConsultModal } = useApp();
 
   return (
     <div className="bg-white rounded-card border border-graphite-200 overflow-x-auto shadow-subtle">
       <table className="w-full text-left text-xs text-graphite-700">
         <thead className="bg-limestone-alt text-graphite-500 font-bold uppercase tracking-wider text-[11px] border-b border-graphite-200">
           <tr>
-            <th className="py-3.5 px-4">Комплекс / №</th>
-            <th className="py-3.5 px-4">Комнат</th>
-            <th className="py-3.5 px-4">Площадь</th>
-            <th className="py-3.5 px-4">Этаж</th>
-            <th className="py-3.5 px-4">Цена за м²</th>
-            <th className="py-3.5 px-4">Стоимость</th>
-            <th className="py-3.5 px-4">Статус</th>
-            <th className="py-3.5 px-4 text-right">Действие</th>
+            <th className="py-3.5 px-4">{dictionary.catalog.colProject} / №</th>
+            <th className="py-3.5 px-4">{dictionary.catalog.colRooms}</th>
+            <th className="py-3.5 px-4">{dictionary.catalog.colArea}</th>
+            <th className="py-3.5 px-4">{dictionary.catalog.colFloor}</th>
+            <th className="py-3.5 px-4">{dictionary.projectDetail.sqmPricePrefix}</th>
+            <th className="py-3.5 px-4">{dictionary.catalog.colPrice}</th>
+            <th className="py-3.5 px-4">{dictionary.catalog.colStatus}</th>
+            <th className="py-3.5 px-4 text-right">{dictionary.catalog.colAction}</th>
           </tr>
         </thead>
         <tbody className="divide-y divide-graphite-100">
-          {units.map((unit) => {
-            const project = initialProjects.find((p) => p.id === unit.projectId);
+          {units.map((rawUnit) => {
+            const unit = getLocalizedUnit(rawUnit, language);
+            const rawProject = initialProjects.find((p) => p.id === unit.projectId);
+            const project = rawProject ? getLocalizedProject(rawProject, language) : undefined;
             const isAvailable = unit.status === 'available';
 
             const statusClass =
@@ -43,20 +46,26 @@ export function CatalogTableView({ units, onSelect }: CatalogTableViewProps) {
 
             const statusLabel =
               unit.status === 'available'
-                ? 'В продаже'
+                ? dictionary.catalog.statusAvailable
                 : unit.status === 'reserved'
-                ? 'Бронь'
-                : 'Продано';
+                ? dictionary.catalog.statusReserved
+                : dictionary.catalog.statusSold;
 
             return (
               <tr key={unit.id} className="hover:bg-limestone/50 transition-colors">
                 <td className="py-3 px-4 font-semibold text-graphite-900">
                   <div>{project?.name}</div>
-                  <div className="text-[11px] text-graphite-500 font-normal">Кв. № {unit.unitNumber}</div>
+                  <div className="text-[11px] text-graphite-500 font-normal">
+                    № {unit.unitNumber}
+                  </div>
                 </td>
                 <td className="py-3 px-4 font-medium">{unit.roomsLabel}</td>
-                <td className="py-3 px-4 font-bold text-graphite-900">{unit.areaSqm} м²</td>
-                <td className="py-3 px-4">{unit.floorNumber} этаж</td>
+                <td className="py-3 px-4 font-bold text-graphite-900">
+                  {unit.areaSqm} {dictionary.common.sqm}
+                </td>
+                <td className="py-3 px-4">
+                  {unit.floorNumber} {dictionary.common.floor}
+                </td>
                 <td className="py-3 px-4 text-graphite-500">
                   {formatPricePerSqm(unit.priceAMD, unit.areaSqm, currency)}
                 </td>
@@ -74,7 +83,7 @@ export function CatalogTableView({ units, onSelect }: CatalogTableViewProps) {
                     onClick={() => onSelect(unit)}
                     className="px-2.5 py-1 rounded-btn bg-limestone-alt hover:bg-limestone text-graphite-800 border border-graphite-200 text-xs font-semibold cursor-pointer"
                   >
-                    План
+                    {dictionary.projectDetail.viewPlanBtn}
                   </button>
                   {isAvailable && (
                     <button
@@ -82,7 +91,7 @@ export function CatalogTableView({ units, onSelect }: CatalogTableViewProps) {
                       onClick={() => openConsultModal(unit.projectId)}
                       className="px-2.5 py-1 rounded-btn bg-pine text-white hover:bg-pine-800 text-xs font-semibold cursor-pointer"
                     >
-                      Бронь
+                      {dictionary.projectDetail.reserveBtn}
                     </button>
                   )}
                 </td>

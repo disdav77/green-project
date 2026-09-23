@@ -5,6 +5,7 @@ import Image from 'next/image';
 import { Unit } from '@/types/database';
 import { useApp } from '@/context/AppContext';
 import { initialProjects } from '@/lib/initialCatalog';
+import { getLocalizedProject, getLocalizedUnit } from '@/lib/catalogLocalization';
 import { formatPrice, formatPricePerSqm } from '@/lib/currency';
 import { MapPin, Maximize2, Layers } from 'lucide-react';
 
@@ -13,16 +14,18 @@ interface CatalogUnitCardProps {
   onSelect: (unit: Unit) => void;
 }
 
-export function CatalogUnitCard({ unit, onSelect }: CatalogUnitCardProps) {
-  const { currency, openConsultModal } = useApp();
-  const project = initialProjects.find((p) => p.id === unit.projectId);
+export function CatalogUnitCard({ unit: rawUnit, onSelect }: CatalogUnitCardProps) {
+  const { currency, language, dictionary, openConsultModal } = useApp();
+  const unit = getLocalizedUnit(rawUnit, language);
+  const rawProject = initialProjects.find((p) => p.id === unit.projectId);
+  const project = rawProject ? getLocalizedProject(rawProject, language) : undefined;
 
   const statusBadge =
     unit.status === 'available'
-      ? { label: 'В продаже', color: 'bg-emerald-50 text-emerald-800 border-emerald-200' }
+      ? { label: dictionary.catalog.statusAvailable, color: 'bg-emerald-50 text-emerald-800 border-emerald-200' }
       : unit.status === 'reserved'
-      ? { label: 'Забронирована', color: 'bg-amber-50 text-amber-800 border-amber-200' }
-      : { label: 'Продана', color: 'bg-graphite-100 text-graphite-600 border-graphite-200' };
+      ? { label: dictionary.catalog.statusReserved, color: 'bg-amber-50 text-amber-800 border-amber-200' }
+      : { label: dictionary.catalog.statusSold, color: 'bg-graphite-100 text-graphite-600 border-graphite-200' };
 
   return (
     <div className="group bg-white rounded-card border border-graphite-200 overflow-hidden shadow-subtle hover:border-pine/50 hover:shadow-card transition-all duration-200 flex flex-col justify-between">
@@ -56,7 +59,7 @@ export function CatalogUnitCard({ unit, onSelect }: CatalogUnitCardProps) {
                 № {unit.unitNumber}
               </span>
               <span className="text-xs text-graphite-500">
-                {unit.floorNumber}-й этаж
+                {unit.floorNumber} {dictionary.common.floor}
               </span>
             </div>
             <h3
@@ -67,18 +70,20 @@ export function CatalogUnitCard({ unit, onSelect }: CatalogUnitCardProps) {
             </h3>
             <div className="flex items-center gap-1.5 text-xs text-graphite-500 mt-1">
               <MapPin className="w-3.5 h-3.5 text-brass shrink-0" />
-              <span className="truncate">{unit.exactAddress}</span>
+              <span className="truncate">{project?.address || unit.exactAddress}</span>
             </div>
           </div>
 
           <div className="grid grid-cols-2 gap-2 py-2 border-y border-graphite-100 text-xs">
             <div className="flex items-center gap-1.5 text-graphite-700">
               <Maximize2 className="w-3.5 h-3.5 text-graphite-400" />
-              <span>{unit.areaSqm} м²</span>
+              <span>{unit.areaSqm} {dictionary.common.sqm}</span>
             </div>
             <div className="flex items-center gap-1.5 text-graphite-700">
               <Layers className="w-3.5 h-3.5 text-graphite-400" />
-              <span>Потолки {unit.ceilingHeight} м</span>
+              <span>
+                {language === 'hy' ? 'Առաստաղ' : language === 'en' ? 'Ceilings' : 'Потолки'} {unit.ceilingHeight} {language === 'en' ? 'm' : 'м'}
+              </span>
             </div>
           </div>
 
@@ -100,7 +105,7 @@ export function CatalogUnitCard({ unit, onSelect }: CatalogUnitCardProps) {
           onClick={() => onSelect(unit)}
           className="flex-1 py-2 text-center rounded-btn bg-limestone-alt hover:bg-limestone text-graphite-800 text-xs font-semibold border border-graphite-200 transition-colors cursor-pointer"
         >
-          Планировка
+          {dictionary.projectDetail.viewPlanBtn}
         </button>
         {unit.status === 'available' && (
           <button
@@ -108,7 +113,7 @@ export function CatalogUnitCard({ unit, onSelect }: CatalogUnitCardProps) {
             onClick={() => openConsultModal(unit.projectId)}
             className="flex-1 py-2 rounded-btn bg-pine hover:bg-pine-800 text-white text-xs font-semibold transition-colors cursor-pointer"
           >
-            Бронь
+            {dictionary.projectDetail.reserveBtn}
           </button>
         )}
       </div>

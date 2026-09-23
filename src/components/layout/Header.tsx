@@ -3,10 +3,13 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
 import { useApp } from '@/context/AppContext';
+import { initialProjects } from '@/lib/initialCatalog';
+import { getLocalizedProject } from '@/lib/catalogLocalization';
 
 export function Header() {
-  const { dictionary, openConsultModal } = useApp();
+  const { language, dictionary, openConsultModal } = useApp();
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+  const localizedProjects = initialProjects.map((p) => getLocalizedProject(p, language));
 
   return (
     <>
@@ -29,18 +32,18 @@ export function Header() {
               {dictionary.nav.projects}
             </Link>
             <Link href="/projects/avan" className="nav-link">
-              Green Avan
+              {localizedProjects[0]?.name || 'Green Avan'}
             </Link>
             <Link href="/projects/nork" className="nav-link">
-              Green Nork
+              {localizedProjects[1]?.name || 'Green Nork'}
             </Link>
             <Link href="/projects/townhouse" className="nav-link">
-              Townhouse
+              {localizedProjects[2]?.name || 'Townhouse'}
             </Link>
             <Link href="/apartments" className="nav-link nav-highlight-link">
               {dictionary.nav.catalog} ↗
             </Link>
-            <Link href="/#engineering" className="nav-link">
+            <Link href="/#advantages" className="nav-link">
               {dictionary.nav.standards}
             </Link>
             <Link href="/mortgage" className="nav-link nav-highlight-link">
@@ -62,14 +65,14 @@ export function Header() {
               className="btn btn-primary btn-sm"
               onClick={() => openConsultModal()}
             >
-              Заказать звонок
+              {dictionary.nav.requestCall}
             </button>
 
             <button
               type="button"
               className="mobile-toggle-btn"
               onClick={() => setIsDrawerOpen(true)}
-              aria-label="Меню"
+              aria-label="Navigation Menu"
             >
               <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                 <line x1="3" y1="12" x2="21" y2="12" />
@@ -109,13 +112,13 @@ export function Header() {
                 {dictionary.nav.projects}
               </Link>
               <Link href="/projects/avan" className="drawer-link" onClick={() => setIsDrawerOpen(false)}>
-                ЖК Green Avan
+                {localizedProjects[0]?.name || 'Green Avan'}
               </Link>
               <Link href="/projects/nork" className="drawer-link" onClick={() => setIsDrawerOpen(false)}>
-                ЖК Green Nork
+                {localizedProjects[1]?.name || 'Green Nork'}
               </Link>
               <Link href="/projects/townhouse" className="drawer-link" onClick={() => setIsDrawerOpen(false)}>
-                Green Townhouse
+                {localizedProjects[2]?.name || 'Townhouse'}
               </Link>
               <Link href="/apartments" className="drawer-link" style={{ color: 'var(--primary)', fontWeight: 700 }} onClick={() => setIsDrawerOpen(false)}>
                 {dictionary.nav.catalog} ↗
@@ -123,7 +126,7 @@ export function Header() {
               <Link href="/mortgage" className="drawer-link" style={{ color: 'var(--primary)', fontWeight: 700 }} onClick={() => setIsDrawerOpen(false)}>
                 {dictionary.nav.mortgage} ↗
               </Link>
-              <Link href="/#engineering" className="drawer-link" onClick={() => setIsDrawerOpen(false)}>
+              <Link href="/#advantages" className="drawer-link" onClick={() => setIsDrawerOpen(false)}>
                 {dictionary.nav.standards}
               </Link>
             </nav>
@@ -140,7 +143,7 @@ export function Header() {
                   openConsultModal();
                 }}
               >
-                Заказать звонок
+                {dictionary.nav.requestCall}
               </button>
             </div>
           </div>

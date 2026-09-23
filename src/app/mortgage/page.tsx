@@ -14,13 +14,13 @@ export default function MortgagePage() {
         {/* Top Title Banner */}
         <div className="section-title-wrap" style={{ textAlign: 'left', marginBottom: '24px' }}>
           <span className="section-top-label">
-            Государственная поддержка покупателей новостроек • Ст. 156.1 НК РА
+            {dictionary.mortgage.pageTopBadge}
           </span>
           <h1 className="section-h2" style={{ fontSize: '32px', marginBottom: '8px' }}>
             {dictionary.mortgage.title}
           </h1>
           <p className="section-subtitle" style={{ margin: '0', maxWidth: '800px' }}>
-            {dictionary.mortgage.subtitle}. Рассчитайте сумму государственной субсидии и фактический размер ежемесячного платежа с учетом созаёмщиков.
+            {dictionary.mortgage.subtitle}. {dictionary.mortgage.pageSubtitleExtra}
           </p>
         </div>
 

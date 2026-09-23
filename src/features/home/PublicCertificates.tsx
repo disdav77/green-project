@@ -4,42 +4,8 @@ import React from 'react';
 import { useApp } from '@/context/AppContext';
 
 export function PublicCertificates() {
-  const { openConsultModal } = useApp();
-
-  const escrowSteps = [
-    {
-      num: '01',
-      title: 'Предварительный нотариальный договор',
-      desc: 'Фиксация неизменной стоимости в драмах (֏), точного номера квартиры, этажа, площади и срока сдачи. Застройщик не имеет права изменять условия в одностороннем порядке.',
-      badge: 'Юридическая фиксация',
-    },
-    {
-      num: '02',
-      title: 'Регистрация в Государственном кадастре РА',
-      desc: 'Обязательная государственная регистрация права требования в Комитете кадастра недвижимости РА (e-cadastre.am), на 100% исключающая риск двойных продаж.',
-      badge: 'Государственный учет',
-    },
-    {
-      num: '03',
-      title: 'Депонирование средств на счетах эскроу',
-      desc: 'Ваши деньги замораживаются на персональном эскроу-счете в банке-партнере под защитой Центрального Банка РА. Застройщик строит за счет собственного банковского проектного финансирования.',
-      badge: '0% финансового риска',
-    },
-    {
-      num: '04',
-      title: 'Ввод в эксплуатацию и вручение ключей',
-      desc: 'Банк раскрывает эскроу-счет и переводит средства девелоперу только после подписания акта ввода здания мэрией г. Еревана и выдачи вам свидетельства о праве собственности.',
-      badge: 'Гарантия сдачи дома',
-    },
-  ];
-
-  const banks = [
-    { name: 'Ameriabank', role: 'Генеральный эскроу-агент', rate: 'от 11.2%' },
-    { name: 'Inecobank', role: 'Прямая интеграция со справками КГД РА', rate: 'от 11.5%' },
-    { name: 'Ardshinbank', role: 'Программы семейной ипотеки с 10% взносом', rate: 'от 11.0%' },
-    { name: 'ACBA Bank', role: 'Субсидированные IT-программы', rate: 'от 11.8%' },
-    { name: 'Converse Bank', role: 'Дистанционное оформление для диаспоры', rate: 'от 11.9%' },
-  ];
+  const { dictionary, openConsultModal } = useApp();
+  const escrow = dictionary.escrow;
 
   return (
     <section className="escrow-section pre-footer-trust-section" id="escrow" style={{ padding: '54px 0 64px' }}>
@@ -47,13 +13,13 @@ export function PublicCertificates() {
         {/* Section Heading */}
         <div className="section-title-wrap" style={{ textAlign: 'left', marginBottom: '32px' }}>
           <span className="section-top-label" style={{ letterSpacing: '0.08em' }}>
-            ГОСУДАРСТВЕННЫЙ ГРАДОСТРОИТЕЛЬНЫЙ РЕГЛАМЕНТ РА • ЗАКОН «О ГРАДОСТРОИТЕЛЬСТВЕ» № ЗР-104
+            {escrow.topLabel}
           </span>
           <h2 className="section-h2" style={{ fontSize: '30px', margin: '6px 0 10px' }}>
-            100% финансовая и правовая безопасность сделки
+            {escrow.sectionTitle}
           </h2>
           <p className="section-subtitle" style={{ maxWidth: '840px', margin: 0 }}>
-            Покупка напрямую от аккредитованного девелопера Green Project. Деньги дольщиков хранятся на специальных целевых счетах эскроу до сдачи дома под контролем Центрального Банка Республики Армения.
+            {escrow.sectionSubtitle}
           </p>
         </div>
 
@@ -118,53 +84,44 @@ export function PublicCertificates() {
                 </span>
                 <div>
                   <span style={{ fontSize: '11px', textTransform: 'uppercase', letterSpacing: '0.08em', color: '#C5A265', fontWeight: 700 }}>
-                    Официальный статус
+                    {escrow.passport.officialStatus}
                   </span>
                   <div style={{ fontSize: '14px', fontWeight: 700, color: '#FFFFFF' }}>
-                    Институциональный девелопер РА
+                    {escrow.passport.developerStatus}
                   </div>
                 </div>
               </div>
 
               <h3 style={{ fontSize: '20px', fontWeight: 800, lineHeight: 1.3, marginBottom: '14px', color: '#FFFFFF' }}>
-                Государственный сертификат и реестр гарантий Green Project
+                {escrow.passport.title}
               </h3>
 
               <div style={{ display: 'flex', flexDirection: 'column', gap: '12px', fontSize: '13px', lineHeight: 1.55 }}>
                 <div style={{ padding: '10px 14px', borderRadius: '8px', backgroundColor: 'rgba(255, 255, 255, 0.06)', border: '1px solid rgba(255, 255, 255, 0.1)' }}>
                   <span style={{ color: '#C5A265', fontWeight: 700, display: 'block', fontSize: '11.5px', textTransform: 'uppercase' }}>
-                    Государственная лицензия
+                    {escrow.passport.licenseLabel}
                   </span>
                   <strong style={{ fontSize: '14px', color: '#FFFFFF' }}>
-                    Лицензия застройщика КГД РА № 18492
+                    {escrow.passport.licenseNumber}
                   </strong>
-                  <div style={{ fontSize: '12px', opacity: 0.75, marginTop: '2px' }}>
-                    Комитет по градостроительству Республики Армения
-                  </div>
                 </div>
 
                 <div style={{ padding: '10px 14px', borderRadius: '8px', backgroundColor: 'rgba(255, 255, 255, 0.06)', border: '1px solid rgba(255, 255, 255, 0.1)' }}>
                   <span style={{ color: '#C5A265', fontWeight: 700, display: 'block', fontSize: '11.5px', textTransform: 'uppercase' }}>
-                    Налоговый вычет по ипотеке
+                    {escrow.passport.lawLabel}
                   </span>
                   <strong style={{ fontSize: '14px', color: '#FFFFFF' }}>
-                    Ст. 156.1 Налогового кодекса РА
+                    {escrow.passport.lawTitle}
                   </strong>
-                  <div style={{ fontSize: '12px', opacity: 0.75, marginTop: '2px' }}>
-                    Прямая выгрузка реестров для возврата подоходного налога до 1 000 000 ֏ в месяц
-                  </div>
                 </div>
 
                 <div style={{ padding: '10px 14px', borderRadius: '8px', backgroundColor: 'rgba(255, 255, 255, 0.06)', border: '1px solid rgba(255, 255, 255, 0.1)' }}>
                   <span style={{ color: '#C5A265', fontWeight: 700, display: 'block', fontSize: '11.5px', textTransform: 'uppercase' }}>
-                    Строительный стандарт
+                    {escrow.passport.certLabel}
                   </span>
                   <strong style={{ fontSize: '14px', color: '#FFFFFF' }}>
-                    СНиП РА II-6.02-2006 (Сейсмостойкость 9 баллов)
+                    {escrow.passport.certTitle}
                   </strong>
-                  <div style={{ fontSize: '12px', opacity: 0.75, marginTop: '2px' }}>
-                    Цельнолитой монолит B25/B30 с независимым государственным технадзором
-                  </div>
                 </div>
               </div>
             </div>
@@ -172,7 +129,7 @@ export function PublicCertificates() {
             <div style={{ marginTop: '24px', paddingTop: '16px', borderTop: '1px solid rgba(255, 255, 255, 0.12)' }}>
               <button
                 type="button"
-                onClick={() => openConsultModal()}
+                onClick={() => openConsultModal(escrow.passport.title)}
                 className="btn btn-primary w-full"
                 style={{
                   backgroundColor: '#C5A265',
@@ -182,7 +139,7 @@ export function PublicCertificates() {
                   border: 'none',
                 }}
               >
-                Запросить юридический пакет документов
+                {escrow.passport.downloadReportBtn}
               </button>
             </div>
           </div>
@@ -203,15 +160,15 @@ export function PublicCertificates() {
             <div>
               <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '16px' }}>
                 <span style={{ fontSize: '12px', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.06em', color: 'var(--primary)' }}>
-                  Регламент безопасной покупки
+                  {escrow.stepsTitle}
                 </span>
                 <span style={{ fontSize: '11px', color: 'var(--text-secondary)', fontWeight: 600 }}>
-                  4 ступени защиты
+                  4 {dictionary.common.details}
                 </span>
               </div>
 
               <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
-                {escrowSteps.map((step) => (
+                {escrow.steps.map((step) => (
                   <div
                     key={step.num}
                     style={{
@@ -283,8 +240,8 @@ export function PublicCertificates() {
                 color: 'var(--text-secondary)',
               }}
             >
-              <span>Договоры согласованы правовыми департаментами 5 банков</span>
-              <span style={{ fontWeight: 700, color: 'var(--primary)' }}>100% юридическая чистота</span>
+              <span>{escrow.legalNotice}</span>
+              <span style={{ fontWeight: 700, color: 'var(--primary)' }}>100% {dictionary.escrow.passport.officialStatus}</span>
             </div>
           </div>
         </div>
@@ -302,10 +259,10 @@ export function PublicCertificates() {
         >
           <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '14px', flexWrap: 'wrap', gap: '8px' }}>
             <span style={{ fontSize: '12px', fontWeight: 800, textTransform: 'uppercase', letterSpacing: '0.06em', color: 'var(--text-primary)' }}>
-              Консорциум банков-партнеров с открытыми эскроу-линиями:
+              {escrow.consortiumTitle}
             </span>
             <span style={{ fontSize: '11.5px', color: 'var(--text-secondary)' }}>
-              Ставки субсидируются по Ст. 156.1 НК РА
+              {escrow.consortiumSubtitle}
             </span>
           </div>
 
@@ -316,7 +273,7 @@ export function PublicCertificates() {
               gap: '12px',
             }}
           >
-            {banks.map((bank) => (
+            {escrow.banks.map((bank) => (
               <div
                 key={bank.name}
                 style={{

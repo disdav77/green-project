@@ -5,14 +5,16 @@ import Image from 'next/image';
 import { MapPin, Calendar, CheckCircle2, ShieldCheck, ArrowDown } from 'lucide-react';
 import { Project } from '@/types/database';
 import { useApp } from '@/context/AppContext';
+import { getLocalizedProject } from '@/lib/catalogLocalization';
 import { formatPrice } from '@/lib/currency';
 
 interface ProjectHeroProps {
   project: Project;
 }
 
-export function ProjectHero({ project }: ProjectHeroProps) {
-  const { currency, openConsultModal } = useApp();
+export function ProjectHero({ project: rawProject }: ProjectHeroProps) {
+  const { currency, language, dictionary, openConsultModal } = useApp();
+  const project = getLocalizedProject(rawProject, language);
 
   return (
     <section className="relative bg-graphite-900 text-white overflow-hidden border-b border-graphite-800" style={{ padding: '40px 0' }}>
@@ -64,7 +66,9 @@ export function ProjectHero({ project }: ProjectHeroProps) {
           {/* Quick Metrics Card */}
           <div className="bg-graphite-800/90 rounded-card p-6 border border-graphite-700/80 space-y-5 shadow-card">
             <div>
-              <div className="text-[11px] text-graphite-400 uppercase tracking-wider">Стоимость от</div>
+              <div className="text-[11px] text-graphite-400 uppercase tracking-wider">
+                {dictionary.projects.fromPrice}
+              </div>
               <div className="text-2xl font-heading font-black text-brass-light mt-0.5">
                 {formatPrice(project.priceFromAMD, currency)}
               </div>
@@ -72,22 +76,24 @@ export function ProjectHero({ project }: ProjectHeroProps) {
 
             <div className="grid grid-cols-2 gap-3 py-3 border-y border-graphite-700/60 text-xs">
               <div>
-                <span className="text-graphite-400">Срок сдачи:</span>
+                <span className="text-graphite-400">{dictionary.projects.deliveryPrefix}</span>
                 <div className="font-bold text-white mt-0.5 flex items-center gap-1">
                   <Calendar className="w-3.5 h-3.5 text-brass" />
                   <span>{project.deliveryDate}</span>
                 </div>
               </div>
               <div>
-                <span className="text-graphite-400">Готовность:</span>
+                <span className="text-graphite-400">{dictionary.projects.readinessPrefix}:</span>
                 <div className="font-bold text-white mt-0.5">{project.readiness}</div>
               </div>
               <div>
-                <span className="text-graphite-400">Этажность:</span>
-                <div className="font-bold text-white mt-0.5">{project.floorsCount} этажей</div>
+                <span className="text-graphite-400">{dictionary.catalog.colFloor}:</span>
+                <div className="font-bold text-white mt-0.5">
+                  {project.floorsCount} {dictionary.hero.statFloorsUnit}
+                </div>
               </div>
               <div>
-                <span className="text-graphite-400">Сейсмостойкость:</span>
+                <span className="text-graphite-400">{dictionary.engineering.disciplines.seismic.label}:</span>
                 <div className="font-bold text-white mt-0.5">{project.seismicScore}</div>
               </div>
             </div>
@@ -98,20 +104,20 @@ export function ProjectHero({ project }: ProjectHeroProps) {
                 onClick={() => openConsultModal(project.id)}
                 className="w-full py-2.5 rounded-btn bg-pine hover:bg-pine-800 text-white text-xs font-bold transition-all shadow-sm cursor-pointer"
               >
-                Записаться на просмотр
+                {dictionary.topBar.bookTour}
               </button>
               <a
                 href="#floor-selector"
                 className="w-full py-2 rounded-btn bg-graphite-700/80 hover:bg-graphite-700 text-graphite-200 text-xs font-medium transition-colors flex items-center justify-center gap-1.5"
               >
-                <span>Выбрать квартиру на плане</span>
+                <span>{dictionary.projectDetail.floorSelectorTitle}</span>
                 <ArrowDown className="w-3.5 h-3.5 text-brass" />
               </a>
             </div>
 
             <div className="flex items-center gap-2 text-[11px] text-graphite-400">
               <ShieldCheck className="w-4 h-4 text-pine-500 shrink-0" />
-              <span>Субсидия по Ст. 156.1 НК РА (до 500 тыс ֏ / мес)</span>
+              <span>{dictionary.mortgage.subtitle}</span>
             </div>
           </div>
         </div>
