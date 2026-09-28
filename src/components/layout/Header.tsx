@@ -43,7 +43,7 @@ export function Header() {
             <Link href="/apartments" className="nav-link nav-highlight-link">
               {dictionary.nav.catalog} ↗
             </Link>
-            <Link href="/#advantages" className="nav-link">
+            <Link href="/standards" className="nav-link">
               {dictionary.nav.standards}
             </Link>
             <Link href="/mortgage" className="nav-link nav-highlight-link">
@@ -177,7 +177,7 @@ export function Header() {
               <Link href="/mortgage" className="drawer-link" style={{ color: 'var(--primary)', fontWeight: 700 }} onClick={() => setIsDrawerOpen(false)}>
                 {dictionary.nav.mortgage} ↗
               </Link>
-              <Link href="/#advantages" className="drawer-link" onClick={() => setIsDrawerOpen(false)}>
+              <Link href="/standards" className="drawer-link" onClick={() => setIsDrawerOpen(false)}>
                 {dictionary.nav.standards}
               </Link>
             </nav>

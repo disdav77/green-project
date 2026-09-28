@@ -5,7 +5,7 @@ async function get(url) {
 }
 
 async function testSite() {
-  const routes = ['/', '/apartments', '/mortgage', '/projects/avan', '/projects/nork', '/projects/townhouse', '/admin'];
+  const routes = ['/', '/apartments', '/mortgage', '/projects/avan', '/projects/nork', '/projects/townhouse', '/admin', '/standards'];
   const allUrlsToCheck = new Set();
   const brokenAssets = [];
 

@@ -47,6 +47,25 @@ export interface AudienceTabTranslation {
   recommendedCta: string;
 }
 
+export interface BentoCardTranslation {
+  badge: string;
+  title: string;
+  desc: string;
+  metric: string;
+  metricLabel: string;
+  linkText: string;
+}
+
+export interface BentoSectionTranslation {
+  badge: string;
+  title: string;
+  subtitle: string;
+  cardStandards: BentoCardTranslation;
+  cardMortgage: BentoCardTranslation;
+  cardEscrow: BentoCardTranslation;
+  cardApartments: BentoCardTranslation;
+}
+
 export interface Dictionary {
   brand: {
     name: string;
@@ -125,6 +144,7 @@ export interface Dictionary {
     statusReserved: string;
     statusSold: string;
   };
+  bento: BentoSectionTranslation;
   engineering: {
     topLabel: string;
     sectionTitle: string;

@@ -61,10 +61,10 @@ export function Footer() {
                 <Link href="/mortgage">{dictionary.nav.mortgage}</Link>
               </li>
               <li>
-                <Link href="/#advantages">{dictionary.nav.standards}</Link>
+                <Link href="/standards">{dictionary.nav.standards}</Link>
               </li>
               <li>
-                <Link href="/#escrow">{dictionary.escrow.sectionTitle}</Link>
+                <Link href="/standards#escrow">{dictionary.escrow.sectionTitle}</Link>
               </li>
             </ul>
           </div>

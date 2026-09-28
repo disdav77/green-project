@@ -4338,4 +4338,14 @@ h1, h2, h3, h4, h5, h6, .font-heading {
   text-decoration: underline;
 }
 
+.bento-interactive-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 14px 32px rgba(15, 56, 46, 0.12) !important;
+}
+
+.bento-interactive-card:hover .bento-arrow {
+  transform: translateX(4px);
+}
+
+
 
