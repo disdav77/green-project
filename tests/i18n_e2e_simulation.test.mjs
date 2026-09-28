@@ -68,14 +68,14 @@ describe('Pass 5: Interactive E2E Simulation & Live Trilingual UX Gate', () => {
     // 1. Catalog filters
     assert.equal(hy.catalog.headerBadge, 'Անշարժ գույքի կատալոգ');
     assert.equal(hy.catalog.headerTitle, 'Կառուցապատողի բնակարաններ և թաունհաուսներ');
-    assert.equal(hy.catalog.filterProject, 'Բնակելի համալիր');
-    assert.equal(hy.catalog.allProjects, 'Բոլոր համալիրները');
+    assert.equal(hy.catalog.filterProject, 'Նախագիծ');
+    assert.equal(hy.catalog.allProjects, 'Բոլոր նախագծերը');
     assert.equal(hy.catalog.allRooms, 'Ցանկացած սենյակ');
     assert.equal(hy.catalog.allStatuses, 'Ցանկացած կարգավիճակ');
     assert.equal(hy.catalog.resetFilters, 'Մաքրել ֆիլտրերը');
 
     // 2. Unit Card & Table View columns
-    assert.equal(hy.catalog.colProject, 'ԲՀ');
+    assert.equal(hy.catalog.colProject, 'Նախագիծ');
     assert.equal(hy.catalog.colRooms, 'Սենյակներ');
     assert.equal(hy.catalog.colArea, 'Մակերես');
     assert.equal(hy.catalog.colFloor, 'Հարկ');

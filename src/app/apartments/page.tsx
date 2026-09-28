@@ -3,7 +3,7 @@
 import React, { useState, useMemo, useEffect, Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { Unit } from '@/types/database';
-import { initialUnits } from '@/lib/initialCatalog';
+import { initialUnits, initialProjects } from '@/lib/initialCatalog';
 import { CatalogFilters, CatalogFilterState } from '@/features/catalog/CatalogFilters';
 import { CatalogUnitCard } from '@/features/catalog/CatalogUnitCard';
 import { CatalogTableView } from '@/features/catalog/CatalogTableView';
@@ -46,8 +46,21 @@ function ApartmentsCatalogContent() {
     return initialUnits
       .filter((u) => {
         if (filters.project !== 'all' && u.projectId !== filters.project) return false;
-        if (filters.rooms !== 'all' && u.rooms !== parseInt(filters.rooms, 10)) return false;
+        if (filters.rooms !== 'all') {
+          if (filters.rooms === '4' ? u.rooms < 4 : u.rooms !== parseInt(filters.rooms, 10)) {
+            return false;
+          }
+        }
         if (filters.status !== 'all' && u.status !== filters.status) return false;
+
+        if (filters.delivery && filters.delivery !== 'all') {
+          const rawProj = initialProjects.find((p) => p.id === u.projectId);
+          if (!rawProj?.deliveryDate.includes(filters.delivery)) return false;
+        }
+
+        if (filters.taxRefundOnly && u.priceAMD > 55000000) return false;
+        if (filters.maxPrice && filters.maxPrice > 0 && u.priceAMD > filters.maxPrice) return false;
+
         return true;
       })
       .sort((a, b) => {
@@ -64,6 +77,9 @@ function ApartmentsCatalogContent() {
       project: 'all',
       rooms: 'all',
       status: 'all',
+      delivery: 'all',
+      taxRefundOnly: false,
+      maxPrice: 0,
       sortBy: 'price-asc',
       viewMode: 'grid',
     });

@@ -206,7 +206,7 @@ export function AdminDashboard() {
           <table className="w-full text-left text-xs text-graphite-700">
             <thead className="bg-limestone-alt text-graphite-500 font-bold uppercase tracking-wider text-[11px] border-b border-graphite-200">
               <tr>
-                <th className="py-3 px-4">Комплекс / №</th>
+                <th className="py-3 px-4">Проект / №</th>
                 <th className="py-3 px-4">Комнат</th>
                 <th className="py-3 px-4">Площадь</th>
                 <th className="py-3 px-4">Этаж</th>

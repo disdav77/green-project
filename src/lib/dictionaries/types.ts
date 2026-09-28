@@ -366,6 +366,20 @@ export interface Dictionary {
     adminLink: string;
     developerCharter: string;
     privacyPolicy: string;
+    layoutsTitle: string;
+    standardsTitle: string;
+    bankPartnersTitle: string;
+    studiosLink: string;
+    twoRoomsLink: string;
+    threeRoomsLink: string;
+    townhousesLink: string;
+    taxRefundLink: string;
+    mortgageCalcLink: string;
+    seismicStandardLink: string;
+    acousticStandardLink: string;
+    escrowLink: string;
+    consultBtn: string;
+    disclaimer: string;
   };
   common: {
     sqm: string;

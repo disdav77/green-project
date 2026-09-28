@@ -6,10 +6,11 @@ import { TopBar } from '@/components/layout/TopBar';
 import { Header } from '@/components/layout/Header';
 import { Footer } from '@/components/layout/Footer';
 import { ConsultationModal } from '@/components/layout/ConsultationModal';
+import { ScrollRevealObserver } from '@/components/layout/ScrollRevealObserver';
 
 export const metadata: Metadata = {
   title: 'Green Project | Премиальный девелопмент в Ереване и Касахе',
-  description: 'Архитектурный девелопер в Армении. ЖК Green Avan, ЖК Green Nork и Green Townhouse. Сейсмостойкость 9 баллов, монолит B25/B30, возврат налога по Ст. 156.1 НК РА.',
+  description: 'Архитектурный девелопер в Армении. Проекты Green Avan, Green Nork и Green Townhouse. Сейсмостойкость 9 баллов, монолит B25/B30, возврат налога по Ст. 156.1 НК РА.',
   keywords: ['недвижимость Ереван', 'квартиры в Ереване', 'Green Project', 'Green Avan', 'Green Nork', 'Green Townhouse', 'возврат подоходного налога', 'ипотека Армения'],
 };
 
@@ -29,6 +30,7 @@ export default function RootLayout({
           </main>
           <Footer />
           <ConsultationModal />
+          <ScrollRevealObserver />
         </AppProvider>
       </body>
     </html>

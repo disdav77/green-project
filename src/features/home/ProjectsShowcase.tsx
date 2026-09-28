@@ -6,6 +6,13 @@ import { useApp } from '@/context/AppContext';
 import { initialProjects } from '@/lib/initialCatalog';
 import { getLocalizedProject } from '@/lib/catalogLocalization';
 import { formatPrice } from '@/lib/currency';
+import { CardPhotoGallery } from '@/components/ui/CardPhotoGallery';
+
+const PROJECT_GALLERIES: Record<string, string[]> = {
+  avan: ['/images/hero-complex.png', '/images/apt-3.png', '/images/apt-4.png', '/images/floorplan.png'],
+  nork: ['/images/apt-6.png', '/images/apt-2.png', '/images/apt-1.png', '/images/floorplan.png'],
+  townhouse: ['/images/apt-1.png', '/images/apt-5.png', '/images/hero-complex.png', '/images/floorplan.png'],
+};
 
 export function ProjectsShowcase() {
   const { currency, language, dictionary } = useApp();
@@ -30,27 +37,32 @@ export function ProjectsShowcase() {
                 : 'project-class-badge';
 
             return (
-              <article key={proj.id} className="project-showcase-card">
+              <article key={proj.id} className="project-showcase-card reveal-on-scroll">
                 <div className="project-media-wrap">
-                  <img src={proj.image} alt={proj.name} loading="lazy" />
-                  <div className="project-media-overlay" />
-                  <div className="project-media-top-badges">
-                    <span className={badgeClass}>{proj.category}</span>
-                    <span className="project-readiness-pill">
-                      {dictionary.projects.readinessPrefix} {proj.readiness}
-                    </span>
-                  </div>
-                  <div className="project-media-bottom-info">
-                    <span className="project-time-tag">
-                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                        <circle cx="12" cy="12" r="10" />
-                        <polyline points="12 6 12 12 16 14" />
-                      </svg>
-                      <span>
-                        {proj.timeToCenter} {dictionary.projects.timeToCenter}
+                  <CardPhotoGallery
+                    images={PROJECT_GALLERIES[proj.slug] || [proj.image]}
+                    alt={proj.name}
+                    aspectRatio="16/10"
+                  >
+                    <div className="project-media-overlay" />
+                    <div className="project-media-top-badges">
+                      <span className={badgeClass}>{proj.category}</span>
+                      <span className="project-readiness-pill">
+                        {dictionary.projects.readinessPrefix} {proj.readiness}
                       </span>
-                    </span>
-                  </div>
+                    </div>
+                    <div className="project-media-bottom-info">
+                      <span className="project-time-tag">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                          <circle cx="12" cy="12" r="10" />
+                          <polyline points="12 6 12 12 16 14" />
+                        </svg>
+                        <span>
+                          {proj.timeToCenter} {dictionary.projects.timeToCenter}
+                        </span>
+                      </span>
+                    </div>
+                  </CardPhotoGallery>
                 </div>
 
                 <div className="project-body">

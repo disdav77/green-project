@@ -1,13 +1,13 @@
 'use client';
 
 import React from 'react';
-import Image from 'next/image';
 import { Unit } from '@/types/database';
 import { useApp } from '@/context/AppContext';
 import { initialProjects } from '@/lib/initialCatalog';
 import { getLocalizedProject, getLocalizedUnit } from '@/lib/catalogLocalization';
 import { formatPrice, formatPricePerSqm } from '@/lib/currency';
 import { MapPin, Maximize2, Layers } from 'lucide-react';
+import { CardPhotoGallery } from '@/components/ui/CardPhotoGallery';
 
 interface CatalogUnitCardProps {
   unit: Unit;
@@ -20,6 +20,13 @@ export function CatalogUnitCard({ unit: rawUnit, onSelect }: CatalogUnitCardProp
   const rawProject = initialProjects.find((p) => p.id === unit.projectId);
   const project = rawProject ? getLocalizedProject(rawProject, language) : undefined;
 
+  const unitPhotos = [
+    unit.image,
+    '/images/floorplan.png',
+    '/images/hero-complex.png',
+    unit.id.includes('avan') ? '/images/apt-3.png' : unit.id.includes('nork') ? '/images/apt-2.png' : '/images/apt-5.png',
+  ];
+
   const statusBadge =
     unit.status === 'available'
       ? { label: dictionary.catalog.statusAvailable, color: 'bg-emerald-50 text-emerald-800 border-emerald-200' }
@@ -30,25 +37,22 @@ export function CatalogUnitCard({ unit: rawUnit, onSelect }: CatalogUnitCardProp
   return (
     <div className="group bg-white rounded-card border border-graphite-200 overflow-hidden shadow-subtle hover:border-pine/50 hover:shadow-card transition-all duration-200 flex flex-col justify-between">
       <div>
-        {/* Plan Preview */}
-        <div
-          onClick={() => onSelect(unit)}
-          className="relative h-48 w-full bg-limestone-alt p-4 flex items-center justify-center border-b border-graphite-100 cursor-pointer overflow-hidden"
-        >
-          <Image
-            src={unit.image}
+        {/* Photo & Floorplan Gallery */}
+        <div className="relative w-full border-b border-graphite-100 overflow-hidden">
+          <CardPhotoGallery
+            images={unitPhotos}
             alt={unit.roomsLabel}
-            fill
-            className="object-contain p-2 group-hover:scale-105 transition-transform duration-300"
-          />
-          <div className="absolute top-3 left-3">
-            <span className={`px-2 py-0.5 rounded-btn text-[10px] font-bold border ${statusBadge.color}`}>
-              {statusBadge.label}
-            </span>
-          </div>
-          <div className="absolute top-3 right-3 px-2 py-0.5 rounded-btn bg-white/90 backdrop-blur-sm border border-graphite-200 text-[10px] font-bold text-graphite-800">
-            {project?.name}
-          </div>
+            aspectRatio="16/11"
+          >
+            <div className="absolute top-3 left-3 z-20 pointer-events-none">
+              <span className={`px-2 py-0.5 rounded-btn text-[10px] font-bold border ${statusBadge.color}`}>
+                {statusBadge.label}
+              </span>
+            </div>
+            <div className="absolute top-3 right-3 z-20 px-2 py-0.5 rounded-btn bg-white/90 backdrop-blur-sm border border-graphite-200 text-[10px] font-bold text-graphite-800 pointer-events-none">
+              {project?.name}
+            </div>
+          </CardPhotoGallery>
         </div>
 
         {/* Content Body */}

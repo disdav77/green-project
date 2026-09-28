@@ -14,9 +14,9 @@ interface ProjectLocalizationData {
 const PROJECT_TRANSLATIONS: Record<string, ProjectLocalizationData> = {
   avan: {
     name: {
-      ru: 'ЖК Green Avan',
-      hy: 'Green Avan ԲՀ',
-      en: 'Green Avan Complex',
+      ru: 'Green Avan',
+      hy: 'Green Avan',
+      en: 'Green Avan',
     },
     district: {
       ru: 'Аван, Ереван',
@@ -44,9 +44,9 @@ const PROJECT_TRANSLATIONS: Record<string, ProjectLocalizationData> = {
       en: '10 min',
     },
     description: {
-      ru: '14-этажный высотный комплекс комфорт-плюс с закрытым благоустроенным двором-садом, 2 скоростными лифтами и подземным паркингом.',
-      hy: '14-հարկանի կոմֆորտ-պլյուս բարձրահարկ համալիր՝ փակ բարեկարգ բակ-այգիով, 2 արագընթաց վերելակներով և ստորգետնյա կայանատեղիով:',
-      en: '14-story comfort-plus high-rise with a landscaped courtyard garden, 2 high-speed lifts, and underground parking.',
+      ru: '14-этажный высотный архитектурный проект комфорт-плюс с закрытым благоустроенным двором-садом, 2 скоростными лифтами и подземным паркингом.',
+      hy: '14-հարկանի կոմֆորտ-պլյուս բարձրահարկ նախագիծ՝ փակ բարեկարգ բակ-այգիով, 2 արագընթաց վերելակներով և ստորգետնյա կայանատեղիով:',
+      en: '14-story comfort-plus high-rise project with a landscaped courtyard garden, 2 high-speed lifts, and underground parking.',
     },
     features: {
       ru: [
@@ -74,9 +74,9 @@ const PROJECT_TRANSLATIONS: Record<string, ProjectLocalizationData> = {
   },
   nork: {
     name: {
-      ru: 'ЖК Green Nork',
-      hy: 'Green Nork ԲՀ',
-      en: 'Green Nork Complex',
+      ru: 'Green Nork',
+      hy: 'Green Nork',
+      en: 'Green Nork',
     },
     district: {
       ru: 'Нор-Норк, Ереван',

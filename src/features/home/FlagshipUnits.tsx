@@ -6,6 +6,7 @@ import { useApp } from '@/context/AppContext';
 import { initialUnits, initialProjects } from '@/lib/initialCatalog';
 import { getLocalizedProject, getLocalizedUnit } from '@/lib/catalogLocalization';
 import { formatPrice, formatPricePerSqm } from '@/lib/currency';
+import { CardPhotoGallery } from '@/components/ui/CardPhotoGallery';
 
 export function FlagshipUnits() {
   const { currency, language, dictionary } = useApp();
@@ -47,15 +48,23 @@ export function FlagshipUnits() {
                 ? dictionary.flagship.statusReserved
                 : dictionary.flagship.statusSold;
 
+            const unitPhotos = [
+              unit.image,
+              '/images/floorplan.png',
+              '/images/hero-complex.png',
+              unit.id.includes('avan') ? '/images/apt-3.png' : unit.id.includes('nork') ? '/images/apt-2.png' : '/images/apt-5.png',
+            ];
+
             return (
-              <article key={unit.id} className="apartment-card">
+              <article key={unit.id} className="apartment-card reveal-on-scroll">
                 <Link href={`/apartments?id=${unit.id}`} style={{ textDecoration: 'none', color: 'inherit' }}>
                   <div className="apartment-media">
-                    <img src={unit.image} alt={unit.roomsLabel} />
-                    <span className={`apartment-badge ${badgeClass}`}>{badgeLabel}</span>
-                    <span className="apt-delivery-tag">
-                      {project?.deliveryDate} • {project?.readiness}
-                    </span>
+                    <CardPhotoGallery images={unitPhotos} alt={unit.roomsLabel} aspectRatio="16/10">
+                      <span className={`apartment-badge ${badgeClass}`}>{badgeLabel}</span>
+                      <span className="apt-delivery-tag">
+                        {project?.deliveryDate} • {project?.readiness}
+                      </span>
+                    </CardPhotoGallery>
                   </div>
 
                   <div className="apartment-body">

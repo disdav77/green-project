@@ -16,14 +16,17 @@ export function Header() {
       <header className="site-header" style={{ position: 'sticky', top: 0, zIndex: 50 }}>
         <div className="container header-inner">
           {/* Brand Logo */}
-          <Link href="/" className="brand-logo">
+          <Link href="/" className="brand-logo" aria-label="Green Project">
             <span className="brand-icon-box">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-leaf">
                 <path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10Z" />
                 <path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12" />
               </svg>
             </span>
-            <span className="brand-name">{dictionary.brand.name}</span>
+            <span className="brand-text-stacked">
+              <span className="brand-name-top">Green</span>
+              <span className="brand-name-bottom">Project</span>
+            </span>
           </Link>
 
           {/* Navigation Links */}
@@ -94,7 +97,18 @@ export function Header() {
           />
           <div className="mobile-drawer-box active" style={{ transform: 'translateX(0)' }}>
             <div className="drawer-head">
-              <span className="brand-name">{dictionary.brand.name}</span>
+              <Link href="/" className="brand-logo" onClick={() => setIsDrawerOpen(false)} aria-label="Green Project">
+                <span className="brand-icon-box">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-leaf">
+                    <path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10Z" />
+                    <path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12" />
+                  </svg>
+                </span>
+                <span className="brand-text-stacked">
+                  <span className="brand-name-top">Green</span>
+                  <span className="brand-name-bottom">Project</span>
+                </span>
+              </Link>
               <button
                 type="button"
                 className="drawer-close"

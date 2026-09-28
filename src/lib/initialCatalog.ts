@@ -4,7 +4,7 @@ export const initialProjects: Project[] = [
   {
     id: 'avan',
     slug: 'avan',
-    name: 'ЖК Green Avan',
+    name: 'Green Avan',
     district: 'Аван, Ереван',
     address: 'г. Ереван, Аван, ул. Царав Ахбюр, 61/4',
     category: 'Комфорт-плюс',
@@ -15,7 +15,7 @@ export const initialProjects: Project[] = [
     priceFromAMD: 14060000,
     timeToCenter: '10 мин',
     image: '/images/hero-complex.png',
-    description: '14-этажный высотный комплекс комфорт-плюс с закрытым благоустроенным двором-садом, 2 скоростными лифтами и подземным паркингом.',
+    description: '14-этажный высотный архитектурный проект комфорт-плюс с закрытым благоустроенным двором-садом, 2 скоростными лифтами и подземным паркингом.',
     acousticComfort: '55 дБ',
     seismicScore: '9 баллов СНиП РА',
     concreteGrade: 'B25/B30',
@@ -33,7 +33,7 @@ export const initialProjects: Project[] = [
   {
     id: 'nork',
     slug: 'nork',
-    name: 'ЖК Green Nork',
+    name: 'Green Nork',
     district: 'Нор-Норк, Ереван',
     address: 'г. Ереван, Нор-Норк, ул. Гюрджяна, 14',
     category: 'Бизнес-класс',
