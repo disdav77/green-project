@@ -31,7 +31,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
         setLanguageState(savedLang);
       }
       const savedCurr = localStorage.getItem('gp_curr') as Currency;
-      if (savedCurr && (savedCurr === 'AMD' || savedCurr === 'USD')) {
+      if (savedCurr && (savedCurr === 'AMD' || savedCurr === 'USD' || savedCurr === 'RUB')) {
         setCurrencyState(savedCurr);
       }
     } catch {

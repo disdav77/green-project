@@ -1,6 +1,6 @@
 export type UnitStatus = 'available' | 'reserved' | 'sold';
 
-export type Currency = 'AMD' | 'USD';
+export type Currency = 'AMD' | 'USD' | 'RUB';
 
 export type Language = 'ru' | 'hy' | 'en';
 

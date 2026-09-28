@@ -7,7 +7,7 @@ import { initialProjects } from '@/lib/initialCatalog';
 import { getLocalizedProject } from '@/lib/catalogLocalization';
 
 export function Header() {
-  const { language, dictionary, openConsultModal } = useApp();
+  const { language, currency, dictionary, setLanguage, setCurrency, openConsultModal } = useApp();
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   const localizedProjects = initialProjects.map((p) => getLocalizedProject(p, language));
 
@@ -105,6 +105,57 @@ export function Header() {
                   <line x1="6" y1="6" x2="18" y2="18" />
                 </svg>
               </button>
+            </div>
+
+            {/* Currency & Language in Mobile Drawer */}
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', paddingBottom: '16px' }}>
+              <div className="pill-selector" style={{ width: '100%', justifyContent: 'center' }}>
+                <button
+                  type="button"
+                  onClick={() => setCurrency('AMD')}
+                  className={`pill-btn ${currency === 'AMD' ? 'active' : ''}`}
+                >
+                  ֏ AMD
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setCurrency('USD')}
+                  className={`pill-btn ${currency === 'USD' ? 'active' : ''}`}
+                >
+                  $ USD
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setCurrency('RUB')}
+                  className={`pill-btn ${currency === 'RUB' ? 'active' : ''}`}
+                >
+                  ₽ RUB
+                </button>
+              </div>
+
+              <div className="pill-selector" style={{ width: '100%', justifyContent: 'center' }}>
+                <button
+                  type="button"
+                  onClick={() => setLanguage('ru')}
+                  className={`pill-btn ${language === 'ru' ? 'active' : ''}`}
+                >
+                  RU
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setLanguage('hy')}
+                  className={`pill-btn ${language === 'hy' ? 'active' : ''}`}
+                >
+                  AM
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setLanguage('en')}
+                  className={`pill-btn ${language === 'en' ? 'active' : ''}`}
+                >
+                  EN
+                </button>
+              </div>
             </div>
 
             <nav className="drawer-links">

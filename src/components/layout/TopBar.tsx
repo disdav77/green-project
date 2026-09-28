@@ -39,6 +39,13 @@ export function TopBar() {
             >
               $ USD
             </button>
+            <button
+              type="button"
+              onClick={() => setCurrency('RUB')}
+              className={`pill-btn ${currency === 'RUB' ? 'active' : ''}`}
+            >
+              ₽ RUB
+            </button>
           </div>
 
           {/* Language */}
