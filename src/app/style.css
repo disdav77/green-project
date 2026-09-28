@@ -247,19 +247,6 @@ h1, h2, h3, h4, h5, h6, .font-heading {
   font-size: 13px;
   padding: 6px 0;
   color: var(--foreground);
-  transition: max-height 0.35s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.25s ease, padding 0.3s ease;
-  will-change: max-height, opacity;
-  max-height: 48px;
-  overflow: hidden;
-}
-
-.top-bar.top-bar-hidden {
-  max-height: 0 !important;
-  opacity: 0 !important;
-  padding-top: 0 !important;
-  padding-bottom: 0 !important;
-  border-bottom: none !important;
-  pointer-events: none !important;
 }
 
 .top-bar-inner {
