@@ -1,20 +1,37 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import { Unit, UnitStatus, Lead } from '@/types/database';
-import { fetchUnits, updateUnitStatus, updateUnitPrice, fetchLeads } from '@/lib/supabaseClient';
-import { initialProjects } from '@/lib/initialCatalog';
-import { formatNumber } from '@/lib/currency';
-import { Lock, RefreshCw, Phone, CheckCircle, Clock } from 'lucide-react';
+import { Unit, UnitStatus, Lead, Project, PromoBanner } from '@/types/database';
+import {
+  fetchProjects,
+  addProject,
+  updateProject,
+  fetchUnits,
+  addUnit,
+  deleteUnit,
+  updateUnitStatus,
+  updateUnitPrice,
+  fetchBanners,
+  updateBanner,
+  addBanner,
+  fetchLeads,
+} from '@/lib/supabaseClient';
+import { Lock, RefreshCw, CheckCircle, Home, Building2, Megaphone, Inbox } from 'lucide-react';
+import { AdminUnitsTab } from './AdminUnitsTab';
+import { AdminProjectsTab } from './AdminProjectsTab';
+import { AdminBannersTab } from './AdminBannersTab';
+import { AdminLeadsTab } from './AdminLeadsTab';
 
 export function AdminDashboard() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [usernameInput, setUsernameInput] = useState('admin');
   const [passwordInput, setPasswordInput] = useState('');
   const [authError, setAuthError] = useState('');
-  const [activeTab, setActiveTab] = useState<'inventory' | 'leads'>('inventory');
+  const [activeTab, setActiveTab] = useState<'inventory' | 'projects' | 'banners' | 'leads'>('inventory');
 
+  const [projects, setProjects] = useState<Project[]>([]);
   const [units, setUnits] = useState<Unit[]>([]);
+  const [banners, setBanners] = useState<PromoBanner[]>([]);
   const [leads, setLeads] = useState<Lead[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [successMessage, setSuccessMessage] = useState('');
@@ -22,9 +39,15 @@ export function AdminDashboard() {
   const loadData = async () => {
     setIsLoading(true);
     try {
-      const loadedUnits = await fetchUnits();
-      const loadedLeads = await fetchLeads();
+      const [loadedProjects, loadedUnits, loadedBanners, loadedLeads] = await Promise.all([
+        fetchProjects(),
+        fetchUnits(),
+        fetchBanners(),
+        fetchLeads(),
+      ]);
+      setProjects(loadedProjects);
       setUnits(loadedUnits);
+      setBanners(loadedBanners);
       setLeads(loadedLeads);
     } catch (err) {
       console.error('Failed to load admin data', err);
@@ -52,10 +75,15 @@ export function AdminDashboard() {
     }
   };
 
+  const showSuccess = (msg: string) => {
+    setSuccessMessage(msg);
+    setTimeout(() => setSuccessMessage(''), 2500);
+  };
+
   const handleStatusChange = async (unitId: string, newStatus: UnitStatus) => {
     const ok = await updateUnitStatus(unitId, newStatus);
     if (ok) {
-      setUnits(units.map((u) => (u.id === unitId ? { ...u, status: newStatus } : u)));
+      setUnits((prev) => prev.map((u) => (u.id === unitId ? { ...u, status: newStatus } : u)));
       showSuccess('Статус квартиры обновлен');
     }
   };
@@ -65,15 +93,58 @@ export function AdminDashboard() {
     if (!isNaN(num) && num > 0) {
       const ok = await updateUnitPrice(unitId, num);
       if (ok) {
-        setUnits(units.map((u) => (u.id === unitId ? { ...u, priceAMD: num } : u)));
+        setUnits((prev) => prev.map((u) => (u.id === unitId ? { ...u, priceAMD: num } : u)));
         showSuccess('Цена квартиры сохранена');
       }
     }
   };
 
-  const showSuccess = (msg: string) => {
-    setSuccessMessage(msg);
-    setTimeout(() => setSuccessMessage(''), 2500);
+  const handleAddUnit = async (newUnit: Unit) => {
+    const ok = await addUnit(newUnit);
+    if (ok) {
+      setUnits((prev) => [newUnit, ...prev]);
+      showSuccess('Квартира успешно добавлена в каталог');
+    }
+  };
+
+  const handleDeleteUnit = async (unitId: string) => {
+    const ok = await deleteUnit(unitId);
+    if (ok) {
+      setUnits((prev) => prev.filter((u) => u.id !== unitId));
+      showSuccess('Квартира удалена');
+    }
+  };
+
+  const handleAddProject = async (newProject: Project) => {
+    const ok = await addProject(newProject);
+    if (ok) {
+      setProjects((prev) => [newProject, ...prev]);
+      showSuccess('Проект (ЖК) успешно создан');
+    }
+  };
+
+  const handleUpdateProject = async (updatedProject: Project) => {
+    const ok = await updateProject(updatedProject);
+    if (ok) {
+      setProjects((prev) => prev.map((p) => (p.id === updatedProject.id ? updatedProject : p)));
+      showSuccess('Параметры проекта обновлены');
+    }
+  };
+
+  const handleUpdateBanner = async (banner: PromoBanner) => {
+    const ok = await updateBanner(banner);
+    if (ok) {
+      setBanners((prev) => prev.map((b) => (b.id === banner.id ? banner : b)));
+      showSuccess('Баннер сохранен');
+    }
+  };
+
+  const handleAddBanner = async (banner: PromoBanner) => {
+    const ok = await addBanner(banner);
+    if (ok) {
+      setBanners((prev) => [banner, ...prev]);
+      showSuccess('Новый баннер добавлен');
+    }
   };
 
   if (!isAuthenticated) {
@@ -131,10 +202,11 @@ export function AdminDashboard() {
   }
 
   const counts = {
-    total: units.length,
-    available: units.filter((u) => u.status === 'available').length,
-    reserved: units.filter((u) => u.status === 'reserved').length,
-    sold: units.filter((u) => u.status === 'sold').length,
+    totalUnits: units.length,
+    availableUnits: units.filter((u) => u.status === 'available').length,
+    totalProjects: projects.length,
+    totalBanners: banners.length,
+    totalLeads: leads.length,
   };
 
   return (
@@ -142,43 +214,65 @@ export function AdminDashboard() {
       {/* Top Metric Strip */}
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
         <div className="p-4 rounded-card bg-white border border-graphite-200 shadow-subtle">
-          <span className="text-xs text-graphite-500 font-semibold uppercase">Всего лотов</span>
-          <div className="text-2xl font-heading font-black text-graphite-900 mt-1">{counts.total}</div>
+          <span className="text-xs text-graphite-500 font-semibold uppercase">Квартир в базе</span>
+          <div className="text-2xl font-heading font-black text-graphite-900 mt-1">{counts.totalUnits}</div>
         </div>
         <div className="p-4 rounded-card bg-emerald-50/60 border border-emerald-200 shadow-subtle">
-          <span className="text-xs text-emerald-800 font-semibold uppercase">В продаже</span>
-          <div className="text-2xl font-heading font-black text-emerald-900 mt-1">{counts.available}</div>
+          <span className="text-xs text-emerald-800 font-semibold uppercase">Проектов (ЖК)</span>
+          <div className="text-2xl font-heading font-black text-emerald-900 mt-1">{counts.totalProjects}</div>
         </div>
         <div className="p-4 rounded-card bg-amber-50/60 border border-amber-200 shadow-subtle">
-          <span className="text-xs text-amber-800 font-semibold uppercase">Забронировано</span>
-          <div className="text-2xl font-heading font-black text-amber-900 mt-1">{counts.reserved}</div>
+          <span className="text-xs text-amber-800 font-semibold uppercase">Промо-баннеров</span>
+          <div className="text-2xl font-heading font-black text-amber-900 mt-1">{counts.totalBanners}</div>
         </div>
-        <div className="p-4 rounded-card bg-graphite-100 border border-graphite-200 shadow-subtle">
-          <span className="text-xs text-graphite-600 font-semibold uppercase">Продано</span>
-          <div className="text-2xl font-heading font-black text-graphite-700 mt-1">{counts.sold}</div>
+        <div className="p-4 rounded-card bg-pine-50/60 border border-pine-200 shadow-subtle">
+          <span className="text-xs text-pine font-semibold uppercase">Входящих заявок</span>
+          <div className="text-2xl font-heading font-black text-pine mt-1">{counts.totalLeads}</div>
         </div>
       </div>
 
       {/* Tabs & Controls */}
       <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
-        <div className="inline-flex rounded-btn bg-graphite-100 p-1 border border-graphite-200">
+        <div className="inline-flex rounded-btn bg-graphite-100 p-1 border border-graphite-200 flex-wrap">
           <button
             type="button"
             onClick={() => setActiveTab('inventory')}
-            className={`px-4 py-1.5 rounded-btn text-xs font-bold transition-all cursor-pointer ${
-              activeTab === 'inventory' ? 'bg-white text-pine shadow-sm' : 'text-graphite-600'
+            className={`px-3.5 py-1.5 rounded-btn text-xs font-bold transition-all cursor-pointer flex items-center gap-1.5 ${
+              activeTab === 'inventory' ? 'bg-white text-pine shadow-sm' : 'text-graphite-600 hover:text-graphite-900'
             }`}
           >
-            Управление квартирами ({units.length})
+            <Home className="w-3.5 h-3.5" />
+            <span>Квартиры ({units.length})</span>
+          </button>
+          <button
+            type="button"
+            onClick={() => setActiveTab('projects')}
+            className={`px-3.5 py-1.5 rounded-btn text-xs font-bold transition-all cursor-pointer flex items-center gap-1.5 ${
+              activeTab === 'projects' ? 'bg-white text-pine shadow-sm' : 'text-graphite-600 hover:text-graphite-900'
+            }`}
+          >
+            <Building2 className="w-3.5 h-3.5" />
+            <span>Проекты / ЖК ({projects.length})</span>
+          </button>
+          <button
+            type="button"
+            onClick={() => setActiveTab('banners')}
+            className={`px-3.5 py-1.5 rounded-btn text-xs font-bold transition-all cursor-pointer flex items-center gap-1.5 ${
+              activeTab === 'banners' ? 'bg-white text-pine shadow-sm' : 'text-graphite-600 hover:text-graphite-900'
+            }`}
+          >
+            <Megaphone className="w-3.5 h-3.5" />
+            <span>Баннеры ({banners.length})</span>
           </button>
           <button
             type="button"
             onClick={() => setActiveTab('leads')}
-            className={`px-4 py-1.5 rounded-btn text-xs font-bold transition-all cursor-pointer ${
-              activeTab === 'leads' ? 'bg-white text-pine shadow-sm' : 'text-graphite-600'
+            className={`px-3.5 py-1.5 rounded-btn text-xs font-bold transition-all cursor-pointer flex items-center gap-1.5 ${
+              activeTab === 'leads' ? 'bg-white text-pine shadow-sm' : 'text-graphite-600 hover:text-graphite-900'
             }`}
           >
-            Входящие заявки ({leads.length})
+            <Inbox className="w-3.5 h-3.5" />
+            <span>Заявки ({leads.length})</span>
           </button>
         </div>
 
@@ -200,109 +294,36 @@ export function AdminDashboard() {
         </div>
       )}
 
-      {/* Tab 1: Inventory Table */}
+      {/* Tab Contents */}
       {activeTab === 'inventory' && (
-        <div className="bg-white rounded-card border border-graphite-200 overflow-x-auto shadow-subtle">
-          <table className="w-full text-left text-xs text-graphite-700">
-            <thead className="bg-limestone-alt text-graphite-500 font-bold uppercase tracking-wider text-[11px] border-b border-graphite-200">
-              <tr>
-                <th className="py-3 px-4">Проект / №</th>
-                <th className="py-3 px-4">Комнат</th>
-                <th className="py-3 px-4">Площадь</th>
-                <th className="py-3 px-4">Этаж</th>
-                <th className="py-3 px-4">Цена в драмах (֏)</th>
-                <th className="py-3 px-4">Статус лота</th>
-              </tr>
-            </thead>
-            <tbody className="divide-y divide-graphite-100">
-              {units.map((unit) => {
-                const project = initialProjects.find((p) => p.id === unit.projectId);
-                return (
-                  <tr key={unit.id} className="hover:bg-limestone/40">
-                    <td className="py-3 px-4 font-semibold text-graphite-900">
-                      <div>{project?.name}</div>
-                      <div className="text-[11px] text-graphite-500 font-normal">Кв. {unit.unitNumber}</div>
-                    </td>
-                    <td className="py-3 px-4">{unit.roomsLabel}</td>
-                    <td className="py-3 px-4 font-bold">{unit.areaSqm} м²</td>
-                    <td className="py-3 px-4">{unit.floorNumber}</td>
-                    <td className="py-3 px-4">
-                      <input
-                        type="text"
-                        defaultValue={formatNumber(unit.priceAMD)}
-                        onBlur={(e) => handlePriceChange(unit.id, e.target.value)}
-                        className="w-32 px-2 py-1 text-xs font-bold rounded border border-graphite-300 focus:outline-none focus:border-pine"
-                      />
-                    </td>
-                    <td className="py-3 px-4">
-                      <select
-                        value={unit.status}
-                        onChange={(e) => handleStatusChange(unit.id, e.target.value as UnitStatus)}
-                        className={`px-2 py-1 rounded text-xs font-bold border ${
-                          unit.status === 'available'
-                            ? 'bg-emerald-50 text-emerald-800 border-emerald-200'
-                            : unit.status === 'reserved'
-                            ? 'bg-amber-50 text-amber-800 border-amber-200'
-                            : 'bg-graphite-100 text-graphite-600 border-graphite-200'
-                        }`}
-                      >
-                        <option value="available">Свободна</option>
-                        <option value="reserved">Бронь</option>
-                        <option value="sold">Продана</option>
-                      </select>
-                    </td>
-                  </tr>
-                );
-              })}
-            </tbody>
-          </table>
-        </div>
+        <AdminUnitsTab
+          units={units}
+          projects={projects}
+          onStatusChange={handleStatusChange}
+          onPriceChange={handlePriceChange}
+          onAddUnit={handleAddUnit}
+          onDeleteUnit={handleDeleteUnit}
+        />
       )}
 
-      {/* Tab 2: Leads Table */}
+      {activeTab === 'projects' && (
+        <AdminProjectsTab
+          projects={projects}
+          onAddProject={handleAddProject}
+          onUpdateProject={handleUpdateProject}
+        />
+      )}
+
+      {activeTab === 'banners' && (
+        <AdminBannersTab
+          banners={banners}
+          onUpdateBanner={handleUpdateBanner}
+          onAddBanner={handleAddBanner}
+        />
+      )}
+
       {activeTab === 'leads' && (
-        <div className="bg-white rounded-card border border-graphite-200 overflow-x-auto shadow-subtle">
-          {leads.length === 0 ? (
-            <div className="p-8 text-center text-graphite-500 text-xs">
-              Входящих заявок на консультацию пока нет.
-            </div>
-          ) : (
-            <table className="w-full text-left text-xs text-graphite-700">
-              <thead className="bg-limestone-alt text-graphite-500 font-bold uppercase tracking-wider text-[11px] border-b border-graphite-200">
-                <tr>
-                  <th className="py-3 px-4">Дата и время</th>
-                  <th className="py-3 px-4">Клиент</th>
-                  <th className="py-3 px-4">Телефон</th>
-                  <th className="py-3 px-4">Интересующий проект</th>
-                  <th className="py-3 px-4">Удобное время</th>
-                </tr>
-              </thead>
-              <tbody className="divide-y divide-graphite-100">
-                {leads.map((lead) => (
-                  <tr key={lead.id} className="hover:bg-limestone/40">
-                    <td className="py-3 px-4 text-graphite-500">
-                      <div className="flex items-center gap-1.5">
-                        <Clock className="w-3.5 h-3.5 text-graphite-400" />
-                        <span>{new Date(lead.createdAt).toLocaleString('ru-RU')}</span>
-                      </div>
-                    </td>
-                    <td className="py-3 px-4 font-bold text-graphite-900">{lead.name}</td>
-                    <td className="py-3 px-4">
-                      <a href={`tel:${lead.phone}`} className="text-pine font-semibold hover:underline flex items-center gap-1">
-                        <Phone className="w-3 h-3 text-brass" />
-                        <span>{lead.phone}</span>
-                      </a>
-                    </td>
-                    <td className="py-3 px-4 uppercase text-[11px] font-semibold text-graphite-700">
-                      {lead.preferredProject}
-                    </td>
-                    <td className="py-3 px-4 text-graphite-600">{lead.preferredTime}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          )}
-        </div>
+        <AdminLeadsTab leads={leads} />
       )}
     </div>
   );

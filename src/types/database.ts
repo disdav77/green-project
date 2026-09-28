@@ -85,3 +85,16 @@ export interface BankPreset {
   maxTermYears: number;
   isPopular?: boolean;
 }
+
+export interface PromoBanner {
+  id: string;
+  location: 'hero' | 'catalog' | 'mortgage';
+  title: string;
+  subtitle: string;
+  badge: string;
+  buttonText: string;
+  buttonLink: string;
+  imageUrl?: string;
+  active: boolean;
+}
+

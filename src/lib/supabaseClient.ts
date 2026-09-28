@@ -1,5 +1,5 @@
 import { createClient } from '@supabase/supabase-js';
-import { Unit, Project, Building, Lead, UnitStatus } from '@/types/database';
+import { Unit, Project, Building, Lead, UnitStatus, PromoBanner } from '@/types/database';
 import { initialProjects, initialBuildings, initialUnits } from './initialCatalog';
 
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || '';
@@ -11,9 +11,68 @@ export const supabase = (supabaseUrl && supabaseAnonKey)
 
 const STORAGE_KEY_UNITS = 'gp_units_store_v2';
 const STORAGE_KEY_LEADS = 'gp_leads_store_v2';
+const STORAGE_KEY_PROJECTS = 'gp_projects_store_v2';
+const STORAGE_KEY_BANNERS = 'gp_banners_store_v2';
+
+export const initialBanners: PromoBanner[] = [
+  {
+    id: 'banner-hero',
+    location: 'hero',
+    badge: 'Госпрограмма Армении 2026',
+    title: 'Возврат до 500 000 ֏ ежемесячно по подоходному налогу',
+    subtitle: 'Ст. 156.1 НК РА — государство гасит проценты по вашей ипотеке',
+    buttonText: 'Рассчитать вычет',
+    buttonLink: '/mortgage',
+    imageUrl: '/images/hero-complex.png',
+    active: true,
+  },
+  {
+    id: 'banner-catalog',
+    location: 'catalog',
+    badge: 'Спецпредложение',
+    title: 'Фиксация цен в драмах от 14 200 000 ֏',
+    subtitle: 'Чистовая отделка White Box и панорамное остекление в подарок',
+    buttonText: 'Выбрать планировку',
+    buttonLink: '/apartments',
+    active: true,
+  },
+  {
+    id: 'banner-mortgage',
+    location: 'mortgage',
+    badge: 'Аккредитация в топ-банках',
+    title: 'Ипотека от 10.5% с первым взносом от 10%',
+    subtitle: 'Эскроу счета в Ameriabank, Inecobank, Ardshinbank, ACBA',
+    buttonText: 'Оформить заявку',
+    buttonLink: '/mortgage',
+    active: true,
+  },
+];
 
 function isBrowser(): boolean {
   return typeof window !== 'undefined';
+}
+
+function getStoredProjects(): Project[] {
+  if (!isBrowser()) return initialProjects;
+  try {
+    const raw = localStorage.getItem(STORAGE_KEY_PROJECTS);
+    if (!raw) {
+      localStorage.setItem(STORAGE_KEY_PROJECTS, JSON.stringify(initialProjects));
+      return initialProjects;
+    }
+    return JSON.parse(raw);
+  } catch {
+    return initialProjects;
+  }
+}
+
+function setStoredProjects(projects: Project[]): void {
+  if (!isBrowser()) return;
+  try {
+    localStorage.setItem(STORAGE_KEY_PROJECTS, JSON.stringify(projects));
+  } catch (error) {
+    console.error('Failed to persist projects in local storage', error);
+  }
 }
 
 function getStoredUnits(): Unit[] {
@@ -39,6 +98,29 @@ function setStoredUnits(units: Unit[]): void {
   }
 }
 
+function getStoredBanners(): PromoBanner[] {
+  if (!isBrowser()) return initialBanners;
+  try {
+    const raw = localStorage.getItem(STORAGE_KEY_BANNERS);
+    if (!raw) {
+      localStorage.setItem(STORAGE_KEY_BANNERS, JSON.stringify(initialBanners));
+      return initialBanners;
+    }
+    return JSON.parse(raw);
+  } catch {
+    return initialBanners;
+  }
+}
+
+function setStoredBanners(banners: PromoBanner[]): void {
+  if (!isBrowser()) return;
+  try {
+    localStorage.setItem(STORAGE_KEY_BANNERS, JSON.stringify(banners));
+  } catch (error) {
+    console.error('Failed to persist banners in local storage', error);
+  }
+}
+
 function getStoredLeads(): Lead[] {
   if (!isBrowser()) return [];
   try {
@@ -59,6 +141,7 @@ function setStoredLeads(leads: Lead[]): void {
 }
 
 export async function fetchProjects(): Promise<Project[]> {
+  let projects = getStoredProjects();
   if (supabase) {
     try {
       const { data, error } = await supabase.from('projects').select('*');
@@ -67,7 +150,35 @@ export async function fetchProjects(): Promise<Project[]> {
       // Fallback
     }
   }
-  return initialProjects;
+  return projects;
+}
+
+export async function addProject(project: Project): Promise<boolean> {
+  const current = getStoredProjects();
+  const updated = [project, ...current];
+  setStoredProjects(updated);
+  if (supabase) {
+    try {
+      await supabase.from('projects').insert(project);
+    } catch {
+      // Fallback
+    }
+  }
+  return true;
+}
+
+export async function updateProject(project: Project): Promise<boolean> {
+  const current = getStoredProjects();
+  const updated = current.map((p) => (p.id === project.id ? project : p));
+  setStoredProjects(updated);
+  if (supabase) {
+    try {
+      await supabase.from('projects').update(project).eq('id', project.id);
+    } catch {
+      // Fallback
+    }
+  }
+  return true;
 }
 
 export async function fetchProjectBySlug(slug: string): Promise<Project | null> {
@@ -98,6 +209,34 @@ export async function fetchUnits(projectId?: string): Promise<Unit[]> {
     return units.filter((u) => u.projectId === projectId);
   }
   return units;
+}
+
+export async function addUnit(unit: Unit): Promise<boolean> {
+  const current = getStoredUnits();
+  const updated = [unit, ...current];
+  setStoredUnits(updated);
+  if (supabase) {
+    try {
+      await supabase.from('units').insert(unit);
+    } catch {
+      // Fallback
+    }
+  }
+  return true;
+}
+
+export async function deleteUnit(id: string): Promise<boolean> {
+  const current = getStoredUnits();
+  const updated = current.filter((u) => u.id !== id);
+  setStoredUnits(updated);
+  if (supabase) {
+    try {
+      await supabase.from('units').delete().eq('id', id);
+    } catch {
+      // Fallback
+    }
+  }
+  return true;
 }
 
 export async function updateUnitStatus(id: string, newStatus: UnitStatus): Promise<boolean> {
@@ -133,6 +272,24 @@ export async function updateUnitPrice(id: string, newPriceAMD: number): Promise<
       // Offline fallback succeeded
     }
   }
+  return true;
+}
+
+export async function fetchBanners(): Promise<PromoBanner[]> {
+  return getStoredBanners();
+}
+
+export async function updateBanner(banner: PromoBanner): Promise<boolean> {
+  const current = getStoredBanners();
+  const updated = current.map((b) => (b.id === banner.id ? banner : b));
+  setStoredBanners(updated);
+  return true;
+}
+
+export async function addBanner(banner: PromoBanner): Promise<boolean> {
+  const current = getStoredBanners();
+  const updated = [banner, ...current];
+  setStoredBanners(updated);
   return true;
 }
 
@@ -175,3 +332,4 @@ export async function fetchLeads(): Promise<Lead[]> {
   }
   return getStoredLeads();
 }
+

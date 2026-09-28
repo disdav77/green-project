@@ -6,6 +6,7 @@ import path from 'node:path';
 describe('Comprehensive Portal & Live Server Verification', () => {
   const routes = [
     '/',
+    '/projects',
     '/apartments',
     '/mortgage',
     '/projects/avan',
@@ -15,7 +16,7 @@ describe('Comprehensive Portal & Live Server Verification', () => {
     '/standards',
   ];
 
-  test('All 8 primary routes return HTTP 200 and valid HTML', async () => {
+  test('All 9 primary routes return HTTP 200 and valid HTML', async () => {
     for (const r of routes) {
       const res = await fetch(`http://127.0.0.1:3000${r}`);
       assert.equal(res.status, 200, `Route ${r} should return 200 OK`);
@@ -24,6 +25,20 @@ describe('Comprehensive Portal & Live Server Verification', () => {
       assert.ok(text.includes('<!DOCTYPE html>'), `Route ${r} should start with DOCTYPE`);
     }
   });
+
+  test('Setl Palace architecture sections and sub-navigation exist on project detail page', async () => {
+    const res = await fetch('http://127.0.0.1:3000/projects/avan');
+    assert.equal(res.status, 200);
+    const html = await res.text();
+    assert.ok(html.includes('href="#about"'), 'Should contain #about anchor');
+    assert.ok(html.includes('href="#location"'), 'Should contain #location anchor');
+    assert.ok(html.includes('href="#architecture"'), 'Should contain #architecture anchor');
+    assert.ok(html.includes('href="#amenities"'), 'Should contain #amenities anchor');
+    assert.ok(html.includes('href="#floor-selector"'), 'Should contain #floor-selector anchor');
+    assert.ok(html.includes('href="#mortgage-hub"'), 'Should contain #mortgage-hub anchor');
+    assert.ok(html.includes('logo_light_transparent.png'), 'Header should render official transparent logo');
+  });
+
 
   test('All referenced media, scripts, and CSS assets exist and load with status 200', async () => {
     const assetsToCheck = new Set();

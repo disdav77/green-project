@@ -330,6 +330,27 @@ export interface Dictionary {
     specsSubtitle: string;
     govStandardNotice: string;
     sqmPricePrefix: string;
+    navAbout: string;
+    navLocation: string;
+    navArchitecture: string;
+    navAmenities: string;
+    navPlans: string;
+    navMortgage: string;
+    ctaChoosePlan: string;
+    ctaBookTour: string;
+    metricSeismic: string;
+    metricSeismicSub: string;
+    metricAcoustic: string;
+    metricAcousticSub: string;
+    metricEnergy: string;
+    metricEnergySub: string;
+    metricEscrow: string;
+    metricEscrowSub: string;
+    sectionAboutTitle: string;
+    sectionLocationTitle: string;
+    sectionArchitectureTitle: string;
+    sectionAmenitiesTitle: string;
+    sectionMortgageTitle: string;
   };
   consultModal: {
     title: string;

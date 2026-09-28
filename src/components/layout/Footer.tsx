@@ -24,27 +24,11 @@ export function Footer() {
               style={{ display: 'inline-flex', alignItems: 'center' }}
               aria-label="Green Project"
             >
-              <span className="brand-icon-box">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="20"
-                  height="20"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  className="lucide lucide-leaf"
-                >
-                  <path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10Z" />
-                  <path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12" />
-                </svg>
-              </span>
-              <span className="brand-text-stacked">
-                <span className="brand-name-top">Green</span>
-                <span className="brand-name-bottom">Project</span>
-              </span>
+              <img
+                src="/images/logo_dark_transparent.png"
+                alt="Green Project"
+                style={{ height: '48px', width: 'auto', display: 'block', objectFit: 'contain' }}
+              />
             </Link>
             <div className="footer-top-reg">
               {dictionary.footer.developerCharter} • {dictionary.engineering.disciplines.seismic.badge}

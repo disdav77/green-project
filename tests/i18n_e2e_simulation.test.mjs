@@ -25,8 +25,8 @@ describe('Pass 5: Interactive E2E Simulation & Live Trilingual UX Gate', () => {
   test('Simulated Journey: User switches language to Armenian (hy) on Home page', () => {
     // 1. Navigation items
     assert.equal(hy.nav.projects, 'Նախագծեր');
-    assert.equal(hy.nav.apartments, 'Բնակարաններ');
-    assert.equal(hy.nav.mortgage, 'Հիփոթեք');
+    assert.equal(hy.nav.apartments, 'Ընտրել բնակարան');
+    assert.equal(hy.nav.mortgage, 'Հիփոթեքային հաշվիչ');
     assert.equal(hy.nav.standards, 'Ինժեներիա');
     assert.equal(hy.nav.about, 'Կառուցապատողի մասին');
 

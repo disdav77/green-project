@@ -17,40 +17,29 @@ export function Header() {
         <div className="container header-inner">
           {/* Brand Logo */}
           <Link href="/" className="brand-logo" aria-label="Green Project">
-            <span className="brand-icon-box">
-              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-leaf">
-                <path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10Z" />
-                <path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12" />
-              </svg>
-            </span>
-            <span className="brand-text-stacked">
-              <span className="brand-name-top">Green</span>
-              <span className="brand-name-bottom">Project</span>
-            </span>
+            <img
+              src="/images/logo_light_transparent.png"
+              alt="Green Project"
+              style={{ height: '44px', width: 'auto', display: 'block', objectFit: 'contain' }}
+            />
           </Link>
 
           {/* Navigation Links */}
           <nav className="nav-links">
-            <Link href="/#projects" className="nav-link">
+            <Link href="/projects" className="nav-link">
               {dictionary.nav.projects}
             </Link>
-            <Link href="/projects/avan" className="nav-link">
-              {localizedProjects[0]?.name || 'Green Avan'}
-            </Link>
-            <Link href="/projects/nork" className="nav-link">
-              {localizedProjects[1]?.name || 'Green Nork'}
-            </Link>
-            <Link href="/projects/townhouse" className="nav-link">
-              {localizedProjects[2]?.name || 'Townhouse'}
-            </Link>
             <Link href="/apartments" className="nav-link nav-highlight-link">
-              {dictionary.nav.catalog} ↗
+              {dictionary.nav.catalog}
+            </Link>
+            <Link href="/mortgage" className="nav-link">
+              {dictionary.nav.mortgage}
             </Link>
             <Link href="/standards" className="nav-link">
               {dictionary.nav.standards}
             </Link>
-            <Link href="/mortgage" className="nav-link nav-highlight-link">
-              {dictionary.nav.mortgage} ↗
+            <Link href="/#about" className="nav-link">
+              {dictionary.nav.about}
             </Link>
           </nav>
 
@@ -98,16 +87,11 @@ export function Header() {
           <div className="mobile-drawer-box active" style={{ transform: 'translateX(0)' }}>
             <div className="drawer-head">
               <Link href="/" className="brand-logo" onClick={() => setIsDrawerOpen(false)} aria-label="Green Project">
-                <span className="brand-icon-box">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-leaf">
-                    <path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10Z" />
-                    <path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12" />
-                  </svg>
-                </span>
-                <span className="brand-text-stacked">
-                  <span className="brand-name-top">Green</span>
-                  <span className="brand-name-bottom">Project</span>
-                </span>
+                <img
+                  src="/images/logo_light_transparent.png"
+                  alt="Green Project"
+                  style={{ height: '38px', width: 'auto', display: 'block', objectFit: 'contain' }}
+                />
               </Link>
               <button
                 type="button"
@@ -173,26 +157,20 @@ export function Header() {
             </div>
 
             <nav className="drawer-links">
-              <Link href="/#projects" className="drawer-link" onClick={() => setIsDrawerOpen(false)}>
+              <Link href="/projects" className="drawer-link" onClick={() => setIsDrawerOpen(false)}>
                 {dictionary.nav.projects}
               </Link>
-              <Link href="/projects/avan" className="drawer-link" onClick={() => setIsDrawerOpen(false)}>
-                {localizedProjects[0]?.name || 'Green Avan'}
-              </Link>
-              <Link href="/projects/nork" className="drawer-link" onClick={() => setIsDrawerOpen(false)}>
-                {localizedProjects[1]?.name || 'Green Nork'}
-              </Link>
-              <Link href="/projects/townhouse" className="drawer-link" onClick={() => setIsDrawerOpen(false)}>
-                {localizedProjects[2]?.name || 'Townhouse'}
-              </Link>
               <Link href="/apartments" className="drawer-link" style={{ color: 'var(--primary)', fontWeight: 700 }} onClick={() => setIsDrawerOpen(false)}>
-                {dictionary.nav.catalog} ↗
+                {dictionary.nav.catalog}
               </Link>
               <Link href="/mortgage" className="drawer-link" style={{ color: 'var(--primary)', fontWeight: 700 }} onClick={() => setIsDrawerOpen(false)}>
-                {dictionary.nav.mortgage} ↗
+                {dictionary.nav.mortgage}
               </Link>
               <Link href="/standards" className="drawer-link" onClick={() => setIsDrawerOpen(false)}>
                 {dictionary.nav.standards}
+              </Link>
+              <Link href="/#about" className="drawer-link" onClick={() => setIsDrawerOpen(false)}>
+                {dictionary.nav.about}
               </Link>
             </nav>
 

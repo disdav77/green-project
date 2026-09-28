@@ -1,6 +1,7 @@
 import { notFound } from 'next/navigation';
 import { initialProjects, initialBuildings, initialUnits } from '@/lib/initialCatalog';
 import { ProjectHero } from '@/features/projects/ProjectHero';
+import { ProjectSetlSections } from '@/features/projects/ProjectSetlSections';
 import { FloorPlanSelector } from '@/features/projects/FloorPlanSelector';
 import { ProjectSpecsTable } from '@/features/projects/ProjectSpecsTable';
 
@@ -26,8 +27,9 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
   const units = initialUnits.filter((u) => u.projectId === project.id);
 
   return (
-    <div>
+    <div className="space-y-0">
       <ProjectHero project={project} />
+      <ProjectSetlSections project={project} />
       <FloorPlanSelector project={project} buildings={buildings} units={units} />
       <ProjectSpecsTable project={project} />
     </div>
