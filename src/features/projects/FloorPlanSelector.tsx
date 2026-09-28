@@ -23,6 +23,7 @@ export function FloorPlanSelector({ project: rawProject, buildings, units }: Flo
   );
   const [selectedFloor, setSelectedFloor] = useState<number>(4);
   const [selectedUnit, setSelectedUnit] = useState<Unit | null>(null);
+  const [modalViewMode, setModalViewMode] = useState<'2d' | '3d'>('2d');
 
   const currentBuilding = useMemo(
     () => buildings.find((b) => b.id === selectedBuildingId) || buildings[0],
@@ -269,13 +270,39 @@ export function FloorPlanSelector({ project: rawProject, buildings, units }: Flo
               </div>
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6 items-center">
-                <div className="relative h-60 w-full bg-limestone rounded-card p-4 flex items-center justify-center border border-graphite-200">
-                  <Image
-                    src={selectedUnit.image}
-                    alt={selectedUnit.roomsLabel}
-                    fill
-                    className="object-contain p-3"
-                  />
+                <div className="space-y-2">
+                  <div className="flex items-center justify-center gap-1 p-1 bg-graphite-100 rounded-btn">
+                    <button
+                      type="button"
+                      onClick={() => setModalViewMode('2d')}
+                      className={`px-3 py-1 text-xs font-bold rounded-btn transition-colors ${
+                        modalViewMode === '2d'
+                          ? 'bg-white text-pine shadow-sm'
+                          : 'text-graphite-600 hover:text-graphite-900'
+                      }`}
+                    >
+                      {language === 'hy' ? '2D Հատակագիծ' : language === 'en' ? '2D Floor Plan' : '2D Планировка'}
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => setModalViewMode('3d')}
+                      className={`px-3 py-1 text-xs font-bold rounded-btn transition-colors ${
+                        modalViewMode === '3d'
+                          ? 'bg-white text-pine shadow-sm'
+                          : 'text-graphite-600 hover:text-graphite-900'
+                      }`}
+                    >
+                      {language === 'hy' ? '3D Ինտերիեր' : language === 'en' ? '3D Interior' : '3D Интерьер'}
+                    </button>
+                  </div>
+                  <div className="relative h-60 w-full bg-limestone rounded-card p-4 flex items-center justify-center border border-graphite-200">
+                    <Image
+                      src={modalViewMode === '2d' ? '/images/floorplan.png' : selectedUnit.image}
+                      alt={modalViewMode === '2d' ? 'Architectural Floor Plan' : selectedUnit.roomsLabel}
+                      fill
+                      className="object-contain p-3"
+                    />
+                  </div>
                 </div>
 
                 <div className="space-y-4">
