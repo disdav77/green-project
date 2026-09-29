@@ -45,7 +45,7 @@ export function CatalogUnitCard({ unit: rawUnit, onSelect }: CatalogUnitCardProp
       : { label: dictionary.catalog.statusSold, color: 'bg-graphite-100 text-graphite-600 border-graphite-200' };
 
   return (
-    <div className="group bg-white rounded-card border border-graphite-200 overflow-hidden shadow-subtle hover:border-pine/50 hover:shadow-card transition-all duration-200 flex flex-col justify-between">
+    <div className="group bg-white rounded-card border border-graphite-200 overflow-hidden shadow-subtle hover:border-pine/50 hover:shadow-card transition-all duration-200 flex flex-col justify-between h-full">
       <div>
         {/* Photo & Floorplan Gallery */}
         <div className="relative w-full border-b border-graphite-100 overflow-hidden">
@@ -55,11 +55,11 @@ export function CatalogUnitCard({ unit: rawUnit, onSelect }: CatalogUnitCardProp
             aspectRatio="16/11"
           >
             <div className="absolute top-3 left-3 z-20 pointer-events-none">
-              <span className={`px-2 py-0.5 rounded-btn text-[10px] font-bold border ${statusBadge.color}`}>
+              <span className={`px-2.5 py-1 rounded-btn text-[11px] font-bold border shadow-xs tracking-wide ${statusBadge.color}`}>
                 {statusBadge.label}
               </span>
             </div>
-            <div className="absolute top-3 right-3 z-20 px-2 py-0.5 rounded-btn bg-white/90 backdrop-blur-sm border border-graphite-200 text-[10px] font-bold text-graphite-800 pointer-events-none">
+            <div className="absolute top-3 right-3 z-20 px-2.5 py-1 rounded-btn bg-white/95 backdrop-blur-sm border border-graphite-200 text-[11px] font-bold text-graphite-800 shadow-xs pointer-events-none">
               {project?.name}
             </div>
           </CardPhotoGallery>
@@ -68,17 +68,17 @@ export function CatalogUnitCard({ unit: rawUnit, onSelect }: CatalogUnitCardProp
         {/* Content Body */}
         <div className="p-4 space-y-3">
           <div>
-            <div className="flex items-center justify-between">
-              <span className="text-[11px] font-bold text-pine uppercase">
+            <div className="flex items-center justify-between text-xs text-graphite-500 mb-1">
+              <span className="font-bold text-pine uppercase tracking-wider">
                 № {unit.unitNumber}
               </span>
-              <span className="text-xs text-graphite-500">
+              <span className="font-medium">
                 {unit.floorNumber} {dictionary.common.floor}
               </span>
             </div>
             <h3
               onClick={() => onSelect(unit)}
-              className="text-sm font-bold text-graphite-900 group-hover:text-pine transition-colors cursor-pointer mt-0.5"
+              className="text-base font-bold text-graphite-900 group-hover:text-pine transition-colors cursor-pointer mt-0.5 line-clamp-1"
             >
               {unit.roomsLabel}
             </h3>
@@ -88,31 +88,31 @@ export function CatalogUnitCard({ unit: rawUnit, onSelect }: CatalogUnitCardProp
             </div>
           </div>
 
-          <div className="grid grid-cols-2 gap-2 py-2 border-y border-graphite-100 text-xs">
+          <div className="grid grid-cols-2 gap-2 py-2.5 border-y border-graphite-100 text-xs my-2">
             <div className="flex items-center gap-1.5 text-graphite-700">
-              <Maximize2 className="w-3.5 h-3.5 text-graphite-400" />
-              <span>{unit.areaSqm} {dictionary.common.sqm}</span>
+              <Maximize2 className="w-3.5 h-3.5 text-pine shrink-0" />
+              <span className="font-medium">{unit.areaSqm} {dictionary.common.sqm}</span>
             </div>
             <div className="flex items-center gap-1.5 text-graphite-700">
-              <Layers className="w-3.5 h-3.5 text-graphite-400" />
-              <span>
+              <Layers className="w-3.5 h-3.5 text-pine shrink-0" />
+              <span className="font-medium">
                 {language === 'hy' ? 'Առաստաղ' : language === 'en' ? 'Ceilings' : 'Потолки'} {unit.ceilingHeight} {language === 'en' ? 'm' : 'м'}
               </span>
             </div>
           </div>
 
-          <div>
-            <div className="text-[11px] text-graphite-500">
-              {formatPricePerSqm(unit.priceAMD, unit.areaSqm, currency)}
-            </div>
-            <div className="text-lg font-heading font-extrabold text-graphite-900">
+          <div className="pt-0.5">
+            <div className="text-lg sm:text-xl font-heading font-extrabold text-graphite-900 tracking-tight">
               {formatPrice(unit.priceAMD, currency)}
+            </div>
+            <div className="text-[11px] text-graphite-500 font-medium mt-0.5">
+              {formatPricePerSqm(unit.priceAMD, unit.areaSqm, currency)}
             </div>
           </div>
         </div>
       </div>
 
-      {/* Footer CTA */}
+      {/* Footer CTA: Symmetric two-button row for every unit card */}
       <div className="p-4 pt-0 flex gap-2">
         <button
           type="button"
@@ -121,13 +121,29 @@ export function CatalogUnitCard({ unit: rawUnit, onSelect }: CatalogUnitCardProp
         >
           {dictionary.projectDetail.viewPlanBtn}
         </button>
-        {unit.status === 'available' && (
+        {unit.status === 'available' ? (
           <button
             type="button"
             onClick={() => openConsultModal(unit.projectId)}
             className="flex-1 py-2 rounded-btn bg-pine hover:bg-pine-800 text-white text-xs font-semibold transition-colors cursor-pointer"
           >
             {dictionary.projectDetail.reserveBtn}
+          </button>
+        ) : unit.status === 'reserved' ? (
+          <button
+            type="button"
+            onClick={() => openConsultModal(unit.projectId)}
+            className="flex-1 py-2 rounded-btn bg-amber-50 hover:bg-amber-100 text-amber-800 text-xs font-semibold border border-amber-200 transition-colors cursor-pointer"
+          >
+            {language === 'hy' ? 'Կարգավիճակ' : language === 'en' ? 'Status' : 'В резерве'}
+          </button>
+        ) : (
+          <button
+            type="button"
+            onClick={() => openConsultModal(unit.projectId)}
+            className="flex-1 py-2 rounded-btn bg-graphite-100 hover:bg-graphite-200 text-graphite-600 text-xs font-semibold border border-graphite-200 transition-colors cursor-pointer"
+          >
+            {language === 'hy' ? 'Նմանատիպ' : language === 'en' ? 'Similar' : 'Похожие'}
           </button>
         )}
       </div>

@@ -297,10 +297,10 @@ export function FloorPlanSelector({ project: rawProject, buildings, units }: Flo
                   </div>
                   <div className="relative h-60 w-full bg-limestone rounded-card p-4 flex items-center justify-center border border-graphite-200">
                     <Image
-                      src={modalViewMode === '2d' ? '/images/floorplan.png' : selectedUnit.image}
+                      src={modalViewMode === '2d' ? (selectedUnit.image || '/images/floorplan.png') : '/images/projects/apartment_interior.jpg'}
                       alt={modalViewMode === '2d' ? 'Architectural Floor Plan' : selectedUnit.roomsLabel}
                       fill
-                      className="object-contain p-3"
+                      className="object-contain p-2"
                     />
                   </div>
                 </div>
