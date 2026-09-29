@@ -11,12 +11,11 @@ export function EngineeringSpecs() {
 
   const disciplines = dictionary.engineering.disciplines;
   const activeData = disciplines[activeTab];
-  const about = dictionary.engineering.about;
 
   return (
     <>
       {/* 1. Interactive Architectural Dossier & Engineering Regulations */}
-      <section id="advantages" className="engineering-section">
+      <section id="about" className="engineering-section">
         <div className="container">
           {/* Section Heading */}
           <div className="section-title-wrap" style={{ textAlign: 'left', marginBottom: '8px' }}>
@@ -209,56 +208,6 @@ export function EngineeringSpecs() {
         </div>
       </section>
 
-      {/* 4. Bento Metrics Banner */}
-      <section id="about" className="about-section">
-        <div className="container">
-          <div className="about-card-banner">
-            <div>
-              <span className="about-badge">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                  <path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0" />
-                  <circle cx="12" cy="10" r="3" />
-                </svg>
-                <span>{about.badge}</span>
-              </span>
-              <h2 className="about-title">{about.title}</h2>
-              <p className="about-p">{about.p1}</p>
-              <p className="about-p">{about.p2}</p>
-            </div>
-
-            <div className="about-engineering-showcase">
-              <div className="eng-stat-item">
-                <div className="eng-stat-num">
-                  {about.stat1Num} <span className="eng-unit">{about.stat1Unit}</span>
-                </div>
-                <div className="eng-stat-title">{about.stat1Title}</div>
-                <p className="eng-stat-desc">{about.stat1Desc}</p>
-              </div>
-              <div className="eng-stat-item">
-                <div className="eng-stat-num">
-                  {about.stat2Num} <span className="eng-unit">{about.stat2Unit}</span>
-                </div>
-                <div className="eng-stat-title">{about.stat2Title}</div>
-                <p className="eng-stat-desc">{about.stat2Desc}</p>
-              </div>
-              <div className="eng-stat-item">
-                <div className="eng-stat-num">
-                  {about.stat3Num} <span className="eng-unit">{about.stat3Unit}</span>
-                </div>
-                <div className="eng-stat-title">{about.stat3Title}</div>
-                <p className="eng-stat-desc">{about.stat3Desc}</p>
-              </div>
-              <div className="eng-stat-item">
-                <div className="eng-stat-num">
-                  {about.stat4Num} <span className="eng-unit">{about.stat4Unit}</span>
-                </div>
-                <div className="eng-stat-title">{about.stat4Title}</div>
-                <p className="eng-stat-desc">{about.stat4Desc}</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
     </>
   );
 }

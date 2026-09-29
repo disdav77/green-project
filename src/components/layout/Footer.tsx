@@ -120,7 +120,7 @@ export function Footer() {
                 <Link href="/standards">{dictionary.nav.standards}</Link>
               </li>
               <li>
-                <Link href="/#about">{dictionary.nav.about}</Link>
+                <Link href="/standards">{dictionary.nav.about}</Link>
               </li>
               <li>
                 <Link href="/#booking">{dictionary.bookingPolicy.title}</Link>
