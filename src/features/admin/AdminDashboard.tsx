@@ -16,7 +16,7 @@ import {
   addBanner,
   fetchLeads,
 } from '@/lib/supabaseClient';
-import { Lock, RefreshCw, CheckCircle, Home, Building2, Megaphone, Inbox } from 'lucide-react';
+import { Lock, RefreshCw, CheckCircle, Home, Building2, Megaphone, Inbox, LogOut } from 'lucide-react';
 import { AdminUnitsTab } from './AdminUnitsTab';
 import { AdminProjectsTab } from './AdminProjectsTab';
 import { AdminBannersTab } from './AdminBannersTab';
@@ -35,6 +35,21 @@ export function AdminDashboard() {
   const [leads, setLeads] = useState<Lead[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [successMessage, setSuccessMessage] = useState('');
+
+  // Check existing session on mount
+  useEffect(() => {
+    async function checkSession() {
+      try {
+        const res = await fetch('/api/admin/auth');
+        if (res.ok) {
+          setIsAuthenticated(true);
+        }
+      } catch {
+        // Not authenticated
+      }
+    }
+    checkSession();
+  }, []);
 
   const loadData = async () => {
     setIsLoading(true);
@@ -62,16 +77,39 @@ export function AdminDashboard() {
     }
   }, [isAuthenticated]);
 
-  const handleLogin = (e: React.FormEvent) => {
+  const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
-    const u = usernameInput.trim().toLowerCase();
-    const p = passwordInput.trim();
+    setIsLoading(true);
+    setAuthError('');
+    try {
+      const res = await fetch('/api/admin/auth', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          username: usernameInput,
+          password: passwordInput,
+        }),
+      });
+      const data = await res.json();
+      if (res.ok && data.success) {
+        setIsAuthenticated(true);
+        setPasswordInput('');
+        setAuthError('');
+      } else {
+        setAuthError(data.error || 'Неверный логин или пароль');
+      }
+    } catch {
+      setAuthError('Ошибка сети при авторизации');
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
-    if ((u === 'admin' && p === 'admin') || p === 'green2026') {
-      setIsAuthenticated(true);
-      setAuthError('');
-    } else {
-      setAuthError('Неверный логин или пароль (используйте admin / admin)');
+  const handleLogout = async () => {
+    try {
+      await fetch('/api/admin/auth', { method: 'DELETE' });
+    } finally {
+      setIsAuthenticated(false);
     }
   };
 
@@ -276,15 +314,26 @@ export function AdminDashboard() {
           </button>
         </div>
 
-        <button
-          type="button"
-          onClick={loadData}
-          disabled={isLoading}
-          className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-btn bg-white border border-graphite-200 text-xs font-semibold text-graphite-700 hover:bg-limestone transition-colors cursor-pointer"
-        >
-          <RefreshCw className={`w-3.5 h-3.5 ${isLoading ? 'animate-spin' : ''}`} />
-          <span>Обновить данные</span>
-        </button>
+        <div className="flex items-center gap-2">
+          <button
+            type="button"
+            onClick={loadData}
+            disabled={isLoading}
+            className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-btn bg-white border border-graphite-200 text-xs font-semibold text-graphite-700 hover:bg-limestone transition-colors cursor-pointer"
+          >
+            <RefreshCw className={`w-3.5 h-3.5 ${isLoading ? 'animate-spin' : ''}`} />
+            <span>Обновить данные</span>
+          </button>
+
+          <button
+            type="button"
+            onClick={handleLogout}
+            className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-btn bg-red-50 border border-red-200 text-xs font-semibold text-red-700 hover:bg-red-100 transition-colors cursor-pointer"
+          >
+            <LogOut className="w-3.5 h-3.5" />
+            <span>Выйти</span>
+          </button>
+        </div>
       </div>
 
       {successMessage && (
