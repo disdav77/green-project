@@ -11,7 +11,6 @@ export function EngineeringSpecs() {
 
   const disciplines = dictionary.engineering.disciplines;
   const activeData = disciplines[activeTab];
-  const matrix = dictionary.engineering.matrix;
   const about = dictionary.engineering.about;
 
   return (
@@ -182,49 +181,6 @@ export function EngineeringSpecs() {
             </div>
           </div>
 
-          {/* 2. Specifications Comparative Matrix */}
-          <div className="eng-matrix-box">
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '18px', flexWrap: 'wrap', gap: '12px' }}>
-              <div>
-                <h3 style={{ fontSize: '19px', fontWeight: 700, color: '#12161A', margin: '0 0 4px' }}>
-                  {matrix.title}
-                </h3>
-                <p style={{ fontSize: '13.5px', color: '#5F6B76', margin: 0 }}>
-                  {matrix.subtitle}
-                </p>
-              </div>
-              <span className="eng-badge-pill">
-                {matrix.badge}
-              </span>
-            </div>
-
-            <div className="eng-matrix-table-wrap" style={{ width: '100%', overflowX: 'auto', WebkitOverflowScrolling: 'touch' }}>
-              <table className="eng-matrix-table">
-                <thead>
-                  <tr>
-                    <th style={{ width: '22%' }}>{matrix.colParam}</th>
-                    <th style={{ width: '26%' }}>{matrix.colStandard}</th>
-                    <th style={{ width: '28%' }}>{matrix.colGreenProject}</th>
-                    <th style={{ width: '24%' }}>{matrix.colResult}</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {matrix.rows.map((row, idx) => (
-                    <tr key={idx}>
-                      <td style={{ fontWeight: 700, color: '#12161A' }}>{row.feature}</td>
-                      <td>
-                        <span className="eng-pill-muted">{row.standard}</span>
-                      </td>
-                      <td>
-                        <span className="eng-pill-green">{row.greenProject}</span>
-                      </td>
-                      <td style={{ color: '#47515A' }}>{row.advantage}</td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-          </div>
 
           {/* 3. Official Certified CTA Banner */}
           <div className="eng-passport-cta">
