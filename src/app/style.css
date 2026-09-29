@@ -4698,6 +4698,14 @@ h1, h2, h3, h4, h5, h6, .font-heading {
   transform: translateX(4px);
 }
 
+.bento-interactive-card h3 {
+  color: inherit;
+}
+
+.bento-interactive-card p {
+  color: inherit;
+}
+
 /* ===================================================
    SETL FILTER CHIPS ROW & PILL BUTTONS
    =================================================== */

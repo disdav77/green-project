@@ -18,7 +18,7 @@ export function PortalNavBento() {
       badgeColor: '#F4E5B8',
       borderColor: 'rgba(197, 162, 101, 0.35)',
       metricColor: '#F4E5B8',
-      subtextColor: 'rgba(255, 255, 255, 0.82)',
+      subtextColor: 'rgba(255, 255, 255, 0.90)',
       arrowColor: '#F4E5B8',
     },
     {
@@ -54,7 +54,7 @@ export function PortalNavBento() {
       badgeColor: '#DCF7E1',
       borderColor: 'rgba(33, 145, 78, 0.4)',
       metricColor: '#DCF7E1',
-      subtextColor: 'rgba(255, 255, 255, 0.82)',
+      subtextColor: 'rgba(255, 255, 255, 0.90)',
       arrowColor: '#DCF7E1',
     },
   ];
@@ -132,10 +132,11 @@ export function PortalNavBento() {
                         display: 'block',
                         fontSize: '11px',
                         fontWeight: 600,
-                        opacity: 0.8,
+                        opacity: 0.85,
                         marginTop: '2px',
                         textTransform: 'uppercase',
                         letterSpacing: '0.04em',
+                        color: card.subtextColor,
                       }}
                     >
                       {card.data.metricLabel}
@@ -150,6 +151,7 @@ export function PortalNavBento() {
                     lineHeight: 1.3,
                     margin: '0 0 10px',
                     letterSpacing: '-0.01em',
+                    color: card.textColor,
                   }}
                 >
                   {card.data.title}
