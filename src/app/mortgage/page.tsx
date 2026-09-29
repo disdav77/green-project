@@ -3,6 +3,7 @@
 import React from 'react';
 import { MortgageCalculator } from '@/features/mortgage/MortgageCalculator';
 import { TaxLawExplanation } from '@/features/mortgage/TaxLawExplanation';
+import { PublicCertificates } from '@/features/home/PublicCertificates';
 import { useApp } from '@/context/AppContext';
 
 export default function MortgagePage() {
@@ -32,6 +33,9 @@ export default function MortgagePage() {
           <TaxLawExplanation />
         </div>
       </div>
+
+      {/* Escrow Legal Guarantees & Bank Consortium */}
+      <PublicCertificates />
     </div>
   );
 }

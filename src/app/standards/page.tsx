@@ -4,7 +4,6 @@ import React from 'react';
 import Link from 'next/link';
 import { useApp } from '@/context/AppContext';
 import { EngineeringSpecs } from '@/features/home/EngineeringSpecs';
-import { PublicCertificates } from '@/features/home/PublicCertificates';
 
 export default function StandardsPage() {
   const { dictionary } = useApp();
@@ -55,9 +54,6 @@ export default function StandardsPage() {
 
       {/* Engineering Specs & Architectural Dossier */}
       <EngineeringSpecs />
-
-      {/* Escrow Legal Guarantees & Bank Consortium */}
-      <PublicCertificates />
     </div>
   );
 }
