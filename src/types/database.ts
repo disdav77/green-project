@@ -98,3 +98,15 @@ export interface PromoBanner {
   active: boolean;
 }
 
+export interface ConstructionProgress {
+  id: string;
+  projectId: string;
+  projectName: string;
+  date: string;
+  readinessPercent: number;
+  title: string;
+  description: string;
+  imageUrl: string;
+}
+
+

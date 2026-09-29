@@ -1,37 +1,55 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import { Unit, UnitStatus, Lead, Project, PromoBanner } from '@/types/database';
+import { Unit, UnitStatus, Lead, Project, PromoBanner, ConstructionProgress } from '@/types/database';
+import { fetchLeads } from '@/lib/supabaseClient';
+import { useApp } from '@/context/AppContext';
 import {
-  fetchProjects,
-  addProject,
-  updateProject,
-  fetchUnits,
-  addUnit,
-  deleteUnit,
-  updateUnitStatus,
-  updateUnitPrice,
-  fetchBanners,
-  updateBanner,
-  addBanner,
-  fetchLeads,
-} from '@/lib/supabaseClient';
-import { Lock, RefreshCw, CheckCircle, Home, Building2, Megaphone, Inbox, LogOut } from 'lucide-react';
+  Lock,
+  RefreshCw,
+  CheckCircle,
+  Home,
+  Building2,
+  Megaphone,
+  Inbox,
+  LogOut,
+  HardHat,
+  Settings,
+} from 'lucide-react';
 import { AdminUnitsTab } from './AdminUnitsTab';
 import { AdminProjectsTab } from './AdminProjectsTab';
 import { AdminBannersTab } from './AdminBannersTab';
 import { AdminLeadsTab } from './AdminLeadsTab';
+import { AdminProgressTab } from './AdminProgressTab';
+import { AdminSettingsTab } from './AdminSettingsTab';
 
 export function AdminDashboard() {
+  const {
+    units,
+    projects,
+    banners,
+    progress,
+    refreshData,
+    addUnit,
+    updateUnitStatus,
+    updateUnitPrice,
+    deleteUnit,
+    addProject,
+    updateProject,
+    deleteProject,
+    addBanner,
+    updateBanner,
+    addProgress,
+    deleteProgress,
+    resetToDefaults,
+  } = useApp();
+
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [usernameInput, setUsernameInput] = useState('admin');
   const [passwordInput, setPasswordInput] = useState('');
   const [authError, setAuthError] = useState('');
-  const [activeTab, setActiveTab] = useState<'inventory' | 'projects' | 'banners' | 'leads'>('inventory');
+  const [activeTab, setActiveTab] = useState<'inventory' | 'projects' | 'progress' | 'banners' | 'leads' | 'settings'>('inventory');
 
-  const [projects, setProjects] = useState<Project[]>([]);
-  const [units, setUnits] = useState<Unit[]>([]);
-  const [banners, setBanners] = useState<PromoBanner[]>([]);
   const [leads, setLeads] = useState<Lead[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [successMessage, setSuccessMessage] = useState('');
@@ -51,21 +69,14 @@ export function AdminDashboard() {
     checkSession();
   }, []);
 
-  const loadData = async () => {
+  const loadLeads = async () => {
     setIsLoading(true);
     try {
-      const [loadedProjects, loadedUnits, loadedBanners, loadedLeads] = await Promise.all([
-        fetchProjects(),
-        fetchUnits(),
-        fetchBanners(),
-        fetchLeads(),
-      ]);
-      setProjects(loadedProjects);
-      setUnits(loadedUnits);
-      setBanners(loadedBanners);
+      refreshData();
+      const loadedLeads = await fetchLeads();
       setLeads(loadedLeads);
     } catch (err) {
-      console.error('Failed to load admin data', err);
+      console.error('Failed to load leads', err);
     } finally {
       setIsLoading(false);
     }
@@ -73,7 +84,7 @@ export function AdminDashboard() {
 
   useEffect(() => {
     if (isAuthenticated) {
-      loadData();
+      loadLeads();
     }
   }, [isAuthenticated]);
 
@@ -121,8 +132,7 @@ export function AdminDashboard() {
   const handleStatusChange = async (unitId: string, newStatus: UnitStatus) => {
     const ok = await updateUnitStatus(unitId, newStatus);
     if (ok) {
-      setUnits((prev) => prev.map((u) => (u.id === unitId ? { ...u, status: newStatus } : u)));
-      showSuccess('Статус квартиры обновлен');
+      showSuccess('Статус квартиры успешно обновлен');
     }
   };
 
@@ -131,7 +141,6 @@ export function AdminDashboard() {
     if (!isNaN(num) && num > 0) {
       const ok = await updateUnitPrice(unitId, num);
       if (ok) {
-        setUnits((prev) => prev.map((u) => (u.id === unitId ? { ...u, priceAMD: num } : u)));
         showSuccess('Цена квартиры сохранена');
       }
     }
@@ -140,7 +149,6 @@ export function AdminDashboard() {
   const handleAddUnit = async (newUnit: Unit) => {
     const ok = await addUnit(newUnit);
     if (ok) {
-      setUnits((prev) => [newUnit, ...prev]);
       showSuccess('Квартира успешно добавлена в каталог');
     }
   };
@@ -148,7 +156,6 @@ export function AdminDashboard() {
   const handleDeleteUnit = async (unitId: string) => {
     const ok = await deleteUnit(unitId);
     if (ok) {
-      setUnits((prev) => prev.filter((u) => u.id !== unitId));
       showSuccess('Квартира удалена');
     }
   };
@@ -156,23 +163,27 @@ export function AdminDashboard() {
   const handleAddProject = async (newProject: Project) => {
     const ok = await addProject(newProject);
     if (ok) {
-      setProjects((prev) => [newProject, ...prev]);
-      showSuccess('Проект (ЖК) успешно создан');
+      showSuccess('Девелоперский проект успешно создан');
     }
   };
 
   const handleUpdateProject = async (updatedProject: Project) => {
     const ok = await updateProject(updatedProject);
     if (ok) {
-      setProjects((prev) => prev.map((p) => (p.id === updatedProject.id ? updatedProject : p)));
       showSuccess('Параметры проекта обновлены');
+    }
+  };
+
+  const handleDeleteProject = async (id: string) => {
+    const ok = await deleteProject(id);
+    if (ok) {
+      showSuccess('Проект удален из каталога');
     }
   };
 
   const handleUpdateBanner = async (banner: PromoBanner) => {
     const ok = await updateBanner(banner);
     if (ok) {
-      setBanners((prev) => prev.map((b) => (b.id === banner.id ? banner : b)));
       showSuccess('Баннер сохранен');
     }
   };
@@ -180,9 +191,29 @@ export function AdminDashboard() {
   const handleAddBanner = async (banner: PromoBanner) => {
     const ok = await addBanner(banner);
     if (ok) {
-      setBanners((prev) => [banner, ...prev]);
       showSuccess('Новый баннер добавлен');
     }
+  };
+
+  const handleAddProgress = async (item: ConstructionProgress) => {
+    const ok = await addProgress(item);
+    if (ok) {
+      showSuccess('Отчет о ходе строительства опубликован');
+    }
+    return ok;
+  };
+
+  const handleDeleteProgress = async (id: string) => {
+    const ok = await deleteProgress(id);
+    if (ok) {
+      showSuccess('Отчет удален');
+    }
+    return ok;
+  };
+
+  const handleResetDefaults = () => {
+    resetToDefaults();
+    showSuccess('Каталог сброшен к заводским проектам и планировкам');
   };
 
   if (!isAuthenticated) {
@@ -192,10 +223,10 @@ export function AdminDashboard() {
           <Lock className="w-6 h-6" />
         </div>
         <h2 className="text-lg font-bold text-center text-graphite-900 mb-1">
-          Вход для администрации
+          Вход в CMS-панель Green Project
         </h2>
         <p className="text-xs text-center text-graphite-500 mb-6">
-          Авторизация сотрудника Green Project (admin / admin)
+          Авторизация администратора девелопера (admin / admin)
         </p>
 
         <form onSubmit={handleLogin} className="space-y-4">
@@ -243,6 +274,7 @@ export function AdminDashboard() {
     totalUnits: units.length,
     availableUnits: units.filter((u) => u.status === 'available').length,
     totalProjects: projects.length,
+    totalProgress: progress.length,
     totalBanners: banners.length,
     totalLeads: leads.length,
   };
@@ -250,21 +282,25 @@ export function AdminDashboard() {
   return (
     <div className="space-y-6">
       {/* Top Metric Strip */}
-      <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
+      <div className="grid grid-cols-2 sm:grid-cols-5 gap-3">
         <div className="p-4 rounded-card bg-white border border-graphite-200 shadow-subtle">
-          <span className="text-xs text-graphite-500 font-semibold uppercase">Квартир в базе</span>
+          <span className="text-[11px] text-graphite-500 font-semibold uppercase">Квартир в базе</span>
           <div className="text-2xl font-heading font-black text-graphite-900 mt-1">{counts.totalUnits}</div>
         </div>
         <div className="p-4 rounded-card bg-emerald-50/60 border border-emerald-200 shadow-subtle">
-          <span className="text-xs text-emerald-800 font-semibold uppercase">Проектов (ЖК)</span>
+          <span className="text-[11px] text-emerald-800 font-semibold uppercase">Проектов</span>
           <div className="text-2xl font-heading font-black text-emerald-900 mt-1">{counts.totalProjects}</div>
         </div>
+        <div className="p-4 rounded-card bg-sky-50/60 border border-sky-200 shadow-subtle">
+          <span className="text-[11px] text-sky-800 font-semibold uppercase">Ход стройки</span>
+          <div className="text-2xl font-heading font-black text-sky-900 mt-1">{counts.totalProgress}</div>
+        </div>
         <div className="p-4 rounded-card bg-amber-50/60 border border-amber-200 shadow-subtle">
-          <span className="text-xs text-amber-800 font-semibold uppercase">Промо-баннеров</span>
+          <span className="text-[11px] text-amber-800 font-semibold uppercase">Баннеров</span>
           <div className="text-2xl font-heading font-black text-amber-900 mt-1">{counts.totalBanners}</div>
         </div>
         <div className="p-4 rounded-card bg-pine-50/60 border border-pine-200 shadow-subtle">
-          <span className="text-xs text-pine font-semibold uppercase">Входящих заявок</span>
+          <span className="text-[11px] text-pine font-semibold uppercase">Заявок</span>
           <div className="text-2xl font-heading font-black text-pine mt-1">{counts.totalLeads}</div>
         </div>
       </div>
@@ -290,7 +326,17 @@ export function AdminDashboard() {
             }`}
           >
             <Building2 className="w-3.5 h-3.5" />
-            <span>Проекты / ЖК ({projects.length})</span>
+            <span>Проекты ({projects.length})</span>
+          </button>
+          <button
+            type="button"
+            onClick={() => setActiveTab('progress')}
+            className={`px-3.5 py-1.5 rounded-btn text-xs font-bold transition-all cursor-pointer flex items-center gap-1.5 ${
+              activeTab === 'progress' ? 'bg-white text-pine shadow-sm' : 'text-graphite-600 hover:text-graphite-900'
+            }`}
+          >
+            <HardHat className="w-3.5 h-3.5" />
+            <span>Ход стройки ({progress.length})</span>
           </button>
           <button
             type="button"
@@ -312,12 +358,22 @@ export function AdminDashboard() {
             <Inbox className="w-3.5 h-3.5" />
             <span>Заявки ({leads.length})</span>
           </button>
+          <button
+            type="button"
+            onClick={() => setActiveTab('settings')}
+            className={`px-3.5 py-1.5 rounded-btn text-xs font-bold transition-all cursor-pointer flex items-center gap-1.5 ${
+              activeTab === 'settings' ? 'bg-white text-pine shadow-sm' : 'text-graphite-600 hover:text-graphite-900'
+            }`}
+          >
+            <Settings className="w-3.5 h-3.5" />
+            <span>Настройки</span>
+          </button>
         </div>
 
         <div className="flex items-center gap-2">
           <button
             type="button"
-            onClick={loadData}
+            onClick={loadLeads}
             disabled={isLoading}
             className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-btn bg-white border border-graphite-200 text-xs font-semibold text-graphite-700 hover:bg-limestone transition-colors cursor-pointer"
           >
@@ -360,6 +416,16 @@ export function AdminDashboard() {
           projects={projects}
           onAddProject={handleAddProject}
           onUpdateProject={handleUpdateProject}
+          onDeleteProject={handleDeleteProject}
+        />
+      )}
+
+      {activeTab === 'progress' && (
+        <AdminProgressTab
+          progressList={progress}
+          projects={projects}
+          onAddProgress={handleAddProgress}
+          onDeleteProgress={handleDeleteProgress}
         />
       )}
 
@@ -373,6 +439,10 @@ export function AdminDashboard() {
 
       {activeTab === 'leads' && (
         <AdminLeadsTab leads={leads} />
+      )}
+
+      {activeTab === 'settings' && (
+        <AdminSettingsTab onResetDefaults={handleResetDefaults} />
       )}
     </div>
   );

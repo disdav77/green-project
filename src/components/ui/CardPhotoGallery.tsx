@@ -69,12 +69,20 @@ export function CardPhotoGallery({
       onTouchEnd={handleTouchEnd}
     >
       {/* Current Photo */}
-      <img
-        src={safeImages[currentIndex]}
-        alt={`${alt} - photo ${currentIndex + 1}`}
-        className="w-full h-full object-cover transition-transform duration-500 ease-out group-hover:scale-105"
-        loading="lazy"
-      />
+      {(() => {
+        const currentSrc = safeImages[currentIndex] || '';
+        const isPlan = currentSrc.toLowerCase().includes('plan');
+        return (
+          <div className={`w-full h-full ${isPlan ? 'bg-white flex items-center justify-center p-2.5' : ''}`}>
+            <img
+              src={currentSrc}
+              alt={`${alt} - photo ${currentIndex + 1}`}
+              className={`w-full h-full ${isPlan ? 'object-contain' : 'object-cover group-hover:scale-105'} transition-transform duration-500 ease-out`}
+              loading="lazy"
+            />
+          </div>
+        );
+      })()}
 
       {/* Desktop Hover Segment Tracks (Setl / Cian Multi-Photo Zones) */}
       {total > 1 && (

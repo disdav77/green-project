@@ -34,10 +34,10 @@ const PROJECT_GALLERIES: Record<string, string[]> = {
 };
 
 export default function ProjectsPage() {
-  const { currency, language, dictionary, openConsultModal } = useApp();
+  const { currency, language, dictionary, openConsultModal, projects } = useApp();
   const [selectedFilter, setSelectedFilter] = useState<string>('all');
 
-  const localizedProjects = initialProjects.map((p) => getLocalizedProject(p, language));
+  const localizedProjects = projects.map((p) => getLocalizedProject(p, language));
 
   const filteredProjects = localizedProjects.filter((p) => {
     if (selectedFilter === 'all') return true;

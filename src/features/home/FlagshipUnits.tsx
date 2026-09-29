@@ -9,11 +9,10 @@ import { formatPrice, formatPricePerSqm } from '@/lib/currency';
 import { CardPhotoGallery } from '@/components/ui/CardPhotoGallery';
 
 export function FlagshipUnits() {
-  const { currency, language, dictionary } = useApp();
+  const { currency, language, dictionary, units: allUnits, projects } = useApp();
 
-  const flagshipIds = ['avan-102', 'nork-201', 'th-301'];
-  const units = initialUnits
-    .filter((u) => flagshipIds.includes(u.id))
+  const units = (allUnits.length > 0 ? allUnits : initialUnits)
+    .slice(0, 3)
     .map((u) => getLocalizedUnit(u, language));
 
   return (
@@ -31,7 +30,7 @@ export function FlagshipUnits() {
 
         <div className="apartments-grid">
           {units.map((unit) => {
-            const rawProject = initialProjects.find((p) => p.id === unit.projectId);
+            const rawProject = projects.find((p) => p.id === unit.projectId) || initialProjects.find((p) => p.id === unit.projectId);
             const project = rawProject ? getLocalizedProject(rawProject, language) : undefined;
 
             const badgeClass =

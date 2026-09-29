@@ -20,11 +20,21 @@ export function CatalogUnitCard({ unit: rawUnit, onSelect }: CatalogUnitCardProp
   const rawProject = initialProjects.find((p) => p.id === unit.projectId);
   const project = rawProject ? getLocalizedProject(rawProject, language) : undefined;
 
+  // Setl Group Standard: First slide on every apartment card is ALWAYS the 2D architectural floor plan!
+  const floorPlanImage = unit.image && unit.image.includes('plan') ? unit.image : '/images/floorplan.png';
+  const interiorImage = unit.id.includes('avan')
+    ? (unit.rooms === 1 ? '/images/apt-3.png' : '/images/projects/apartment_interior.jpg')
+    : unit.id.includes('nork')
+    ? '/images/apt-2.png'
+    : '/images/apt-5.png';
+  const facadeImage = project?.image || '/images/projects/avan_facade.jpg';
+  const courtyardImage = '/images/projects/avan_ground.jpg';
+
   const unitPhotos = [
-    unit.image,
-    '/images/floorplan.png',
-    '/images/hero-complex.png',
-    unit.id.includes('avan') ? '/images/apt-3.png' : unit.id.includes('nork') ? '/images/apt-2.png' : '/images/apt-5.png',
+    floorPlanImage, // 1. Architectural 2D Blueprint ALWAYS FIRST
+    interiorImage,  // 2. Interior 3D
+    facadeImage,    // 3. Complex facade render
+    courtyardImage, // 4. Landscaped grounds
   ];
 
   const statusBadge =

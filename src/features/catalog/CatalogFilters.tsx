@@ -27,8 +27,8 @@ interface CatalogFiltersProps {
 }
 
 export function CatalogFilters({ filters, onFilterChange, onReset, totalFound }: CatalogFiltersProps) {
-  const { dictionary, language, currency } = useApp();
-  const localizedProjects = initialProjects.map((p) => getLocalizedProject(p, language));
+  const { dictionary, language, currency, projects } = useApp();
+  const localizedProjects = projects.map((p) => getLocalizedProject(p, language));
 
   const roomOptions = [
     { id: 'all', label: dictionary.catalog.allRooms },

@@ -34,8 +34,8 @@ const PROJECT_GALLERIES: Record<string, string[]> = {
 };
 
 export function ProjectsShowcase() {
-  const { currency, language, dictionary } = useApp();
-  const localizedProjects = initialProjects.map((p) => getLocalizedProject(p, language));
+  const { currency, language, dictionary, projects } = useApp();
+  const localizedProjects = projects.map((p) => getLocalizedProject(p, language));
 
   return (
     <section id="projects" className="projects-section">

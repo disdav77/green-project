@@ -1,5 +1,5 @@
 import { createClient } from '@supabase/supabase-js';
-import { Unit, Project, Building, Lead, UnitStatus, PromoBanner } from '@/types/database';
+import { Unit, Project, Building, Lead, UnitStatus, PromoBanner, ConstructionProgress } from '@/types/database';
 import { initialProjects, initialBuildings, initialUnits } from './initialCatalog';
 
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || '';
@@ -13,6 +13,40 @@ const STORAGE_KEY_UNITS = 'gp_units_store_v2';
 const STORAGE_KEY_LEADS = 'gp_leads_store_v2';
 const STORAGE_KEY_PROJECTS = 'gp_projects_store_v2';
 const STORAGE_KEY_BANNERS = 'gp_banners_store_v2';
+const STORAGE_KEY_PROGRESS = 'gp_progress_store_v2';
+
+export const initialProgress: ConstructionProgress[] = [
+  {
+    id: 'prog-avan-1',
+    projectId: 'avan',
+    projectName: 'Green Avan',
+    date: 'Сентябрь 2026',
+    readinessPercent: 90,
+    title: 'Завершение остекления и отделки фасадов',
+    description: 'Полностью возведен монолитный каркас 14 этажей. Ведутся пусконаладочные работы двух лифтов Otis и чистовая отделка входных групп.',
+    imageUrl: '/images/projects/avan_facade.jpg',
+  },
+  {
+    id: 'prog-nork-1',
+    projectId: 'nork',
+    projectName: 'Green Nork',
+    date: 'Август 2026',
+    readinessPercent: 95,
+    title: 'Монтаж панорамных террас и благоустройство лобби',
+    description: 'Клубный дом готов на 95%. Завершено подключение к центральным инженерным коммуникациям и подземный паркинг.',
+    imageUrl: '/images/projects/hero_exterior_1.jpg',
+  },
+  {
+    id: 'prog-th-1',
+    projectId: 'townhouse',
+    projectName: 'Green Townhouse',
+    date: 'Июль 2026',
+    readinessPercent: 85,
+    title: 'Ландшафтные работы и обустройство частных патио',
+    description: 'Все 4 таунхауса подведены под крышу, завершена гидроизоляция эксплуатируемых кровель-террас и ограждение участков 124 м².',
+    imageUrl: '/images/projects/hero_exterior_2.jpg',
+  },
+];
 
 export const initialBanners: PromoBanner[] = [
   {
@@ -52,7 +86,7 @@ function isBrowser(): boolean {
   return typeof window !== 'undefined';
 }
 
-function getStoredProjects(): Project[] {
+export function getStoredProjects(): Project[] {
   if (!isBrowser()) return initialProjects;
   try {
     const raw = localStorage.getItem(STORAGE_KEY_PROJECTS);
@@ -66,16 +100,17 @@ function getStoredProjects(): Project[] {
   }
 }
 
-function setStoredProjects(projects: Project[]): void {
+export function setStoredProjects(projects: Project[]): void {
   if (!isBrowser()) return;
   try {
     localStorage.setItem(STORAGE_KEY_PROJECTS, JSON.stringify(projects));
+    notifyDataChange();
   } catch (error) {
     console.error('Failed to persist projects in local storage', error);
   }
 }
 
-function getStoredUnits(): Unit[] {
+export function getStoredUnits(): Unit[] {
   if (!isBrowser()) return initialUnits;
   try {
     const raw = localStorage.getItem(STORAGE_KEY_UNITS);
@@ -89,16 +124,17 @@ function getStoredUnits(): Unit[] {
   }
 }
 
-function setStoredUnits(units: Unit[]): void {
+export function setStoredUnits(units: Unit[]): void {
   if (!isBrowser()) return;
   try {
     localStorage.setItem(STORAGE_KEY_UNITS, JSON.stringify(units));
+    notifyDataChange();
   } catch (error) {
     console.error('Failed to persist units in local storage', error);
   }
 }
 
-function getStoredBanners(): PromoBanner[] {
+export function getStoredBanners(): PromoBanner[] {
   if (!isBrowser()) return initialBanners;
   try {
     const raw = localStorage.getItem(STORAGE_KEY_BANNERS);
@@ -112,12 +148,46 @@ function getStoredBanners(): PromoBanner[] {
   }
 }
 
-function setStoredBanners(banners: PromoBanner[]): void {
+export function setStoredBanners(banners: PromoBanner[]): void {
   if (!isBrowser()) return;
   try {
     localStorage.setItem(STORAGE_KEY_BANNERS, JSON.stringify(banners));
+    notifyDataChange();
   } catch (error) {
     console.error('Failed to persist banners in local storage', error);
+  }
+}
+
+export function notifyDataChange(): void {
+  if (!isBrowser()) return;
+  try {
+    window.dispatchEvent(new Event('gp_data_updated'));
+  } catch {
+    // ignore
+  }
+}
+
+export function getStoredProgress(): ConstructionProgress[] {
+  if (!isBrowser()) return initialProgress;
+  try {
+    const raw = localStorage.getItem(STORAGE_KEY_PROGRESS);
+    if (!raw) {
+      localStorage.setItem(STORAGE_KEY_PROGRESS, JSON.stringify(initialProgress));
+      return initialProgress;
+    }
+    return JSON.parse(raw);
+  } catch {
+    return initialProgress;
+  }
+}
+
+export function setStoredProgress(progressList: ConstructionProgress[]): void {
+  if (!isBrowser()) return;
+  try {
+    localStorage.setItem(STORAGE_KEY_PROGRESS, JSON.stringify(progressList));
+    notifyDataChange();
+  } catch (error) {
+    console.error('Failed to persist progress in local storage', error);
   }
 }
 
@@ -327,9 +397,65 @@ export async function fetchLeads(): Promise<Lead[]> {
       const { data, error } = await supabase.from('leads').select('*').order('created_at', { ascending: false });
       if (!error && data) return data as Lead[];
     } catch {
-      // Fallback
+      // Supabase fetch failed, fallback to local storage
     }
   }
   return getStoredLeads();
 }
+
+export async function deleteProject(id: string): Promise<boolean> {
+  const current = getStoredProjects();
+  const updated = current.filter((p) => p.id !== id && p.slug !== id);
+  setStoredProjects(updated);
+  if (supabase) {
+    try {
+      await supabase.from('projects').delete().eq('id', id);
+    } catch {
+      // Fallback
+    }
+  }
+  return true;
+}
+
+export async function deleteBanner(id: string): Promise<boolean> {
+  const current = getStoredBanners();
+  const updated = current.filter((b) => b.id !== id);
+  setStoredBanners(updated);
+  return true;
+}
+
+export async function fetchProgress(): Promise<ConstructionProgress[]> {
+  return getStoredProgress();
+}
+
+export async function addProgress(progress: ConstructionProgress): Promise<boolean> {
+  const current = getStoredProgress();
+  const updated = [progress, ...current];
+  setStoredProgress(updated);
+  return true;
+}
+
+export async function updateProgress(progress: ConstructionProgress): Promise<boolean> {
+  const current = getStoredProgress();
+  const updated = current.map((p) => (p.id === progress.id ? progress : p));
+  setStoredProgress(updated);
+  return true;
+}
+
+export async function deleteProgress(id: string): Promise<boolean> {
+  const current = getStoredProgress();
+  const updated = current.filter((p) => p.id !== id);
+  setStoredProgress(updated);
+  return true;
+}
+
+export function resetAllDataToDefaults(): void {
+  if (!isBrowser()) return;
+  localStorage.setItem(STORAGE_KEY_PROJECTS, JSON.stringify(initialProjects));
+  localStorage.setItem(STORAGE_KEY_UNITS, JSON.stringify(initialUnits));
+  localStorage.setItem(STORAGE_KEY_BANNERS, JSON.stringify(initialBanners));
+  localStorage.setItem(STORAGE_KEY_PROGRESS, JSON.stringify(initialProgress));
+  notifyDataChange();
+}
+
 

@@ -15,7 +15,7 @@ import { formatPrice, formatPricePerSqm } from '@/lib/currency';
 
 function ApartmentsCatalogContent() {
   const searchParams = useSearchParams();
-  const { currency, language, dictionary, openConsultModal } = useApp();
+  const { currency, language, dictionary, openConsultModal, units, projects } = useApp();
 
   const [filters, setFilters] = useState<CatalogFilterState>({
     project: searchParams.get('project') || 'all',
@@ -43,7 +43,7 @@ function ApartmentsCatalogContent() {
   }, [searchParams]);
 
   const filteredUnits = useMemo(() => {
-    return initialUnits
+    return units
       .filter((u) => {
         if (filters.project !== 'all' && u.projectId !== filters.project) return false;
         if (filters.rooms !== 'all') {
@@ -54,7 +54,7 @@ function ApartmentsCatalogContent() {
         if (filters.status !== 'all' && u.status !== filters.status) return false;
 
         if (filters.delivery && filters.delivery !== 'all') {
-          const rawProj = initialProjects.find((p) => p.id === u.projectId);
+          const rawProj = projects.find((p) => p.id === u.projectId);
           if (!rawProj?.deliveryDate.includes(filters.delivery)) return false;
         }
 
@@ -70,7 +70,7 @@ function ApartmentsCatalogContent() {
         if (filters.sortBy === 'area-desc') return b.areaSqm - a.areaSqm;
         return 0;
       });
-  }, [filters]);
+  }, [units, projects, filters]);
 
   const handleReset = () => {
     setFilters({

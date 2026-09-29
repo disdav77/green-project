@@ -4,18 +4,20 @@ import React, { useState } from 'react';
 import Image from 'next/image';
 import { Project } from '@/types/database';
 import { formatNumber } from '@/lib/currency';
-import { Plus, Building2, MapPin, Calendar, CheckCircle2 } from 'lucide-react';
+import { Plus, Building2, MapPin, Calendar, CheckCircle2, Trash2 } from 'lucide-react';
 
 interface AdminProjectsTabProps {
   projects: Project[];
   onAddProject: (project: Project) => Promise<void>;
   onUpdateProject: (project: Project) => Promise<void>;
+  onDeleteProject: (id: string) => Promise<void>;
 }
 
 export function AdminProjectsTab({
   projects,
   onAddProject,
   onUpdateProject,
+  onDeleteProject,
 }: AdminProjectsTabProps) {
   const [showAddForm, setShowAddForm] = useState(false);
   const [name, setName] = useState('');
@@ -76,10 +78,10 @@ export function AdminProjectsTab({
       <div className="flex items-center justify-between">
         <div>
           <h3 className="text-sm font-bold text-graphite-900 uppercase tracking-wider">
-            Управление девелоперскими проектами ({projects.length} ЖК)
+            Управление девелоперскими проектами ({projects.length} проектов)
           </h3>
           <p className="text-xs text-graphite-500 mt-0.5">
-            Добавляйте и редактируйте жилые комплексы и таунхаусы
+            Добавляйте и редактируйте жилые проекты и коттеджные кварталы
           </p>
         </div>
         <button
@@ -88,26 +90,23 @@ export function AdminProjectsTab({
           className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-btn bg-pine text-white text-xs font-bold hover:bg-pine-800 transition-colors cursor-pointer"
         >
           <Plus className="w-3.5 h-3.5" />
-          <span>{showAddForm ? 'Скрыть форму' : 'Добавить проект (ЖК)'}</span>
+          <span>{showAddForm ? 'Скрыть форму' : 'Добавить проект'}</span>
         </button>
       </div>
 
       {showAddForm && (
         <form onSubmit={handleSubmit} className="p-5 bg-limestone rounded-card border border-graphite-200 space-y-4">
           <div className="text-xs font-bold uppercase tracking-wider text-pine">
-            Новый жилой комплекс / проект
+            Новый девелоперский проект
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
             <div>
               <label className="block text-[11px] font-bold text-graphite-700 mb-1">Название проекта</label>
               <input
                 type="text"
-                placeholder="Например: Green Arabkir"
+                placeholder="Например: Green Avan"
                 value={name}
-                onChange={(e) => {
-                  setName(e.target.value);
-                  if (!slug) setSlug(e.target.value.toLowerCase().replace(/\s+/g, '-'));
-                }}
+                onChange={(e) => setName(e.target.value)}
                 required
                 className="w-full px-3 py-2 text-xs rounded border border-graphite-300 bg-white"
               />
@@ -116,31 +115,29 @@ export function AdminProjectsTab({
               <label className="block text-[11px] font-bold text-graphite-700 mb-1">URL-идентификатор (slug)</label>
               <input
                 type="text"
-                placeholder="arabkir"
+                placeholder="avan, nork, townhouse"
                 value={slug}
                 onChange={(e) => setSlug(e.target.value)}
-                required
                 className="w-full px-3 py-2 text-xs rounded border border-graphite-300 bg-white"
               />
             </div>
             <div>
-              <label className="block text-[11px] font-bold text-graphite-700 mb-1">Категория / Класс</label>
+              <label className="block text-[11px] font-bold text-graphite-700 mb-1">Класс проекта</label>
               <select
                 value={category}
                 onChange={(e) => setCategory(e.target.value)}
                 className="w-full px-3 py-2 text-xs rounded border border-graphite-300 bg-white"
               >
                 <option value="Бизнес-класс">Бизнес-класс</option>
-                <option value="Премиум-класс">Премиум-класс</option>
                 <option value="Комфорт-плюс">Комфорт-плюс</option>
-                <option value="Клубный квартал">Клубный квартал</option>
+                <option value="Премиум">Премиум</option>
+                <option value="Эко-квартал">Эко-квартал</option>
               </select>
             </div>
             <div>
-              <label className="block text-[11px] font-bold text-graphite-700 mb-1">Район</label>
+              <label className="block text-[11px] font-bold text-graphite-700 mb-1">Район / Локация</label>
               <input
                 type="text"
-                placeholder="Арабкир, Аван, Нор-Норк"
                 value={district}
                 onChange={(e) => setDistrict(e.target.value)}
                 required
@@ -148,10 +145,10 @@ export function AdminProjectsTab({
               />
             </div>
             <div>
-              <label className="block text-[11px] font-bold text-graphite-700 mb-1">Адрес объекта</label>
+              <label className="block text-[11px] font-bold text-graphite-700 mb-1">Точный адрес</label>
               <input
                 type="text"
-                placeholder="г. Ереван, ул. Комитаса 24"
+                placeholder="ул. Бабаджаняна, 42"
                 value={address}
                 onChange={(e) => setAddress(e.target.value)}
                 required
@@ -159,10 +156,10 @@ export function AdminProjectsTab({
               />
             </div>
             <div>
-              <label className="block text-[11px] font-bold text-graphite-700 mb-1">Цена «от» в драмах (֏)</label>
+              <label className="block text-[11px] font-bold text-graphite-700 mb-1">Минимальная цена (֏)</label>
               <input
                 type="number"
-                step="100000"
+                step="500000"
                 value={priceFromAMD}
                 onChange={(e) => setPriceFromAMD(Number(e.target.value))}
                 required
@@ -181,10 +178,10 @@ export function AdminProjectsTab({
               />
             </div>
             <div>
-              <label className="block text-[11px] font-bold text-graphite-700 mb-1">Готовность</label>
+              <label className="block text-[11px] font-bold text-graphite-700 mb-1">Готовность (%)</label>
               <input
                 type="text"
-                placeholder="55%"
+                placeholder="65%"
                 value={readiness}
                 onChange={(e) => setReadiness(e.target.value)}
                 required
@@ -195,7 +192,7 @@ export function AdminProjectsTab({
               <label className="block text-[11px] font-bold text-graphite-700 mb-1">Этажность</label>
               <input
                 type="number"
-                min="2"
+                min="1"
                 max="30"
                 value={floorsCount}
                 onChange={(e) => setFloorsCount(Number(e.target.value))}
@@ -204,37 +201,39 @@ export function AdminProjectsTab({
               />
             </div>
             <div>
-              <label className="block text-[11px] font-bold text-graphite-700 mb-1">Время до центра</label>
+              <label className="block text-[11px] font-bold text-graphite-700 mb-1">До центра города</label>
               <input
                 type="text"
-                placeholder="10 мин"
+                placeholder="12 мин"
                 value={timeToCenter}
                 onChange={(e) => setTimeToCenter(e.target.value)}
                 required
                 className="w-full px-3 py-2 text-xs rounded border border-graphite-300 bg-white"
               />
             </div>
-            <div>
-              <label className="block text-[11px] font-bold text-graphite-700 mb-1">Изображение проекта</label>
+            <div className="sm:col-span-2">
+              <label className="block text-[11px] font-bold text-graphite-700 mb-1">Фотография фасада</label>
               <select
                 value={image}
                 onChange={(e) => setImage(e.target.value)}
                 className="w-full px-3 py-2 text-xs rounded border border-graphite-300 bg-white"
               >
-                <option value="/images/hero-complex.png">Флагманский фасад (hero-complex.png)</option>
-                <option value="/images/apt-1.png">Интерьерный рендер (apt-1.png)</option>
-                <option value="/images/apt-2.png">Архитектурный ракурс (apt-2.png)</option>
+                <option value="/images/hero-complex.png">Комплекс (hero-complex.png)</option>
+                <option value="/images/projects/avan_facade.jpg">Аван Фасад (avan_facade.jpg)</option>
+                <option value="/images/projects/avan_perspective.jpg">Аван Перспектива (avan_perspective.jpg)</option>
+                <option value="/images/projects/hero_exterior_1.jpg">Экстерьер 1 (hero_exterior_1.jpg)</option>
+                <option value="/images/projects/hero_exterior_2.jpg">Экстерьер 2 (hero_exterior_2.jpg)</option>
               </select>
             </div>
-            <div className="lg:col-span-3">
-              <label className="block text-[11px] font-bold text-graphite-700 mb-1">Описание проекта</label>
+            <div className="sm:col-span-3">
+              <label className="block text-[11px] font-bold text-graphite-700 mb-1">Краткое описание</label>
               <textarea
-                rows={2}
                 value={description}
                 onChange={(e) => setDescription(e.target.value)}
-                placeholder="Краткое архитектурное описание жилого комплекса..."
                 required
+                rows={2}
                 className="w-full px-3 py-2 text-xs rounded border border-graphite-300 bg-white"
+                placeholder="Флагманский проект в экологически чистом районе с видами на Арарат..."
               />
             </div>
           </div>
@@ -257,61 +256,69 @@ export function AdminProjectsTab({
         </form>
       )}
 
-      {/* Projects Grid */}
+      {/* Projects List Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {projects.map((proj) => (
-          <div key={proj.id} className="bg-white rounded-card border border-graphite-200 overflow-hidden shadow-subtle flex flex-col justify-between">
+          <div
+            key={proj.id}
+            className="p-5 bg-white rounded-card border border-graphite-200 shadow-subtle space-y-4 flex flex-col justify-between"
+          >
             <div>
-              <div className="relative h-44 w-full bg-limestone">
+              <div className="relative h-40 w-full bg-graphite-100 rounded-btn overflow-hidden mb-3">
                 <Image
                   src={proj.image}
                   alt={proj.name}
                   fill
                   className="object-cover"
                 />
-                <div className="absolute top-2.5 left-2.5 bg-pine text-white text-[10px] font-bold px-2 py-0.5 rounded uppercase tracking-wider">
+                <div className="absolute top-2 left-2 bg-graphite-900/80 backdrop-blur-sm text-white px-2 py-0.5 rounded text-[10px] font-bold">
                   {proj.category}
                 </div>
-              </div>
-              <div className="p-4 space-y-3">
-                <div>
-                  <h4 className="text-base font-bold text-graphite-900">{proj.name}</h4>
-                  <div className="flex items-center gap-1 text-xs text-graphite-500 mt-0.5">
-                    <MapPin className="w-3.5 h-3.5 text-brass" />
-                    <span>{proj.address}</span>
-                  </div>
+                <div className="absolute bottom-2 right-2 bg-pine text-white px-2 py-0.5 rounded text-[10px] font-bold">
+                  Срок: {proj.deliveryDate}
                 </div>
+              </div>
 
-                <div className="grid grid-cols-2 gap-2 text-xs">
-                  <div className="p-2 rounded bg-limestone-alt border border-graphite-100">
-                    <span className="text-[10px] text-graphite-400 block">От</span>
-                    <strong className="text-pine font-bold">{formatNumber(proj.priceFromAMD)} ֏</strong>
-                  </div>
-                  <div className="p-2 rounded bg-limestone-alt border border-graphite-100">
-                    <span className="text-[10px] text-graphite-400 block">Сдача</span>
-                    <strong className="text-graphite-800 font-bold">{proj.deliveryDate}</strong>
-                  </div>
-                  <div className="p-2 rounded bg-limestone-alt border border-graphite-100">
-                    <span className="text-[10px] text-graphite-400 block">Готовность</span>
-                    <strong className="text-emerald-700 font-bold">{proj.readiness}</strong>
-                  </div>
-                  <div className="p-2 rounded bg-limestone-alt border border-graphite-100">
-                    <span className="text-[10px] text-graphite-400 block">Этажей</span>
-                    <strong className="text-graphite-800 font-bold">{proj.floorsCount}</strong>
-                  </div>
+              <div className="space-y-1.5">
+                <div className="flex items-center justify-between">
+                  <h4 className="text-base font-bold text-graphite-900">{proj.name}</h4>
+                  <span className="text-xs font-bold text-pine">{proj.readiness}</span>
+                </div>
+                <div className="flex items-center gap-1 text-xs text-graphite-500">
+                  <MapPin className="w-3.5 h-3.5 text-brass" />
+                  <span>{proj.district}, {proj.address}</span>
+                </div>
+                <p className="text-xs text-graphite-600 line-clamp-2 mt-2">
+                  {proj.description}
+                </p>
+              </div>
+
+              <div className="mt-4 pt-3 border-t border-graphite-100 grid grid-cols-2 gap-2 text-xs">
+                <div>
+                  <span className="text-graphite-400 block text-[11px]">Цена от:</span>
+                  <strong className="text-graphite-900 font-bold">{formatNumber(proj.priceFromAMD)} ֏</strong>
+                </div>
+                <div>
+                  <span className="text-graphite-400 block text-[11px]">Этажей:</span>
+                  <strong className="text-graphite-900">{proj.floorsCount} эт.</strong>
                 </div>
               </div>
             </div>
 
-            <div className="p-4 pt-0">
-              <a
-                href={`/projects/${proj.slug}`}
-                target="_blank"
-                rel="noreferrer"
-                className="w-full py-2 rounded-btn bg-limestone hover:bg-limestone-alt border border-graphite-200 text-xs font-bold text-graphite-800 text-center block transition-colors"
+            <div className="pt-3 border-t border-graphite-100 flex items-center justify-between">
+              <span className="text-[11px] text-graphite-400">ID: {proj.id}</span>
+              <button
+                type="button"
+                onClick={() => {
+                  if (confirm(`Удалить проект "${proj.name}"?`)) {
+                    onDeleteProject(proj.id);
+                  }
+                }}
+                className="text-xs text-red-600 hover:text-red-800 font-semibold inline-flex items-center gap-1 cursor-pointer"
               >
-                Открыть страницу проекта →
-              </a>
+                <Trash2 className="w-3.5 h-3.5" />
+                <span>Удалить проект</span>
+              </button>
             </div>
           </div>
         ))}
