@@ -21,6 +21,7 @@ function ApartmentsCatalogContent() {
     project: searchParams.get('project') || 'all',
     rooms: searchParams.get('rooms') || 'all',
     status: searchParams.get('status') || 'all',
+    maxPrice: searchParams.get('maxPrice') ? Number(searchParams.get('maxPrice')) : 0,
     sortBy: 'price-asc',
     viewMode: 'grid',
   });
@@ -31,13 +32,15 @@ function ApartmentsCatalogContent() {
     const projectParam = searchParams.get('project');
     const roomsParam = searchParams.get('rooms');
     const statusParam = searchParams.get('status');
+    const maxPriceParam = searchParams.get('maxPrice');
 
-    if (projectParam || roomsParam || statusParam) {
+    if (projectParam || roomsParam || statusParam || maxPriceParam) {
       setFilters((prev) => ({
         ...prev,
         project: projectParam || prev.project,
         rooms: roomsParam || prev.rooms,
         status: statusParam || prev.status,
+        maxPrice: maxPriceParam ? Number(maxPriceParam) : prev.maxPrice,
       }));
     }
   }, [searchParams]);

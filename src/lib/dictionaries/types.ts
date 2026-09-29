@@ -131,6 +131,19 @@ export interface Dictionary {
     featuresSummaryNork: string;
     featuresSummaryTownhouse: string;
   };
+  quickFilter: {
+    title: string;
+    subtitle: string;
+    projectLabel: string;
+    roomsLabel: string;
+    budgetLabel: string;
+    allProjects: string;
+    allRooms: string;
+    anyBudget: string;
+    showUnits: string;
+    unitsCount: string;
+    taxRefundHint: string;
+  };
   flagship: {
     title: string;
     subtitle: string;
@@ -143,6 +156,10 @@ export interface Dictionary {
     statusAvailable: string;
     statusReserved: string;
     statusSold: string;
+    viewInterior: string;
+    viewFloorPlan: string;
+    taxRefundBadge: string;
+    mortgageMonthlyFrom: string;
   };
   bento: BentoSectionTranslation;
   engineering: {
