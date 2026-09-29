@@ -15,7 +15,7 @@ export const en: Dictionary = {
     catalog: 'Choose Apartment',
     mortgage: 'Mortgage Calculator',
     standards: 'Engineering',
-    about: 'About Developer',
+    about: 'About Us',
     admin: 'Admin Panel',
     requestCall: 'Consultation',
     adminLogin: 'Administration Login',
@@ -115,7 +115,7 @@ export const en: Dictionary = {
     statusSold: 'Sold',
   },
   bento: {
-    badge: 'Developer Ecosystem',
+    badge: 'Green Project Ecosystem',
     title: 'All Services & Standards in 1 Click',
     subtitle: 'Explore dedicated dossiers: from independent 9.0 seismic structural passports to personalized state mortgage tax refund calculations.',
     cardStandards: {

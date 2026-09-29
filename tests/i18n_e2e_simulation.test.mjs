@@ -28,7 +28,7 @@ describe('Pass 5: Interactive E2E Simulation & Live Trilingual UX Gate', () => {
     assert.equal(hy.nav.apartments, 'Ընտրել բնակարան');
     assert.equal(hy.nav.mortgage, 'Հիփոթեքային հաշվիչ');
     assert.equal(hy.nav.standards, 'Ինժեներիա');
-    assert.equal(hy.nav.about, 'Կառուցապատողի մասին');
+    assert.equal(hy.nav.about, 'Մեր մասին');
 
     // 2. Hero Section
     assert.ok(hy.hero.title.includes('Մոնոլիտ բնակարաններ'));

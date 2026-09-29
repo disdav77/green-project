@@ -17,6 +17,7 @@ export function Header() {
   const isApartmentsActive = pathname === '/apartments';
   const isMortgageActive = pathname === '/mortgage';
   const isStandardsActive = pathname === '/standards';
+  const isAboutActive = pathname === '/about';
 
   return (
     <>
@@ -44,6 +45,9 @@ export function Header() {
             </Link>
             <Link href="/standards" className={`nav-link ${isStandardsActive ? 'active' : ''}`}>
               {dictionary.nav.standards}
+            </Link>
+            <Link href="/about" className={`nav-link ${isAboutActive ? 'active' : ''}`}>
+              {dictionary.nav.about}
             </Link>
           </nav>
 
@@ -192,6 +196,14 @@ export function Header() {
                 onClick={() => setIsDrawerOpen(false)}
               >
                 {dictionary.nav.standards}
+              </Link>
+              <Link
+                href="/about"
+                className={`drawer-link ${isAboutActive ? 'active' : ''}`}
+                style={isAboutActive ? { color: 'var(--primary)', fontWeight: 700 } : undefined}
+                onClick={() => setIsDrawerOpen(false)}
+              >
+                {dictionary.nav.about}
               </Link>
             </nav>
 

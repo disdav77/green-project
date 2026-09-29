@@ -11,7 +11,8 @@ import { CardPhotoGallery } from '@/components/ui/CardPhotoGallery';
 export function FlagshipUnits() {
   const { currency, language, dictionary, units: allUnits, projects } = useApp();
 
-  const units = (allUnits.length > 0 ? allUnits : initialUnits)
+  const sourceUnits = Array.isArray(allUnits) && allUnits.length > 0 ? allUnits : initialUnits;
+  const units = sourceUnits
     .slice(0, 3)
     .map((u) => getLocalizedUnit(u, language));
 

@@ -14,9 +14,10 @@ describe('Comprehensive Portal & Live Server Verification', () => {
     '/projects/townhouse',
     '/admin',
     '/standards',
+    '/about',
   ];
 
-  test('All 9 primary routes return HTTP 200 and valid HTML', async () => {
+  test('All 10 primary routes return HTTP 200 and valid HTML', async () => {
     for (const r of routes) {
       const res = await fetch(`http://127.0.0.1:3000${r}`);
       assert.equal(res.status, 200, `Route ${r} should return 200 OK`);

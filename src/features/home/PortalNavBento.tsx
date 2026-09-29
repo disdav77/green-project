@@ -34,7 +34,7 @@ export function PortalNavBento() {
       arrowColor: '#21914E',
     },
     {
-      href: '/standards#escrow',
+      href: '/mortgage#escrow',
       data: bento.cardEscrow,
       bg: '#FFFFFF',
       textColor: '#0F382E',
