@@ -226,7 +226,7 @@ export function AdminDashboard() {
           Вход в CMS-панель Green Project
         </h2>
         <p className="text-xs text-center text-graphite-500 mb-6">
-          Авторизация администратора девелопера (admin / admin)
+          Логин: <strong className="text-graphite-800">admin</strong> • Пароль: <strong className="text-graphite-800">green2026</strong> (или admin)
         </p>
 
         <form onSubmit={handleLogin} className="space-y-4">
