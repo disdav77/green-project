@@ -25,9 +25,9 @@ export function Footer() {
               aria-label="Green Project"
             >
               <img
-                src="/images/logo_dark_transparent.png"
+                src="/images/logo_horizontal_white.png"
                 alt="Green Project"
-                style={{ height: '48px', width: 'auto', display: 'block', objectFit: 'contain' }}
+                style={{ height: '44px', width: 'auto', display: 'block', objectFit: 'contain' }}
               />
             </Link>
             <div className="footer-top-reg">

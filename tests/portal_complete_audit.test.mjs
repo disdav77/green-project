@@ -36,7 +36,7 @@ describe('Comprehensive Portal & Live Server Verification', () => {
     assert.ok(html.includes('href="#amenities"'), 'Should contain #amenities anchor');
     assert.ok(html.includes('href="#floor-selector"'), 'Should contain #floor-selector anchor');
     assert.ok(html.includes('href="#mortgage-hub"'), 'Should contain #mortgage-hub anchor');
-    assert.ok(html.includes('logo_light_transparent.png'), 'Header should render official transparent logo');
+    assert.ok(html.includes('logo_horizontal.png') || html.includes('logo_light_transparent.png'), 'Header should render official brand logo');
   });
 
 

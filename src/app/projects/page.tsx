@@ -9,9 +9,28 @@ import { formatPrice } from '@/lib/currency';
 import { CardPhotoGallery } from '@/components/ui/CardPhotoGallery';
 
 const PROJECT_GALLERIES: Record<string, string[]> = {
-  avan: ['/images/hero-complex.png', '/images/apt-3.png', '/images/apt-4.png', '/images/floorplan.png'],
-  nork: ['/images/apt-6.png', '/images/apt-2.png', '/images/apt-1.png', '/images/floorplan.png'],
-  townhouse: ['/images/apt-1.png', '/images/apt-5.png', '/images/hero-complex.png', '/images/floorplan.png'],
+  avan: [
+    '/images/projects/avan_facade.jpg',
+    '/images/projects/avan_perspective.jpg',
+    '/images/projects/avan_ground.jpg',
+    '/images/projects/apartment_interior.jpg',
+    '/images/projects/avan_street.jpg',
+    '/images/floorplan.png',
+  ],
+  nork: [
+    '/images/projects/hero_exterior_1.jpg',
+    '/images/projects/avan_perspective.jpg',
+    '/images/projects/apartment_interior.jpg',
+    '/images/projects/avan_street.jpg',
+    '/images/floorplan.png',
+  ],
+  townhouse: [
+    '/images/projects/hero_exterior_2.jpg',
+    '/images/projects/avan_ground.jpg',
+    '/images/projects/apartment_interior.jpg',
+    '/images/hero-complex.png',
+    '/images/floorplan.png',
+  ],
 };
 
 export default function ProjectsPage() {
@@ -28,11 +47,11 @@ export default function ProjectsPage() {
   return (
     <div className="projects-page-wrapper">
       {/* Header Banner */}
-      <section className="catalog-header-section" style={{ padding: '48px 0 32px' }}>
+      <section className="catalog-header-section" style={{ padding: '40px 0 24px' }}>
         <div className="container">
-          <div className="section-title-wrap" style={{ textAlign: 'left', marginBottom: '24px' }}>
+          <div className="section-title-wrap" style={{ textAlign: 'left', marginBottom: '20px' }}>
             <span className="section-top-label">{dictionary.projects.label}</span>
-            <h1 className="section-h2" style={{ fontSize: '36px', marginBottom: '12px' }}>
+            <h1 className="section-h2" style={{ fontSize: '32px', marginBottom: '10px' }}>
               {dictionary.projects.title}
             </h1>
             <p className="section-subtitle" style={{ maxWidth: '720px', margin: 0 }}>
@@ -41,7 +60,7 @@ export default function ProjectsPage() {
           </div>
 
           {/* Quick Project Filter Chips */}
-          <div className="setl-filter-chips-row" style={{ display: 'flex', gap: '10px', flexWrap: 'wrap' }}>
+          <div className="setl-filter-chips-row">
             <button
               type="button"
               onClick={() => setSelectedFilter('all')}
@@ -64,7 +83,7 @@ export default function ProjectsPage() {
       </section>
 
       {/* Projects Showcase Cards Grid */}
-      <section className="projects-section" style={{ paddingTop: '16px', paddingBottom: '64px' }}>
+      <section className="projects-section" style={{ paddingTop: '8px', paddingBottom: '56px' }}>
         <div className="container">
           <div className="projects-grid">
             {filteredProjects.map((proj) => {
@@ -81,7 +100,7 @@ export default function ProjectsPage() {
                     <CardPhotoGallery
                       images={PROJECT_GALLERIES[proj.slug] || [proj.image]}
                       alt={proj.name}
-                      aspectRatio="16/10"
+                      aspectRatio="16/9.5"
                     >
                       <div className="project-media-overlay" />
                       <div className="project-media-top-badges">
@@ -108,27 +127,39 @@ export default function ProjectsPage() {
                     <span className="project-district-name">
                       {proj.name} • {proj.district}
                     </span>
-                    <h2 className="project-title" style={{ fontSize: '22px', margin: '4px 0 10px' }}>
+                    <h2 className="project-title" style={{ fontSize: '20px', margin: '2px 0 8px' }}>
                       {proj.name}
                     </h2>
-                    <p className="project-features-line">{proj.description}</p>
+                    <p
+                      className="project-features-line"
+                      style={{
+                        display: '-webkit-box',
+                        WebkitLineClamp: 2,
+                        WebkitBoxOrient: 'vertical',
+                        overflow: 'hidden',
+                        marginBottom: '12px',
+                        lineHeight: 1.45,
+                      }}
+                    >
+                      {proj.description}
+                    </p>
                     
-                    <div className="project-status-row">
+                    <div className="project-status-row" style={{ marginBottom: '12px' }}>
                       <span className="project-delivery-badge">
                         {dictionary.projects.deliveryPrefix} {proj.deliveryDate} • {proj.readiness}
                       </span>
                     </div>
 
-                    <div className="project-footer-row">
+                    <div className="project-footer-row" style={{ paddingTop: '12px' }}>
                       <div className="project-price-block">
                         <span className="project-price-prefix">{dictionary.projects.fromPrice}</span>
                         <strong className="proj-price-dyn">{formatPrice(proj.priceFromAMD, currency)}</strong>
                       </div>
                       <div style={{ display: 'flex', gap: '8px' }}>
-                        <Link href={`/projects/${proj.slug}`} className="btn btn-primary">
+                        <Link href={`/projects/${proj.slug}`} className="btn btn-primary btn-sm">
                           {dictionary.common.details}
                         </Link>
-                        <Link href={`/apartments?project=${proj.id}`} className="btn btn-outline">
+                        <Link href={`/apartments?project=${proj.id}`} className="btn btn-outline btn-sm">
                           {dictionary.nav.apartments}
                         </Link>
                       </div>

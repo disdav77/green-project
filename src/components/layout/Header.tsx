@@ -2,6 +2,7 @@
 
 import React, { useState } from 'react';
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 import { useApp } from '@/context/AppContext';
 import { initialProjects } from '@/lib/initialCatalog';
 import { getLocalizedProject } from '@/lib/catalogLocalization';
@@ -9,7 +10,14 @@ import { getLocalizedProject } from '@/lib/catalogLocalization';
 export function Header() {
   const { language, currency, dictionary, setLanguage, setCurrency, openConsultModal } = useApp();
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+  const pathname = usePathname();
   const localizedProjects = initialProjects.map((p) => getLocalizedProject(p, language));
+
+  const isProjectsActive = pathname === '/projects' || pathname.startsWith('/projects/');
+  const isApartmentsActive = pathname === '/apartments';
+  const isMortgageActive = pathname === '/mortgage';
+  const isStandardsActive = pathname === '/standards';
+  const isAboutActive = pathname === '/#about';
 
   return (
     <>
@@ -18,27 +26,27 @@ export function Header() {
           {/* Brand Logo */}
           <Link href="/" className="brand-logo" aria-label="Green Project">
             <img
-              src="/images/logo_light_transparent.png"
+              src="/images/logo_horizontal.png"
               alt="Green Project"
-              style={{ height: '44px', width: 'auto', display: 'block', objectFit: 'contain' }}
+              style={{ height: '42px', width: 'auto', display: 'block', objectFit: 'contain' }}
             />
           </Link>
 
           {/* Navigation Links */}
           <nav className="nav-links">
-            <Link href="/projects" className="nav-link">
+            <Link href="/projects" className={`nav-link ${isProjectsActive ? 'active' : ''}`}>
               {dictionary.nav.projects}
             </Link>
-            <Link href="/apartments" className="nav-link nav-highlight-link">
+            <Link href="/apartments" className={`nav-link ${isApartmentsActive ? 'active' : ''}`}>
               {dictionary.nav.catalog}
             </Link>
-            <Link href="/mortgage" className="nav-link">
+            <Link href="/mortgage" className={`nav-link ${isMortgageActive ? 'active' : ''}`}>
               {dictionary.nav.mortgage}
             </Link>
-            <Link href="/standards" className="nav-link">
+            <Link href="/standards" className={`nav-link ${isStandardsActive ? 'active' : ''}`}>
               {dictionary.nav.standards}
             </Link>
-            <Link href="/#about" className="nav-link">
+            <Link href="/#about" className={`nav-link ${isAboutActive ? 'active' : ''}`}>
               {dictionary.nav.about}
             </Link>
           </nav>
@@ -88,9 +96,9 @@ export function Header() {
             <div className="drawer-head">
               <Link href="/" className="brand-logo" onClick={() => setIsDrawerOpen(false)} aria-label="Green Project">
                 <img
-                  src="/images/logo_light_transparent.png"
+                  src="/images/logo_horizontal.png"
                   alt="Green Project"
-                  style={{ height: '38px', width: 'auto', display: 'block', objectFit: 'contain' }}
+                  style={{ height: '36px', width: 'auto', display: 'block', objectFit: 'contain' }}
                 />
               </Link>
               <button
@@ -157,19 +165,44 @@ export function Header() {
             </div>
 
             <nav className="drawer-links">
-              <Link href="/projects" className="drawer-link" onClick={() => setIsDrawerOpen(false)}>
+              <Link
+                href="/projects"
+                className={`drawer-link ${isProjectsActive ? 'active' : ''}`}
+                style={isProjectsActive ? { color: 'var(--primary)', fontWeight: 700 } : undefined}
+                onClick={() => setIsDrawerOpen(false)}
+              >
                 {dictionary.nav.projects}
               </Link>
-              <Link href="/apartments" className="drawer-link" style={{ color: 'var(--primary)', fontWeight: 700 }} onClick={() => setIsDrawerOpen(false)}>
+              <Link
+                href="/apartments"
+                className={`drawer-link ${isApartmentsActive ? 'active' : ''}`}
+                style={isApartmentsActive ? { color: 'var(--primary)', fontWeight: 700 } : undefined}
+                onClick={() => setIsDrawerOpen(false)}
+              >
                 {dictionary.nav.catalog}
               </Link>
-              <Link href="/mortgage" className="drawer-link" style={{ color: 'var(--primary)', fontWeight: 700 }} onClick={() => setIsDrawerOpen(false)}>
+              <Link
+                href="/mortgage"
+                className={`drawer-link ${isMortgageActive ? 'active' : ''}`}
+                style={isMortgageActive ? { color: 'var(--primary)', fontWeight: 700 } : undefined}
+                onClick={() => setIsDrawerOpen(false)}
+              >
                 {dictionary.nav.mortgage}
               </Link>
-              <Link href="/standards" className="drawer-link" onClick={() => setIsDrawerOpen(false)}>
+              <Link
+                href="/standards"
+                className={`drawer-link ${isStandardsActive ? 'active' : ''}`}
+                style={isStandardsActive ? { color: 'var(--primary)', fontWeight: 700 } : undefined}
+                onClick={() => setIsDrawerOpen(false)}
+              >
                 {dictionary.nav.standards}
               </Link>
-              <Link href="/#about" className="drawer-link" onClick={() => setIsDrawerOpen(false)}>
+              <Link
+                href="/#about"
+                className={`drawer-link ${isAboutActive ? 'active' : ''}`}
+                style={isAboutActive ? { color: 'var(--primary)', fontWeight: 700 } : undefined}
+                onClick={() => setIsDrawerOpen(false)}
+              >
                 {dictionary.nav.about}
               </Link>
             </nav>

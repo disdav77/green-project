@@ -23,7 +23,7 @@ export const initialBanners: PromoBanner[] = [
     subtitle: 'Ст. 156.1 НК РА — государство гасит проценты по вашей ипотеке',
     buttonText: 'Рассчитать вычет',
     buttonLink: '/mortgage',
-    imageUrl: '/images/hero-complex.png',
+    imageUrl: '/images/projects/avan_facade.jpg',
     active: true,
   },
   {

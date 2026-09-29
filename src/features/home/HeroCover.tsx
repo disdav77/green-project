@@ -66,7 +66,7 @@ export function HeroCover() {
           <div className="hero-image-wrapper">
             <div className="hero-image-frame">
               <img
-                src="/images/hero-complex.png"
+                src="/images/projects/avan_facade.jpg"
                 alt={dictionary.brand.name}
                 style={{ width: '100%', height: '100%', objectFit: 'cover' }}
               />

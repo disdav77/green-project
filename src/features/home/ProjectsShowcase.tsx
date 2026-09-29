@@ -9,9 +9,28 @@ import { formatPrice } from '@/lib/currency';
 import { CardPhotoGallery } from '@/components/ui/CardPhotoGallery';
 
 const PROJECT_GALLERIES: Record<string, string[]> = {
-  avan: ['/images/hero-complex.png', '/images/apt-3.png', '/images/apt-4.png', '/images/floorplan.png'],
-  nork: ['/images/apt-6.png', '/images/apt-2.png', '/images/apt-1.png', '/images/floorplan.png'],
-  townhouse: ['/images/apt-1.png', '/images/apt-5.png', '/images/hero-complex.png', '/images/floorplan.png'],
+  avan: [
+    '/images/projects/avan_facade.jpg',
+    '/images/projects/avan_perspective.jpg',
+    '/images/projects/avan_ground.jpg',
+    '/images/projects/apartment_interior.jpg',
+    '/images/projects/avan_street.jpg',
+    '/images/floorplan.png',
+  ],
+  nork: [
+    '/images/projects/hero_exterior_1.jpg',
+    '/images/projects/avan_perspective.jpg',
+    '/images/projects/apartment_interior.jpg',
+    '/images/projects/avan_street.jpg',
+    '/images/floorplan.png',
+  ],
+  townhouse: [
+    '/images/projects/hero_exterior_2.jpg',
+    '/images/projects/avan_ground.jpg',
+    '/images/projects/apartment_interior.jpg',
+    '/images/hero-complex.png',
+    '/images/floorplan.png',
+  ],
 };
 
 export function ProjectsShowcase() {
@@ -42,7 +61,7 @@ export function ProjectsShowcase() {
                   <CardPhotoGallery
                     images={PROJECT_GALLERIES[proj.slug] || [proj.image]}
                     alt={proj.name}
-                    aspectRatio="16/10"
+                    aspectRatio="16/9.5"
                   >
                     <div className="project-media-overlay" />
                     <div className="project-media-top-badges">
@@ -69,19 +88,33 @@ export function ProjectsShowcase() {
                   <span className="project-district-name">
                     {proj.name} • {proj.district}
                   </span>
-                  <h3 className="project-title">{proj.name}</h3>
-                  <p className="project-features-line">{proj.description}</p>
-                  <div className="project-status-row">
+                  <h3 className="project-title" style={{ fontSize: '20px', margin: '2px 0 8px' }}>
+                    {proj.name}
+                  </h3>
+                  <p
+                    className="project-features-line"
+                    style={{
+                      display: '-webkit-box',
+                      WebkitLineClamp: 2,
+                      WebkitBoxOrient: 'vertical',
+                      overflow: 'hidden',
+                      marginBottom: '12px',
+                      lineHeight: 1.45,
+                    }}
+                  >
+                    {proj.description}
+                  </p>
+                  <div className="project-status-row" style={{ marginBottom: '12px' }}>
                     <span className="project-delivery-badge">
                       {dictionary.projects.deliveryPrefix} {proj.deliveryDate} • {proj.readiness}
                     </span>
                   </div>
-                  <div className="project-footer-row">
+                  <div className="project-footer-row" style={{ paddingTop: '12px' }}>
                     <div className="project-price-block">
                       <span className="project-price-prefix">{dictionary.projects.fromPrice}</span>
                       <strong className="proj-price-dyn">{formatPrice(proj.priceFromAMD, currency)}</strong>
                     </div>
-                    <Link href={`/projects/${proj.slug}`} className="btn btn-primary">
+                    <Link href={`/projects/${proj.slug}`} className="btn btn-primary btn-sm">
                       {dictionary.projects.chooseApartment}
                     </Link>
                   </div>
