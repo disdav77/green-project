@@ -1,10 +1,21 @@
 'use client';
 
 import { useEffect } from 'react';
+import { usePathname } from 'next/navigation';
 
 export function ScrollRevealObserver() {
+  const pathname = usePathname();
+
   useEffect(() => {
-    if (typeof window === 'undefined' || !('IntersectionObserver' in window)) return;
+    if (typeof window === 'undefined') return;
+
+    // Immediately mark all current elements as in-view to prevent blank screens
+    const elements = document.querySelectorAll('.reveal-on-scroll');
+    elements.forEach((el) => {
+      el.classList.add('in-view');
+    });
+
+    if (!('IntersectionObserver' in window)) return;
 
     const observer = new IntersectionObserver(
       (entries) => {
@@ -16,18 +27,17 @@ export function ScrollRevealObserver() {
         });
       },
       {
-        threshold: 0.08,
-        rootMargin: '0px 0px -30px 0px',
+        threshold: 0.05,
+        rootMargin: '50px',
       }
     );
 
-    const elements = document.querySelectorAll('.reveal-on-scroll');
     elements.forEach((el) => observer.observe(el));
 
     return () => {
       observer.disconnect();
     };
-  }, []);
+  }, [pathname]);
 
   return null;
 }

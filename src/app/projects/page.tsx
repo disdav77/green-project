@@ -95,7 +95,7 @@ export default function ProjectsPage() {
                   : 'project-class-badge';
 
               return (
-                <article key={proj.id} className="project-showcase-card reveal-on-scroll">
+                <article key={proj.id} className="project-showcase-card">
                   <div className="project-media-wrap">
                     <CardPhotoGallery
                       images={PROJECT_GALLERIES[proj.slug] || [proj.image]}

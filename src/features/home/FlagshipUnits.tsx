@@ -55,7 +55,7 @@ export function FlagshipUnits() {
             ];
 
             return (
-              <article key={unit.id} className="apartment-card reveal-on-scroll">
+              <article key={unit.id} className="apartment-card">
                 <Link href={`/apartments?id=${unit.id}`} style={{ textDecoration: 'none', color: 'inherit' }}>
                   <div className="apartment-media">
                     <CardPhotoGallery images={unitPhotos} alt={unit.roomsLabel} aspectRatio="16/10">
