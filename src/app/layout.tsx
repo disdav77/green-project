@@ -1,4 +1,4 @@
-import type { Metadata } from 'next';
+import type { Metadata, Viewport } from 'next';
 import './globals.css';
 import './style.css';
 import { AppProvider } from '@/context/AppContext';
@@ -7,6 +7,13 @@ import { Header } from '@/components/layout/Header';
 import { Footer } from '@/components/layout/Footer';
 import { ConsultationModal } from '@/components/layout/ConsultationModal';
 import { ScrollRevealObserver } from '@/components/layout/ScrollRevealObserver';
+
+export const viewport: Viewport = {
+  width: 'device-width',
+  initialScale: 1,
+  maximumScale: 5,
+  themeColor: '#0F382E',
+};
 
 export const metadata: Metadata = {
   title: 'Green Project | Премиальный девелопмент в Ереване и Касахе',

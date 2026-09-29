@@ -245,8 +245,8 @@ export function FloorPlanSelector({ project: rawProject, buildings, units }: Flo
 
         {/* Selected Unit Modal */}
         {selectedUnit && (
-          <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-graphite-900/70 backdrop-blur-sm animate-in fade-in duration-150">
-            <div className="bg-white rounded-card shadow-elevated border border-graphite-200 max-w-2xl w-full p-6 space-y-6 relative overflow-hidden">
+          <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-graphite-900/70 backdrop-blur-sm animate-in fade-in duration-150">
+            <div className="bg-white rounded-card shadow-elevated border border-graphite-200 max-w-2xl w-full p-4 sm:p-6 space-y-4 sm:space-y-6 relative max-h-[90vh] overflow-y-auto">
               <div className="flex items-start justify-between border-b border-graphite-100 pb-4">
                 <div>
                   <div className="text-xs font-bold text-pine uppercase tracking-wider">

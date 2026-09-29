@@ -71,8 +71,8 @@ export function ConsultationModal() {
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-graphite-900/70 backdrop-blur-sm animate-in fade-in duration-200">
-      <div className="relative w-full max-w-lg bg-white rounded-card shadow-elevated border border-graphite-200 overflow-hidden">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-graphite-900/70 backdrop-blur-sm animate-in fade-in duration-200">
+      <div className="relative w-full max-w-lg bg-white rounded-card shadow-elevated border border-graphite-200 max-h-[90vh] overflow-y-auto">
         {/* Modal Header */}
         <div className="px-6 py-4 border-b border-graphite-100 flex items-center justify-between bg-limestone-alt">
           <div>

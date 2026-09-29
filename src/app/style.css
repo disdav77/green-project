@@ -99,7 +99,8 @@ html {
   color: var(--foreground);
   line-height: 1.5;
   -webkit-font-smoothing: antialiased;
-  overflow-x: clip;
+  overflow-x: hidden;
+  max-width: 100vw;
   width: 100%;
 }
 
@@ -116,7 +117,8 @@ body {
   color: var(--text-body);
   font-size: 16px;
   line-height: 1.6;
-  overflow-x: clip;
+  overflow-x: hidden;
+  max-width: 100vw;
   width: 100%;
 }
 
@@ -137,12 +139,31 @@ button, input, select, textarea {
   font-size: inherit;
 }
 
-/* Container (Setl Group standard: 1520px wide grid) */
+/* Container (Setl Group standard: 1520px wide grid, fully responsive across mobile/tablet/desktop) */
 .container {
-  width: calc(100% - 64px);
+  width: 100%;
   max-width: 1520px;
   margin-inline: auto;
-  padding-inline: clamp(16px, 3.5vw, 48px);
+  padding-inline: 16px;
+  box-sizing: border-box;
+}
+
+@media (min-width: 640px) {
+  .container {
+    padding-inline: 24px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .container {
+    padding-inline: 36px;
+  }
+}
+
+@media (min-width: 1440px) {
+  .container {
+    padding-inline: 48px;
+  }
 }
 
 /* Typography & Headings */
@@ -2833,29 +2854,90 @@ h1, h2, h3, h4, h5, h6, .font-heading {
     gap: 20px;
     border-radius: var(--radius-lg);
   }
-
-  .mobile-sticky-dock {
-    display: block;
-  }
-
-  body {
-    padding-bottom: 70px;
-  }
 }
 
-@media (max-width: 480px) {
-  .hero-heading {
-    font-size: 28px;
-    letter-spacing: -0.01em;
+@media (max-width: 640px) {
+  .site-header {
+    height: 56px;
+  }
+
+  .header-inner {
+    height: 56px;
+    gap: 8px;
+  }
+
+  .header-cta-btn {
+    display: none;
+  }
+
+  .brand-logo img {
+    height: 32px !important;
+    max-width: 140px;
+  }
+
+  .top-bar-inner {
+    justify-content: center;
+    padding-block: 4px;
+  }
+
+  .top-bar-controls {
+    gap: 6px;
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .pill-btn {
+    padding: 2px 6px;
+    font-size: 11px;
   }
 
   .project-footer-row {
     flex-direction: column;
     align-items: stretch;
-    gap: 12px;
+    gap: 10px;
   }
 
-  .project-footer-row .btn {
+  .project-footer-row > div:last-child {
+    display: flex;
+    gap: 8px;
+    width: 100%;
+  }
+
+  .project-footer-row > div:last-child .btn {
+    flex: 1;
+    width: auto;
+    justify-content: center;
+  }
+
+  .bento-interactive-card {
+    padding: 22px 18px !important;
+  }
+
+  .eng-matrix-box {
+    padding: 16px 12px;
+  }
+
+  .portal-bento-grid,
+  .escrow-two-col-grid {
+    grid-template-columns: 1fr !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero-heading {
+    font-size: 26px;
+    letter-spacing: -0.01em;
+  }
+
+  .hero-text {
+    font-size: 14px;
+  }
+
+  .hero-btn-group {
+    flex-direction: column;
+  }
+
+  .hero-btn-group .btn {
     width: 100%;
     justify-content: center;
   }
@@ -2871,6 +2953,10 @@ h1, h2, h3, h4, h5, h6, .font-heading {
 
   .advantages-grid {
     gap: 16px;
+  }
+
+  .section-h2 {
+    font-size: 24px !important;
   }
 }
 

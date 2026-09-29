@@ -282,7 +282,7 @@ export function AdminDashboard() {
   return (
     <div className="space-y-6">
       {/* Top Metric Strip */}
-      <div className="grid grid-cols-2 sm:grid-cols-5 gap-3">
+      <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3">
         <div className="p-4 rounded-card bg-white border border-graphite-200 shadow-subtle">
           <span className="text-[11px] text-graphite-500 font-semibold uppercase">Квартир в базе</span>
           <div className="text-2xl font-heading font-black text-graphite-900 mt-1">{counts.totalUnits}</div>
@@ -299,7 +299,7 @@ export function AdminDashboard() {
           <span className="text-[11px] text-amber-800 font-semibold uppercase">Баннеров</span>
           <div className="text-2xl font-heading font-black text-amber-900 mt-1">{counts.totalBanners}</div>
         </div>
-        <div className="p-4 rounded-card bg-pine-50/60 border border-pine-200 shadow-subtle">
+        <div className="col-span-2 sm:col-span-1 p-4 rounded-card bg-pine-50/60 border border-pine-200 shadow-subtle">
           <span className="text-[11px] text-pine font-semibold uppercase">Заявок</span>
           <div className="text-2xl font-heading font-black text-pine mt-1">{counts.totalLeads}</div>
         </div>

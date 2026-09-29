@@ -77,9 +77,10 @@ export function PortalNavBento() {
 
         {/* 2x2 Bento Cards Grid */}
         <div
+          className="portal-bento-grid"
           style={{
             display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))',
+            gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 280px), 1fr))',
             gap: '20px',
             alignItems: 'stretch',
           }}
