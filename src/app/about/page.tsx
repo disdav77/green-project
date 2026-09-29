@@ -8,15 +8,14 @@ import { initialProjects } from '@/lib/initialCatalog';
 
 export default function AboutPage() {
   const { dictionary, language, openConsultModal, projects } = useApp();
-
-  const about = dictionary.engineering.about;
+  const page = dictionary.aboutPage;
   const projectList = (projects && projects.length > 0 ? projects : initialProjects)
     .map((p) => getLocalizedProject(p, language));
 
   return (
     <div className="about-page-wrap" style={{ backgroundColor: 'var(--background)', minHeight: '80vh' }}>
       {/* 1. Hero & Company Identity Banner */}
-      <section style={{ backgroundColor: '#0F382E', color: '#FFFFFF', padding: '48px 0 44px', borderBottom: '1px solid rgba(197, 162, 101, 0.25)' }}>
+      <section style={{ backgroundColor: '#0F382E', color: '#FFFFFF', padding: '56px 0 50px', borderBottom: '1px solid rgba(197, 162, 101, 0.25)' }}>
         <div className="container">
           <nav aria-label="Breadcrumb" style={{ marginBottom: '16px', fontSize: '13px', color: 'rgba(255, 255, 255, 0.65)' }}>
             <Link href="/" style={{ color: 'rgba(255, 255, 255, 0.75)', textDecoration: 'none' }}>
@@ -28,41 +27,333 @@ export default function AboutPage() {
             </span>
           </nav>
 
-          <div style={{ maxWidth: '860px' }}>
+          <div style={{ maxWidth: '920px' }}>
             <span
               style={{
                 display: 'inline-flex',
                 alignItems: 'center',
-                gap: '6px',
-                padding: '4px 12px',
+                gap: '8px',
+                padding: '5px 14px',
                 borderRadius: '9999px',
                 fontSize: '12px',
-                fontWeight: 600,
+                fontWeight: 700,
                 backgroundColor: 'rgba(197, 162, 101, 0.2)',
                 color: '#F4E5B8',
-                border: '1px solid rgba(197, 162, 101, 0.4)',
-                marginBottom: '12px',
-                letterSpacing: '0.04em',
+                border: '1px solid rgba(197, 162, 101, 0.45)',
+                marginBottom: '16px',
+                letterSpacing: '0.06em',
+                textTransform: 'uppercase',
               }}
             >
-              {about.badge}
+              {page.topBadge}
             </span>
-            <h1 style={{ fontSize: '34px', lineHeight: 1.2, fontWeight: 700, margin: '0 0 14px', color: '#FFFFFF', letterSpacing: '-0.02em' }}>
-              {about.title}
+            <h1 style={{ fontSize: '38px', lineHeight: 1.18, fontWeight: 700, margin: '0 0 16px', color: '#FFFFFF', letterSpacing: '-0.02em' }}>
+              {page.heroTitle}
             </h1>
-            <p style={{ fontSize: '16px', lineHeight: 1.6, color: 'rgba(255, 255, 255, 0.88)', margin: '0 0 10px' }}>
-              {about.p1}
+            <p style={{ fontSize: '16.5px', lineHeight: 1.65, color: 'rgba(255, 255, 255, 0.90)', margin: '0 0 28px' }}>
+              {page.heroSubtitle}
             </p>
-            <p style={{ fontSize: '15px', lineHeight: 1.6, color: 'rgba(255, 255, 255, 0.75)', margin: 0 }}>
-              {about.p2}
-            </p>
+
+            <div style={{ display: 'flex', gap: '14px', flexWrap: 'wrap' }}>
+              <Link href="/projects" className="btn btn-gold btn-lg" style={{ textDecoration: 'none', padding: '14px 28px' }}>
+                {dictionary.hero.exploreProjects}
+              </Link>
+              <button
+                type="button"
+                onClick={() => openConsultModal()}
+                className="btn btn-outline btn-lg"
+                style={{ borderColor: 'rgba(255, 255, 255, 0.45)', color: '#FFFFFF', padding: '14px 26px' }}
+              >
+                {dictionary.nav.requestCall}
+              </button>
+            </div>
           </div>
         </div>
       </section>
 
-      {/* 2. 4 Key Figures & Standards Cards */}
-      <section style={{ padding: '48px 0', backgroundColor: 'var(--background-alt)', borderBottom: '1px solid var(--border)' }}>
+      {/* 2. Mission & Strategic Scale */}
+      <section style={{ padding: '64px 0', backgroundColor: 'var(--background)' }}>
         <div className="container">
+          <div
+            style={{
+              display: 'grid',
+              gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 340px), 1fr))',
+              gap: '40px',
+              alignItems: 'center',
+            }}
+          >
+            {/* Left: Credential Highlight Card */}
+            <div
+              style={{
+                backgroundColor: '#FFFFFF',
+                borderRadius: '20px',
+                border: '1px solid rgba(15, 56, 46, 0.12)',
+                padding: '36px 32px',
+                boxShadow: '0 8px 24px rgba(15, 56, 46, 0.05)',
+              }}
+            >
+              <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '20px' }}>
+                <div
+                  style={{
+                    width: '48px',
+                    height: '48px',
+                    borderRadius: '12px',
+                    backgroundColor: 'rgba(33, 145, 78, 0.12)',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                  }}
+                >
+                  <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#21914E" strokeWidth="2">
+                    <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+                  </svg>
+                </div>
+                <div>
+                  <span style={{ fontSize: '12px', fontWeight: 700, color: '#C5A265', textTransform: 'uppercase', letterSpacing: '0.06em' }}>
+                    GREEN PROJECT
+                  </span>
+                  <div style={{ fontSize: '18px', fontWeight: 700, color: '#0F382E' }}>
+                    {page.sinceYear}
+                  </div>
+                </div>
+              </div>
+
+              <div style={{ fontSize: '28px', fontWeight: 800, color: '#0F382E', lineHeight: 1.2, marginBottom: '12px' }}>
+                {page.sinceTagline}
+              </div>
+
+              <p style={{ fontSize: '14.5px', lineHeight: 1.6, color: '#5F6B76', margin: '0 0 24px' }}>
+                {page.licenseSubtitle}
+              </p>
+
+              <div style={{ padding: '16px', borderRadius: '12px', backgroundColor: 'var(--background-alt)', border: '1px solid var(--border)' }}>
+                <div style={{ fontSize: '13px', fontWeight: 700, color: '#0F382E', marginBottom: '4px' }}>
+                  {page.licenseTitle}
+                </div>
+                <div style={{ fontSize: '12.5px', color: '#5F6B76' }}>
+                  Республика Армения • Полный допуск к высотному монолитному строительству
+                </div>
+              </div>
+            </div>
+
+            {/* Right: Narrative Story */}
+            <div>
+              <span className="section-top-label" style={{ letterSpacing: '0.08em' }}>
+                {dictionary.brand.name}
+              </span>
+              <h2 className="section-h2" style={{ fontSize: '30px', margin: '8px 0 16px' }}>
+                {page.missionTitle}
+              </h2>
+              <p style={{ fontSize: '15.5px', lineHeight: 1.68, color: '#44515B', margin: '0 0 16px' }}>
+                {page.missionP1}
+              </p>
+              <p style={{ fontSize: '15px', lineHeight: 1.68, color: '#5F6B76', margin: '0 0 24px' }}>
+                {page.missionP2}
+              </p>
+
+              <div style={{ display: 'flex', gap: '16px', flexWrap: 'wrap' }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '13.5px', fontWeight: 600, color: '#0F382E' }}>
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#21914E" strokeWidth="2.5">
+                    <polyline points="20 6 9 17 4 12" />
+                  </svg>
+                  <span>Монолит B25/B30</span>
+                </div>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '13.5px', fontWeight: 600, color: '#0F382E' }}>
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#21914E" strokeWidth="2.5">
+                    <polyline points="20 6 9 17 4 12" />
+                  </svg>
+                  <span>Сейсмика 9.0 баллов</span>
+                </div>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '13.5px', fontWeight: 600, color: '#0F382E' }}>
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#21914E" strokeWidth="2.5">
+                    <polyline points="20 6 9 17 4 12" />
+                  </svg>
+                  <span>100% Эскроу</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* 3. 4 Core Divisions (Девелопмент, Проектирование, Строительство, Дизайн) */}
+      <section style={{ padding: '64px 0', backgroundColor: 'var(--background-alt)', borderTop: '1px solid var(--border)', borderBottom: '1px solid var(--border)' }}>
+        <div className="container">
+          <div className="section-title-wrap" style={{ textAlign: 'left', marginBottom: '36px' }}>
+            <span className="section-top-label">{page.directionsBadge}</span>
+            <h2 className="section-h2" style={{ fontSize: '30px', margin: '6px 0 10px' }}>
+              {page.directionsTitle}
+            </h2>
+            <p className="section-subtitle" style={{ maxWidth: '820px', margin: 0 }}>
+              {page.directionsSubtitle}
+            </p>
+          </div>
+
+          <div
+            style={{
+              display: 'grid',
+              gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 280px), 1fr))',
+              gap: '24px',
+            }}
+          >
+            {/* Division 1: Development */}
+            <div
+              style={{
+                backgroundColor: '#FFFFFF',
+                borderRadius: '16px',
+                padding: '32px 26px',
+                border: '1px solid var(--border)',
+                boxShadow: '0 4px 16px rgba(0, 0, 0, 0.04)',
+                display: 'flex',
+                flexDirection: 'column',
+                justifyContent: 'space-between',
+              }}
+            >
+              <div>
+                <div style={{ width: '44px', height: '44px', borderRadius: '10px', backgroundColor: 'rgba(15, 56, 46, 0.08)', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '18px' }}>
+                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#0F382E" strokeWidth="2">
+                    <rect x="4" y="2" width="16" height="20" rx="2" />
+                    <line x1="9" y1="22" x2="9" y2="2" />
+                    <line x1="15" y1="22" x2="15" y2="2" />
+                    <line x1="4" y1="12" x2="20" y2="12" />
+                  </svg>
+                </div>
+                <h3 style={{ fontSize: '19px', fontWeight: 700, color: '#0F382E', margin: '0 0 10px' }}>
+                  {page.directionDevTitle}
+                </h3>
+                <p style={{ fontSize: '14px', lineHeight: 1.6, color: '#5F6B76', margin: 0 }}>
+                  {page.directionDevDesc}
+                </p>
+              </div>
+              <div style={{ marginTop: '20px', paddingTop: '16px', borderTop: '1px solid var(--border)' }}>
+                <Link href="/projects" style={{ fontSize: '13.5px', fontWeight: 700, color: '#21914E', textDecoration: 'none' }}>
+                  {dictionary.hero.exploreProjects} →
+                </Link>
+              </div>
+            </div>
+
+            {/* Division 2: Master Planning & Engineering */}
+            <div
+              style={{
+                backgroundColor: '#FFFFFF',
+                borderRadius: '16px',
+                padding: '32px 26px',
+                border: '1px solid var(--border)',
+                boxShadow: '0 4px 16px rgba(0, 0, 0, 0.04)',
+                display: 'flex',
+                flexDirection: 'column',
+                justifyContent: 'space-between',
+              }}
+            >
+              <div>
+                <div style={{ width: '44px', height: '44px', borderRadius: '10px', backgroundColor: 'rgba(197, 162, 101, 0.15)', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '18px' }}>
+                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#8C6D37" strokeWidth="2">
+                    <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z" />
+                    <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z" />
+                  </svg>
+                </div>
+                <h3 style={{ fontSize: '19px', fontWeight: 700, color: '#0F382E', margin: '0 0 10px' }}>
+                  {page.directionDesignTitle}
+                </h3>
+                <p style={{ fontSize: '14px', lineHeight: 1.6, color: '#5F6B76', margin: 0 }}>
+                  {page.directionDesignDesc}
+                </p>
+              </div>
+              <div style={{ marginTop: '20px', paddingTop: '16px', borderTop: '1px solid var(--border)' }}>
+                <Link href="/standards" style={{ fontSize: '13.5px', fontWeight: 700, color: '#21914E', textDecoration: 'none' }}>
+                  {dictionary.nav.standards} →
+                </Link>
+              </div>
+            </div>
+
+            {/* Division 3: Monolithic Construction */}
+            <div
+              style={{
+                backgroundColor: '#FFFFFF',
+                borderRadius: '16px',
+                padding: '32px 26px',
+                border: '1px solid var(--border)',
+                boxShadow: '0 4px 16px rgba(0, 0, 0, 0.04)',
+                display: 'flex',
+                flexDirection: 'column',
+                justifyContent: 'space-between',
+              }}
+            >
+              <div>
+                <div style={{ width: '44px', height: '44px', borderRadius: '10px', backgroundColor: 'rgba(33, 145, 78, 0.12)', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '18px' }}>
+                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#21914E" strokeWidth="2">
+                    <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z" />
+                  </svg>
+                </div>
+                <h3 style={{ fontSize: '19px', fontWeight: 700, color: '#0F382E', margin: '0 0 10px' }}>
+                  {page.directionBuildTitle}
+                </h3>
+                <p style={{ fontSize: '14px', lineHeight: 1.6, color: '#5F6B76', margin: 0 }}>
+                  {page.directionBuildDesc}
+                </p>
+              </div>
+              <div style={{ marginTop: '20px', paddingTop: '16px', borderTop: '1px solid var(--border)' }}>
+                <span style={{ fontSize: '13.5px', fontWeight: 700, color: '#0F382E' }}>
+                  СНиП РА 9.0 баллов
+                </span>
+              </div>
+            </div>
+
+            {/* Division 4: Architectural & Interior Design */}
+            <div
+              style={{
+                backgroundColor: '#FFFFFF',
+                borderRadius: '16px',
+                padding: '32px 26px',
+                border: '1px solid var(--border)',
+                boxShadow: '0 4px 16px rgba(0, 0, 0, 0.04)',
+                display: 'flex',
+                flexDirection: 'column',
+                justifyContent: 'space-between',
+              }}
+            >
+              <div>
+                <div style={{ width: '44px', height: '44px', borderRadius: '10px', backgroundColor: 'rgba(15, 56, 46, 0.08)', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '18px' }}>
+                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#0F382E" strokeWidth="2">
+                    <circle cx="12" cy="12" r="10" />
+                    <line x1="14.31" y1="8" x2="20.05" y2="17.94" />
+                    <line x1="9.69" y1="8" x2="21.17" y2="8" />
+                    <line x1="7.38" y1="12" x2="13.12" y2="2.06" />
+                    <line x1="9.69" y1="16" x2="3.95" y2="6.06" />
+                    <line x1="14.31" y1="16" x2="2.83" y2="16" />
+                    <line x1="16.62" y1="12" x2="10.88" y2="21.94" />
+                  </svg>
+                </div>
+                <h3 style={{ fontSize: '19px', fontWeight: 700, color: '#0F382E', margin: '0 0 10px' }}>
+                  {page.directionInteriorTitle}
+                </h3>
+                <p style={{ fontSize: '14px', lineHeight: 1.6, color: '#5F6B76', margin: 0 }}>
+                  {page.directionInteriorDesc}
+                </p>
+              </div>
+              <div style={{ marginTop: '20px', paddingTop: '16px', borderTop: '1px solid var(--border)' }}>
+                <Link href="/apartments" style={{ fontSize: '13.5px', fontWeight: 700, color: '#21914E', textDecoration: 'none' }}>
+                  {dictionary.nav.catalog} →
+                </Link>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* 4. Why Homebuyers Trust Green Project (4 Values) */}
+      <section style={{ padding: '64px 0' }}>
+        <div className="container">
+          <div className="section-title-wrap" style={{ textAlign: 'left', marginBottom: '36px' }}>
+            <span className="section-top-label">{page.valuesBadge}</span>
+            <h2 className="section-h2" style={{ fontSize: '30px', margin: '6px 0 10px' }}>
+              {page.valuesTitle}
+            </h2>
+            <p className="section-subtitle" style={{ maxWidth: '820px', margin: 0 }}>
+              {page.valuesSubtitle}
+            </p>
+          </div>
+
           <div
             style={{
               display: 'grid',
@@ -70,91 +361,35 @@ export default function AboutPage() {
               gap: '20px',
             }}
           >
-            <div
-              style={{
-                backgroundColor: '#FFFFFF',
-                borderRadius: '16px',
-                padding: '28px 24px',
-                border: '1px solid rgba(15, 56, 46, 0.1)',
-                boxShadow: '0 4px 16px rgba(0, 0, 0, 0.04)',
-              }}
-            >
-              <div style={{ fontSize: '36px', fontWeight: 800, color: '#0F382E', lineHeight: 1 }}>
-                {about.stat1Num} <span style={{ fontSize: '20px', fontWeight: 600, color: '#C5A265' }}>{about.stat1Unit}</span>
-              </div>
-              <h3 style={{ fontSize: '17px', fontWeight: 700, margin: '14px 0 6px', color: '#0F382E' }}>
-                {about.stat1Title}
-              </h3>
-              <p style={{ fontSize: '13.5px', lineHeight: 1.5, color: '#5F6B76', margin: 0 }}>
-                {about.stat1Desc}
-              </p>
+            <div style={{ backgroundColor: '#FFFFFF', borderRadius: '16px', padding: '26px', border: '1px solid var(--border)', boxShadow: 'var(--shadow-sm)' }}>
+              <div style={{ fontSize: '26px', fontWeight: 800, color: '#0F382E', marginBottom: '10px' }}>9.0</div>
+              <h3 style={{ fontSize: '17px', fontWeight: 700, color: '#0F382E', margin: '0 0 8px' }}>{page.value1Title}</h3>
+              <p style={{ fontSize: '13.5px', lineHeight: 1.55, color: '#5F6B76', margin: 0 }}>{page.value1Desc}</p>
             </div>
 
-            <div
-              style={{
-                backgroundColor: '#FFFFFF',
-                borderRadius: '16px',
-                padding: '28px 24px',
-                border: '1px solid rgba(15, 56, 46, 0.1)',
-                boxShadow: '0 4px 16px rgba(0, 0, 0, 0.04)',
-              }}
-            >
-              <div style={{ fontSize: '36px', fontWeight: 800, color: '#0F382E', lineHeight: 1 }}>
-                {about.stat2Num} <span style={{ fontSize: '20px', fontWeight: 600, color: '#C5A265' }}>{about.stat2Unit}</span>
-              </div>
-              <h3 style={{ fontSize: '17px', fontWeight: 700, margin: '14px 0 6px', color: '#0F382E' }}>
-                {about.stat2Title}
-              </h3>
-              <p style={{ fontSize: '13.5px', lineHeight: 1.5, color: '#5F6B76', margin: 0 }}>
-                {about.stat2Desc}
-              </p>
+            <div style={{ backgroundColor: '#FFFFFF', borderRadius: '16px', padding: '26px', border: '1px solid var(--border)', boxShadow: 'var(--shadow-sm)' }}>
+              <div style={{ fontSize: '26px', fontWeight: 800, color: '#21914E', marginBottom: '10px' }}>100%</div>
+              <h3 style={{ fontSize: '17px', fontWeight: 700, color: '#0F382E', margin: '0 0 8px' }}>{page.value2Title}</h3>
+              <p style={{ fontSize: '13.5px', lineHeight: 1.55, color: '#5F6B76', margin: 0 }}>{page.value2Desc}</p>
             </div>
 
-            <div
-              style={{
-                backgroundColor: '#FFFFFF',
-                borderRadius: '16px',
-                padding: '28px 24px',
-                border: '1px solid rgba(15, 56, 46, 0.1)',
-                boxShadow: '0 4px 16px rgba(0, 0, 0, 0.04)',
-              }}
-            >
-              <div style={{ fontSize: '36px', fontWeight: 800, color: '#0F382E', lineHeight: 1 }}>
-                {about.stat3Num} <span style={{ fontSize: '20px', fontWeight: 600, color: '#C5A265' }}>{about.stat3Unit}</span>
-              </div>
-              <h3 style={{ fontSize: '17px', fontWeight: 700, margin: '14px 0 6px', color: '#0F382E' }}>
-                {about.stat3Title}
-              </h3>
-              <p style={{ fontSize: '13.5px', lineHeight: 1.5, color: '#5F6B76', margin: 0 }}>
-                {about.stat3Desc}
-              </p>
+            <div style={{ backgroundColor: '#FFFFFF', borderRadius: '16px', padding: '26px', border: '1px solid var(--border)', boxShadow: 'var(--shadow-sm)' }}>
+              <div style={{ fontSize: '26px', fontWeight: 800, color: '#0F382E', marginBottom: '10px' }}>ECO</div>
+              <h3 style={{ fontSize: '17px', fontWeight: 700, color: '#0F382E', margin: '0 0 8px' }}>{page.value3Title}</h3>
+              <p style={{ fontSize: '13.5px', lineHeight: 1.55, color: '#5F6B76', margin: 0 }}>{page.value3Desc}</p>
             </div>
 
-            <div
-              style={{
-                backgroundColor: '#FFFFFF',
-                borderRadius: '16px',
-                padding: '28px 24px',
-                border: '1px solid rgba(15, 56, 46, 0.1)',
-                boxShadow: '0 4px 16px rgba(0, 0, 0, 0.04)',
-              }}
-            >
-              <div style={{ fontSize: '36px', fontWeight: 800, color: '#0F382E', lineHeight: 1 }}>
-                {about.stat4Num} <span style={{ fontSize: '20px', fontWeight: 600, color: '#C5A265' }}>{about.stat4Unit}</span>
-              </div>
-              <h3 style={{ fontSize: '17px', fontWeight: 700, margin: '14px 0 6px', color: '#0F382E' }}>
-                {about.stat4Title}
-              </h3>
-              <p style={{ fontSize: '13.5px', lineHeight: 1.5, color: '#5F6B76', margin: 0 }}>
-                {about.stat4Desc}
-              </p>
+            <div style={{ backgroundColor: '#FFFFFF', borderRadius: '16px', padding: '26px', border: '1px solid var(--border)', boxShadow: 'var(--shadow-sm)' }}>
+              <div style={{ fontSize: '26px', fontWeight: 800, color: '#C5A265', marginBottom: '10px' }}>156.1</div>
+              <h3 style={{ fontSize: '17px', fontWeight: 700, color: '#0F382E', margin: '0 0 8px' }}>{page.value4Title}</h3>
+              <p style={{ fontSize: '13.5px', lineHeight: 1.55, color: '#5F6B76', margin: 0 }}>{page.value4Desc}</p>
             </div>
           </div>
         </div>
       </section>
 
-      {/* 3. Developer Projects in Development */}
-      <section style={{ padding: '60px 0' }}>
+      {/* 5. Flagship Projects Showcase */}
+      <section style={{ padding: '64px 0', backgroundColor: 'var(--background-alt)', borderTop: '1px solid var(--border)' }}>
         <div className="container">
           <div className="section-title-wrap" style={{ textAlign: 'left', marginBottom: '32px' }}>
             <span className="section-top-label">{dictionary.projects.label}</span>
@@ -239,19 +474,65 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* 4. Sales Office & Contacts Card */}
+      {/* 6. Media & Construction Video Monitoring */}
+      <section style={{ padding: '56px 0', backgroundColor: 'var(--background)' }}>
+        <div className="container">
+          <div
+            style={{
+              backgroundColor: '#FFFFFF',
+              borderRadius: '20px',
+              border: '1px solid var(--border)',
+              padding: '36px',
+              display: 'flex',
+              justifyContent: 'space-between',
+              alignItems: 'center',
+              flexWrap: 'wrap',
+              gap: '24px',
+              boxShadow: 'var(--shadow-sm)',
+            }}
+          >
+            <div style={{ maxWidth: '680px' }}>
+              <span className="section-top-label" style={{ letterSpacing: '0.08em' }}>
+                {page.mediaBadge}
+              </span>
+              <h3 style={{ fontSize: '24px', fontWeight: 700, color: '#0F382E', margin: '8px 0 10px' }}>
+                {page.mediaTitle}
+              </h3>
+              <p style={{ fontSize: '14.5px', lineHeight: 1.6, color: '#5F6B76', margin: 0 }}>
+                {page.mediaDesc}
+              </p>
+            </div>
+            <div>
+              <a
+                href="https://www.youtube.com/@GreenProjectArm/shorts"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="btn btn-primary btn-lg"
+                style={{ textDecoration: 'none', display: 'inline-flex', alignItems: 'center', gap: '10px', whiteSpace: 'nowrap' }}
+              >
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                  <polygon points="5 3 19 12 5 21 5 3" />
+                </svg>
+                <span>{page.mediaBtn}</span>
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* 7. Corporate Headquarters & Sales Office */}
       <section className="container" style={{ paddingBottom: '72px' }}>
         <div
           style={{
             background: 'linear-gradient(135deg, #0F382E 0%, #174E41 100%)',
             color: '#FFFFFF',
             borderRadius: '20px',
-            padding: '40px 36px',
+            padding: '44px 40px',
             display: 'flex',
             justifyContent: 'space-between',
             alignItems: 'center',
             flexWrap: 'wrap',
-            gap: '28px',
+            gap: '32px',
             border: '1px solid rgba(197, 162, 101, 0.35)',
             boxShadow: '0 12px 32px rgba(15, 56, 46, 0.15)',
           }}
@@ -266,16 +547,19 @@ export default function AboutPage() {
                 letterSpacing: '0.06em',
               }}
             >
-              {dictionary.brand.salesOfficeTitle}
+              {page.salesOfficeTitle}
             </span>
-            <h3 style={{ fontSize: '26px', margin: '8px 0 12px', fontWeight: 700, color: '#FFFFFF' }}>
+            <h3 style={{ fontSize: '28px', margin: '8px 0 14px', fontWeight: 700, color: '#FFFFFF' }}>
               {dictionary.consultModal.title}
             </h3>
-            <p style={{ color: 'rgba(255, 255, 255, 0.85)', fontSize: '14.5px', lineHeight: 1.6, margin: '0 0 16px' }}>
-              {dictionary.brand.address} • {dictionary.footer.workingHours}
+            <p style={{ color: 'rgba(255, 255, 255, 0.90)', fontSize: '15px', lineHeight: 1.6, margin: '0 0 8px' }}>
+              {page.salesOfficeAddress} • {dictionary.footer.workingHours}
             </p>
-            <p style={{ color: 'rgba(255, 255, 255, 0.72)', fontSize: '13.5px', lineHeight: 1.5, margin: 0 }}>
-              {dictionary.consultModal.subtitle}
+            <p style={{ color: 'rgba(255, 255, 255, 0.75)', fontSize: '13.5px', lineHeight: 1.5, margin: '0 0 14px' }}>
+              <strong>{page.legalHeadOfficeTitle}:</strong> {page.legalHeadOfficeAddress}
+            </p>
+            <p style={{ color: '#F4E5B8', fontSize: '13.5px', fontWeight: 600, margin: 0 }}>
+              sales@greenprojectarm.com • greendev.yvn@gmail.com
             </p>
           </div>
 
@@ -289,11 +573,11 @@ export default function AboutPage() {
               {dictionary.consultModal.submitBtn}
             </button>
             <a
-              href={`tel:${dictionary.brand.phone.replace(/\s+/g, '')}`}
+              href="tel:+37494664522"
               className="btn btn-outline btn-lg"
-              style={{ borderColor: 'rgba(255, 255, 255, 0.4)', color: '#FFFFFF', padding: '14px 24px', fontSize: '14px', textDecoration: 'none' }}
+              style={{ borderColor: 'rgba(255, 255, 255, 0.45)', color: '#FFFFFF', padding: '14px 24px', fontSize: '14px', textDecoration: 'none' }}
             >
-              {dictionary.brand.phone}
+              +374 94 664522
             </a>
           </div>
         </div>
